@@ -1,2 +1,1 @@
-# ds-group-inventory
-Aplikasi manajamen inventory produk
+# PSB-Online-Alfitrah Islami School
