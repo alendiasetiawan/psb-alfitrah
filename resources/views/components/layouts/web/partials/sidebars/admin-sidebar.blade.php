@@ -30,14 +30,14 @@
             heading="{{ __('Database') }}"
             class="grid">
                 <flux:sidebar.item
-                href="{{ route('owner.management.owner_account') }}"
+                href="#"
                 :current="Route::is('owner.management.owner_account')"
                 wire:navigate>
                     {{ __('Pendaftar') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.management.reseller_account') }}"
+                href="#"
                 :current="Route::is('owner.management.reseller_account')"
                 wire:navigate>
                     {{ __('Santri') }}
@@ -49,7 +49,7 @@
             <flux:sidebar.item
                 :current="Route::is('owner.management.store_profile')"
                 icon="map-pinned"
-                href="{{ route('owner.management.store_profile') }}"
+                href="#"
                 wire:navigate>
             {{ __('Demografi Pendaftar') }}
             </flux:sidebar.item>
@@ -59,7 +59,7 @@
             <flux:sidebar.item
                 :current="Route::is('owner.management.store_profile')"
                 icon="list-checks"
-                href="{{ route('owner.management.store_profile') }}"
+                href="#"
                 wire:navigate>
             {{ __('Kuota Santri') }}
             </flux:sidebar.item>
@@ -77,21 +77,21 @@
             heading="{{ __('Biaya Pendaftaran') }}"
             class="grid">
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.category') }}"
+                href="#"
                 :current="Route::is('owner.warehouse.product.category')"
                 wire:navigate>
                     {{ __('Belum') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
+                href="#"
                 :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
                 wire:navigate>
                     {{ __('Proses') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
+                href="#"
                 :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
                 wire:navigate>
                     {{ __('Selesai') }}
@@ -107,7 +107,7 @@
             heading="{{ __('Biodata') }}"
             class="grid">
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.category') }}"
+                href="#"
                 :current="Route::is('owner.warehouse.product.category')"
                 wire:navigate>
                     {{ __('Belum') }}
