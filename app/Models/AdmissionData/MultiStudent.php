@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models\AdmissionData;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class MultiStudent extends Model
+{
+    protected $fillable = [
+        'parent_id',
+        'student_id'
+    ];
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(ParentModel::class);
+    }
+
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
+}

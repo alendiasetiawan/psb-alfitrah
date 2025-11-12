@@ -1,0 +1,193 @@
+<?php
+
+namespace App\Livewire\Auth;
+
+use App\Models\User;
+use Livewire\Component;
+use App\Const\RoleConst;
+use Illuminate\Support\Str;
+use App\Helpers\MessageHelper;
+use Livewire\Attributes\Layout;
+use App\Helpers\WhaCenterHelper;
+use Livewire\Attributes\Validate;
+use Illuminate\Auth\Events\Lockout;
+use App\Helpers\CodeGeneratorHelper;
+use App\Queries\Core\UserQuery;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
+
+#[Layout('components.layouts.auth')]
+
+class Login extends Component
+{
+    public string $username = '';
+    public string $password = '';
+    public bool $remember = false;
+    public $inputs = [
+        'otp'
+    ];
+
+    protected $rules = [
+        'username' => 'required|exists:users,username',
+        'password' => 'required',
+    ];
+
+    protected $messages = [
+        'username.required' => 'Username wajib diisi.',
+        'username.exists' => 'Username tidak ditemukan.',
+        'password.required' => 'Password wajib diisi.',
+    ];
+
+    public function mount() {
+        if (Cookie::get('saveuser') && Cookie::get('savepwd')) {
+            $this->username = Cookie::get('saveuser');
+            $this->password = Cookie::get('savepwd');
+            $this->remember = true;
+        }
+    }
+
+    public function login(): void
+    {
+        $this->validate();
+
+        $this->ensureIsNotRateLimited();
+
+        if (! Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'password' => "Password salah",
+            ]);
+        }
+
+        RateLimiter::clear($this->throttleKey());
+        Session::regenerate();
+
+        //Check if user already verified
+        $isUserUnverified = User::where('username', $this->username)
+        ->where('is_verified', 0)
+        ->exists();
+
+        if ($isUserUnverified) {
+            session()->flash('unverified-user', 'Gagal login, silahkan verifikasi akun anda terlebih dahulu!');
+        }
+
+        if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
+            if ($this->remember) {
+                Cookie::queue('saveuser', $this->username, 20160);
+                Cookie::queue('savepwd', $this->password, 20160);
+            }
+
+            $userData = Auth::user();
+            $userCheck = Auth::check();
+            session([
+                'userData' => $userData,
+                'userCheck' => $userCheck
+            ]);
+
+            $this->redirect(route('login'), navigate: true);
+        } 
+        else {
+            $this->addError('password', 'Password yang anda masukan salah, silahkan coba lagi!');
+        }
+
+    }
+
+    /**
+     * Ensure the authentication request is not rate limited.
+     */
+    protected function ensureIsNotRateLimited(): void
+    {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            return;
+        }
+
+        event(new Lockout(request()));
+
+        $seconds = RateLimiter::availableIn($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'username' => __('auth.throttle', [
+                'seconds' => $seconds,
+                'minutes' => ceil($seconds / 60),
+            ]),
+        ]);
+    }
+
+    /**
+     * Get the authentication rate limiting throttle key.
+     */
+    protected function throttleKey(): string
+    {
+        return Str::transliterate(Str::lower($this->username).'|'.request()->ip());
+    }
+
+
+    //ACTION - Resend OTP when user click resend button
+    public function resendOtp() {
+        try {
+            //Setup new OTP for user
+            $otp = CodeGeneratorHelper::otpCode();
+            User::where('username', $this->username)
+            ->update([
+                'otp' => $otp,
+                'otp_expired_at' => CodeGeneratorHelper::otpExpiredOnMinute()
+            ]);
+
+            //Find student account
+            $user = UserQuery::fetchStudentAccount($this->username);
+            $waNumber = $user->country_code . $user->mobile_phone;
+    
+            //Resend OTP to student
+            $resendOtpMessage = MessageHelper::waResendOtp($otp);
+            WhaCenterHelper::sendText($waNumber, $resendOtpMessage);
+
+            session()->flash('resend-otp-success', 'Kode telah dikirim, silahkan cek aplikasi Whatsapp anda!');
+            $this->redirect(route('login'));
+            
+        } catch (\Throwable $th) {
+            logger($th);
+            session()->flash('resend-otp-failed', 'Ups... Terjadi kesalahan, silahkan coba lagi');
+        }
+    }
+
+    //ACTION - OTP verification after user successfully registered
+    public function otpVerification() {
+        $this->validate([
+            'inputs.otp' => 'required'
+        ], [
+            'inputs.otp.required' => 'Kode OTP harus diisi!'
+        ]);
+
+        //Check if OTP is valid and not verified
+        $isOtpValid = UserQuery::isOtpValid($this->inputs['otp']);
+        if (!$isOtpValid) {
+            return session()->flash('otp-failed', 'Kode OTP salah, silahkan coba lagi!');
+        }
+
+        //Check if OTP is expired
+        $isOtpExpired = UserQuery::isOtpExpired($this->inputs['otp']);
+        if ($isOtpExpired) {
+            return session()->flash('otp-failed', 'Kode OTP sudah tidak berlaku, silahkan request lagi!');
+        }
+
+        try {
+            //Update student's verification status
+            $findUserOtp = UserQuery::findUserOtp($this->inputs['otp']);
+            $findUserOtp->update([
+                'is_verified' => true,
+                'verified_at' => now()
+            ]);
+
+            session()->flash('otp-success', 'Verifikasi akun berhasil, silahkan login!');
+            $this->redirect(route('login'));
+
+        } catch (\Throwable $th) {
+            logger($th);
+            session()->flash('otp-failed', 'Ups... Terjadi kesalahan, silahkan coba lagi');
+        }
+    }
+}
