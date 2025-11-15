@@ -17,7 +17,7 @@
     'inset' => null,
     'icon' => null,
     'kbd' => null,
-    'disabled' => null
+    // 'disabled' => null
 ])
 
 @php

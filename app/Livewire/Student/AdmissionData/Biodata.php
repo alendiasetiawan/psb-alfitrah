@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Student\AdmissionData;
 
+use App\Enums\VerificationStatusEnum;
 use Livewire\Component;
 use App\Models\Core\Job;
 use Detection\MobileDetect;
@@ -13,22 +14,20 @@ use App\Models\Core\Province;
 use App\Queries\Core\JobQuery;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\Computed;
 use App\Models\Core\LastEducation;
 use App\Services\StudentDataService;
-use Illuminate\Support\Facades\Auth;
 use App\Models\AdmissionData\Student;
 use App\Livewire\Forms\BiodataStudentForm;
 use App\Queries\AdmissionData\StudentQuery;
 use App\Services\AdmissionVerificationService;
-use App\Queries\AdmissionData\AdmissionVerificationQuery;
 
 #[Title('Biodata Siswa')]
 class Biodata extends Component
 {
     public BiodataStudentForm $form;
-    public bool $isMobile = false, $isReviewOrDone = false, $isParent = true, $isCanEdit = false;
+    public bool $isMobile = false, $isReviewOrDone = false, $isParent = true, $isCanEdit = false, $isEditingMode = false;
     public array $provinceLists = [], $regencyLists = [], $districtLists = [], $villageLists = [], $lastEducationLists = [], $jobLists = [], $sallaryLists = [];
+    public string $fatherJobName = '';
     #[Locked]
     public int $studentId;
     #[Locked]
@@ -36,19 +35,16 @@ class Biodata extends Component
     public Student $detailStudent;
 
     protected AdmissionVerificationService $admissionVerificationService;
-    protected StudentDataService $studentDataService;
 
     //HOOK - Execute every time component is rendered
     public function boot(MobileDetect $mobileDetect, AdmissionVerificationService $admissionVerificationService, StudentDataService $studentDataService)
     {
         $this->isMobile = $mobileDetect->isMobile();
         $this->admissionVerificationService = $admissionVerificationService;
-        $this->studentDataService = $studentDataService;
 
         //Set value for submit parameter
         $this->parentId = session('userData')->parent->id;
-        $this->studentId = $this->studentDataService->findActiveStudentId($this->parentId);
-        $this->detailStudent = $this->detailStudentQuery();
+        $this->studentId = $studentDataService->findActiveStudentId($this->parentId);
     }
 
     //HOOK - Execute once when component is rendered
@@ -60,6 +56,7 @@ class Biodata extends Component
         $this->sallaryLists = Sallary::all()->toArray();
 
         //Assign value for detail student and bind it to propery
+        $this->detailStudent = $this->detailStudentQuery();
         $this->form->inputs['studentName'] = $this->detailStudent->name;
         $this->form->inputs['gender'] = $this->detailStudent->gender;
         $this->form->inputs['birthPlace'] = $this->detailStudent->birth_place;
@@ -74,7 +71,7 @@ class Biodata extends Component
         $this->form->inputs['selectedRegencyId'] = $this->detailStudent->regency_id ?? '';
         $this->form->inputs['selectedDistrictId'] = $this->detailStudent->district_id ?? '';
         $this->form->inputs['selectedVillageId'] = $this->detailStudent->village_id ?? '';
-        $this->form->inputs['isParent'] = $this->detailStudent->is_parent;
+        $this->form->inputs['isParent'] = $this->detailStudent->parent?->is_parent;
         $this->form->inputs['fatherName'] = $this->detailStudent->parent->father_name ?? '';
         $this->form->inputs['fatherMobilePhone'] = $this->detailStudent->parent->father_mobile_phone;
         $this->form->inputs['fatherBirthPlace'] = $this->detailStudent->parent->father_birth_place;
@@ -99,23 +96,34 @@ class Biodata extends Component
         $this->form->inputs['guardianSelectedLastEducationId'] = $this->detailStudent->parent->guardian_last_education_id ?? '';
         $this->form->inputs['guardianSelectedJobId'] = $this->detailStudent->parent->guardian_job_id ?? '';
         $this->form->inputs['guardianSelectedSallaryId'] = $this->detailStudent->parent->guardian_sallary_id ?? '';
-        
+        $this->form->inputs['searchFatherJobName'] = $this->detailStudent->parent->jobFather->name ?? '';
+        $this->form->inputs['searchMotherJobName'] = $this->detailStudent->parent->jobMother->name ?? '';
+        $this->form->inputs['searchGuardianJobName'] = $this->detailStudent->parent->jobGuardian->name ?? '';
+    
         //Determine if user can edit biodata
         $this->isCanEdit = $this->isCanEditQuery();
+        if ($this->detailStudent->biodata != VerificationStatusEnum::NOT_STARTED) {
+            $this->dispatch('editing-mode');
+        }
+
+        //Setup default data for demografi
+        $this->regencyLists = $this->form->inputs['selectedRegencyId'] ? $this->setRegencyLists() : [];
+        $this->districtLists = $this->form->inputs['selectedDistrictId'] ? $this->setDistrictLists() : [];
+        $this->villageLists = $this->form->inputs['selectedVillageId'] ? $this->setVillageLists() : []; 
     }
 
     //HOOK - Execute when property is changed
     public function updated($propertyName) {
         if ($propertyName == 'form.inputs.selectedProvinceId') {
-            $this->regencyLists = Regency::where('province_id', $this->form->inputs['selectedProvinceId'])->get()->toArray();
+            $this->regencyLists = $this->setRegencyLists();
         }
 
         if ($propertyName == 'form.inputs.selectedRegencyId') {
-            $this->districtLists = District::where('regency_id', $this->form->inputs['selectedRegencyId'])->get()->toArray();
+            $this->districtLists = $this->setDistrictLists();
         }
 
         if ($propertyName == 'form.inputs.selectedDistrictId') {
-            $this->villageLists = Village::where('district_id', $this->form->inputs['selectedDistrictId'])->get()->toArray();
+            $this->villageLists = $this->setVillageLists();
         }
 
         //Search father job name
@@ -173,22 +181,40 @@ class Biodata extends Component
         return $this->admissionVerificationService->isStudentCanEditBiodata($this->detailStudent->registration_payment, $this->detailStudent->biodata);
     }
 
+    //ACTION - Set regency list
+    public function setRegencyLists() {
+        return Regency::where('province_id', $this->form->inputs['selectedProvinceId'])->get()->toArray();
+    }
+
+    //ACTION - Set district list
+    public function setDistrictLists() {
+        return District::where('regency_id', $this->form->inputs['selectedRegencyId'])->get()->toArray();
+    }
+
+    //ACTION - Set village list
+    public function setVillageLists() {
+        return Village::where('district_id', $this->form->inputs['selectedDistrictId'])->get()->toArray();
+    }
+
     //ACTION - Process store student and parent data
     public function saveBiodata() {
-        $parentId = Student::where('id', $this->studentId)->first()->parent_id;
 
-        $this->form->save($parentId, $this->studentId);
+        //Process saving data
+        try {
+            $this->form->save($this->parentId, $this->studentId);
+            $this->dispatch('toast', type: 'success', message: 'Data berhasil disimpan!');
+            $this->redirect(route('student.admission_data.biodata'), navigate: true);
+        } catch (\Throwable $th) {
+            logger($th);
+            session()->flash('save-failed', 'Data gagal disimpan, silahkan coba lagi!');
+        }
 
-        $this->dispatch('toast', type: 'success', message: 'Data berhasil disimpan!');
-        $this->detailStudentQuery();
-        $this->isCanEditQuery();
-        // $this->redirect(route('student.admission_data.biodata'), navigate: true);
     }
 
     public function render()
     {
         if ($this->isMobile) {
-            return view('livewire.web.student.admission-data.biodata')->layout('components.layouts.mobile.mobile-app', [
+            return view('livewire.mobile.student.admission-data.biodata')->layout('components.layouts.mobile.mobile-app', [
                 'isShowBottomNavbar' => true,
                 'isShowTitle' => true
             ]);

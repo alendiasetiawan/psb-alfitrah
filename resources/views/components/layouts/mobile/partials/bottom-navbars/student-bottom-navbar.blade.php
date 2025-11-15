@@ -78,7 +78,7 @@
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeThree ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-500 dark:text-zinc-400' }}" href="{{ route('student.admission_data.biodata') }}" wire:navigate>
                 <flux:icon icon="contact-round"/>
                 @if ($activeThree)
-                    <span class="text-xs font-semibold">{{ __('Biodata') }}</span>
+                    <span class="text-xs font-semibold">{{ __('Dokumen') }}</span>
                 @endif
             </a>
 

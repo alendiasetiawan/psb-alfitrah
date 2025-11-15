@@ -26,8 +26,9 @@ class UserQuery {
     }
 
     public static function fetchStudentAccount($username) {
-        return User::join('students', 'users.id', 'students.user_id')
-        ->select('users.id', 'users.username', 'students.country_code', 'students.mobile_phone')
+        return User::join('parents', 'users.id', 'parents.user_id')
+        ->join('students', 'parents.id', 'students.parent_id')
+        ->select('users.username','students.country_code', 'students.mobile_phone')
         ->where('users.username', $username)
         ->first();
     }

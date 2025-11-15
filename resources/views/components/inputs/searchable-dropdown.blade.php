@@ -5,7 +5,8 @@
     'fieldName' => '',
     'selectedFieldName' => '',
     'initFunction' => '',
-    'isFormObject' => false
+    'isFormObject' => false,
+    'disabled' => false
 ])
 
 <div class="relative" x-data="{ open: false }" @click.away="open = false">
@@ -17,6 +18,7 @@
         wire:click="{{ $initFunction }}"
         @click="open = true"
         :loading="false"
+        :disabled="$disabled"
     />
 
     <!--Field untuk menampung selected Id-->

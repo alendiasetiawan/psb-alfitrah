@@ -34,7 +34,7 @@ class MessageHelper {
         
         "$otp \n\n" .
         
-        "Kode hanya berlaku untuk 10 menit. \n\n" .
+        "Kode hanya berlaku untuk 10 menit. \n\n".
         
         "_Panitia PSB_\n" .
         "_Al Fitrah Islamic School_";

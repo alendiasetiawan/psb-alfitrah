@@ -197,11 +197,11 @@
                                 <!--Mobile Phone-->
                                 <div class="col-span-1">
                                     <flux:field>
-                                        <flux:label>Nomor Whatsapp</flux:label>
+                                        <flux:label badge="Nomor Whatsapp">Username</flux:label>
                                         <flux:input.group>
                                             <flux:input.group.prefix>+62</flux:input.group.prefix>
                                             <flux:input type="number" wire:model.blur="inputs.mobilePhone" fieldName="mobilePhone"
-                                                placeholder="85775627364" :isValidateGroup="true"
+                                                placeholder="85775745484" :isValidateGroup="true"
                                                 oninput="this.value = this.value.replace(/^0+/, '').replace(/[^0-9]/g, '')" />
                                         </flux:input.group>
                                         <template x-if="errors.mobilePhone">
@@ -225,7 +225,7 @@
                                 <!--#Mobile Phone-->
 
                                 <div class="col-span-1">
-                                    <flux:input viewable type="password" label="Password" placeholder="Buat password untuk login"
+                                    <flux:input viewable type="password" label="Password" placeholder="Buat kata sandi untuk login"
                                         icon="key-square" wire:model='inputs.password' fieldName="password" :isValidate="true" />
                                 </div>
                             </div>

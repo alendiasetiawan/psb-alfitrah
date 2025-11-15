@@ -49,8 +49,10 @@ class Login extends Component
         }
     }
 
-    public function login(): void
+    public function login()
     {
+        $this->username = ltrim($this->username, '0');
+
         $this->validate();
 
         $this->ensureIsNotRateLimited();
@@ -64,36 +66,34 @@ class Login extends Component
         }
 
         RateLimiter::clear($this->throttleKey());
-        Session::regenerate();
 
         //Check if user already verified
-        $isUserUnverified = User::where('username', $this->username)
+        $checkUnVerified = User::where('username', $this->username)
         ->where('is_verified', 0)
         ->exists();
 
-        if ($isUserUnverified) {
-            session()->flash('unverified-user', 'Gagal login, silahkan verifikasi akun anda terlebih dahulu!');
-        }
-
-        if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
-            if ($this->remember) {
-                Cookie::queue('saveuser', $this->username, 20160);
-                Cookie::queue('savepwd', $this->password, 20160);
+        if ($checkUnVerified) {
+            session()->flash('user-unverified', 'Gagal login, silahkan verifikasi akun anda terlebih dahulu!');
+        } else {
+            if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
+                if ($this->remember) {
+                    Cookie::queue('saveuser', $this->username, 20160);
+                    Cookie::queue('savepwd', $this->password, 20160);
+                }
+    
+                $userData = Auth::user();
+                $userCheck = Auth::check();
+                session([
+                    'userData' => $userData,
+                    'userCheck' => $userCheck
+                ]);
+    
+                $this->redirect(route('login'), navigate: true);
+            } 
+            else {
+                $this->addError('password', 'Password yang anda masukan salah, silahkan coba lagi!');
             }
-
-            $userData = Auth::user();
-            $userCheck = Auth::check();
-            session([
-                'userData' => $userData,
-                'userCheck' => $userCheck
-            ]);
-
-            $this->redirect(route('login'), navigate: true);
-        } 
-        else {
-            $this->addError('password', 'Password yang anda masukan salah, silahkan coba lagi!');
         }
-
     }
 
     /**
@@ -128,6 +128,7 @@ class Login extends Component
 
     //ACTION - Resend OTP when user click resend button
     public function resendOtp() {
+        Session::flush();
         try {
             //Setup new OTP for user
             $otp = CodeGeneratorHelper::otpCode();
@@ -143,11 +144,12 @@ class Login extends Component
     
             //Resend OTP to student
             $resendOtpMessage = MessageHelper::waResendOtp($otp);
-            WhaCenterHelper::sendText($waNumber, $resendOtpMessage);
+            $send = WhaCenterHelper::sendText($waNumber, $resendOtpMessage);
+
+            // dd($send);
 
             session()->flash('resend-otp-success', 'Kode telah dikirim, silahkan cek aplikasi Whatsapp anda!');
             $this->redirect(route('login'));
-            
         } catch (\Throwable $th) {
             logger($th);
             session()->flash('resend-otp-failed', 'Ups... Terjadi kesalahan, silahkan coba lagi');

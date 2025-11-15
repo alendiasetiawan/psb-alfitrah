@@ -21,6 +21,7 @@ use App\Queries\Core\AdmissionFeeQuery;
 use App\Queries\Core\EducationProgramQuery;
 use App\Models\AdmissionData\RegistrationPayment;
 use App\Models\AdmissionData\AdmissionVerification;
+use App\Models\AdmissionData\MultiStudent;
 use App\Models\AdmissionData\ParentModel;
 
 #[Title('Formulir Pendaftaran Siswa Baru')]
@@ -185,6 +186,12 @@ class RegistrationForm extends Component
                     'gender' => $this->inputs['gender'],
                     'country_code' => $this->inputs['countryCode'],
                     'mobile_phone' => $this->inputs['mobilePhone']
+                ]);
+
+                //Insert multi student data
+                MultiStudent::create([
+                    'parent_id' => $createParent->id,
+                    'student_id' => $createStudent->id
                 ]);
 
                 //Insert registration payment data

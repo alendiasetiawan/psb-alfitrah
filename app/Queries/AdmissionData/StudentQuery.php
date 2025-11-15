@@ -21,14 +21,25 @@ class StudentQuery {
         ->join('education_programs', 'students.education_program_id', 'education_programs.id')
         ->join('branches', 'students.branch_id', 'branches.id')
         ->join('admissions', 'students.admission_id', 'admissions.id')
-        ->select('students.*', 'registration_payment', 'biodata', 'attachment', 'placement_test', 'payment_error_msg', 'biodata_error_msg', 'attachment_error_msg', 'education_programs.name as program_name', 'branches.name as branch_name', 'admissions.name as academic_year') 
+        ->select('students.*', 'registration_payment', 'biodata', 'biodata_error_msg', 'education_programs.name as program_name', 'branches.name as branch_name', 'admissions.name as academic_year') 
         ->with([
             'parent' => function ($query) {
                 $query->join('users', 'parents.user_id', 'users.id')
-                ->select('parents.*', 'users.username');
+                ->select('parents.*', 'users.username')
+                ->with('jobFather')
+                ->with('jobMother')
+                ->with('jobGuardian');
             }
         ])
         ->where('students.id', $studentId)
+        ->first();
+    }
+
+    public static function fetchStudentAttachmentWithStatus($studentId) {
+        return Student::join('admission_verifications', 'students.id', 'admission_verifications.student_id')
+        ->join('student_attachments', 'students.id', 'student_attachments.student_id')
+        ->select('students.id as student_id', 'students.name', 'registration_payment', 'attachment', 'attachment_error_msg', 'student_attachments.*') 
+        ->where('student_id', $studentId)
         ->first();
     }
 }

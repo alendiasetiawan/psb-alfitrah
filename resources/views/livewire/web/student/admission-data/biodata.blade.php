@@ -4,6 +4,15 @@
         <x-slot:activePage>{{ __('Pengisian Biodata Siswa') }}</x-slot:activePage>
     </x-navigations.breadcrumb>
 
+    <div class="flex justify-start mt-3" wire:ignore>
+        <x-navigations.pill-tab
+        hrefOne="{{ route('student.admission_data.biodata') }}"
+        hrefTwo="{{ route('student.admission_data.admission_attachment') }}" >
+            <x-slot:tabOne>{{ __('Biodata') }}</x-slot:tabOne>
+            <x-slot:tabTwo>{{ __('Berkas') }}</x-slot:tabTwo>
+        </x-navigations.pill-tab>
+    </div>
+
     <!--Alert if registration payment not valid-->
     @if ($detailStudent->registration_payment != \App\Enums\VerificationStatusEnum::VALID)        
         <div class="grid grid-cols-1 mt-4">
@@ -103,14 +112,14 @@
                         gender: ['required'],
                         birthPlace: ['required', 'minLength:5'],
                         birthDate: ['required'],
-                        {{-- nisn: ['required', 'minLength:10', 'maxLength:10'],
+                        nisn: ['required', 'minLength:10', 'maxLength:10'],
                         address: ['required', 'minLength:20', 'maxLength:500'],
                         oldSchoolName: ['required', 'minLength:5'],
                         oldSchoolAddress: ['required', 'minLength:20', 'maxLength:500'],
                         selectedProvinceId: ['required'],
                         selectedRegencyId: ['required'],
                         selectedDistrictId: ['required'],
-                        selectedVillageId: ['required'], --}}
+                        selectedVillageId: ['required'],
                     })" 
                     x-init="$watch('$wire.form.inputs.address', value => {
                         if (sameAddressAsStudent) $wire.form.inputs.fatherAddress = value,
@@ -121,15 +130,17 @@
                     form.gender = $wire.form.inputs.gender;
                     form.birthPlace = $wire.form.inputs.birthPlace;
                     form.birthDate = $wire.form.inputs.birthDate;
-                    {{-- form.nisn = $wire.form.inputs.nisn;
+                    form.nisn = $wire.form.inputs.nisn;
                     form.address = $wire.form.inputs.address;
                     form.oldSchoolName = $wire.form.inputs.oldSchoolName;
                     form.oldSchoolAddress = $wire.form.inputs.oldSchoolAddress;
                     form.selectedProvinceId = $wire.form.inputs.selectedProvinceId;
                     form.selectedRegencyId = $wire.form.inputs.selectedRegencyId;
                     form.selectedDistrictId = $wire.form.inputs.selectedDistrictId;
-                    form.selectedVillageId = $wire.form.inputs.selectedVillageId; --}}
+                    form.selectedVillageId = $wire.form.inputs.selectedVillageId;
                     "
+                    x-on:editing-mode.window="
+                    isSubmitActive = true;"
                 >
                     <div class="space-y-4 mb-3">
                         <!--Student Data-->
@@ -146,7 +157,7 @@
                                 fieldName="studentName"
                                 isValidate="true" 
                                 isFormObject="true"
-                                x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#Student Name-->
@@ -158,7 +169,7 @@
                                     <flux:select wire:model='form.inputs.gender'
                                     placeholder="Pilih Jenis Kelamin"
                                     x-on:input="form.gender = $wire.form.inputs.gender; validate('gender')"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                     >
                                         <flux:select.option value="Laki-Laki">Laki-Laki</flux:select.option>
                                         <flux:select.option value="Perempuan">Perempuan</flux:select.option>
@@ -179,7 +190,7 @@
                                 fieldName="birthPlace"
                                 isValidate="true"
                                 isFormObject="true"
-                                x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#Birth Place-->
@@ -193,7 +204,7 @@
                                 fieldName="birthDate"
                                 isValidate="true"
                                 isFormObject="true"
-                                x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#Birth Date-->
@@ -228,7 +239,7 @@
                                     fieldName="nisn"
                                     isValidate="true"
                                     isFormObject="true"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#NISN-->
@@ -245,7 +256,7 @@
                                     fieldName="address"
                                     isFormObject="true"
                                     isValidate="true"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#Address-->
@@ -262,7 +273,7 @@
                                     fieldName="oldSchoolName"
                                     isValidate="true"
                                     isFormObject="true"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#Old School Name-->
@@ -275,7 +286,7 @@
                                     placeholder="Nomor Pokok Sekolah Nasional"
                                     icon="shield"
                                     wire:model='form.inputs.oldSchoolNpsn'
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#NPSN-->
@@ -292,7 +303,7 @@
                                     fieldName="oldSchoolAddress"
                                     isValidate="true"
                                     isFormObject="true"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                 />
                             </div>
                             <!--#Address-->
@@ -305,8 +316,8 @@
                                     <flux:label>Provinsi</flux:label>
                                     <flux:select wire:model.live='form.inputs.selectedProvinceId'
                                     placeholder="Pilih Provinsi"
-                                    x-on:input="form.selectedProvinceId = $wire.form.inputs.selectedProvinceId; validate('selectedProvinceId')"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    x-on:change="form.selectedProvinceId = $wire.form.inputs.selectedProvinceId; validate('selectedProvinceId')"
+                                    :disabled="!$isCanEdit ? true : false"
                                     >
                                         @foreach ($provinceLists as $province)
                                             <flux:select.option value="{{ $province['id'] }}">{{ $province['name'] }}</flux:select.option>
@@ -325,8 +336,8 @@
                                     </flux:label>
                                     <flux:select wire:model.live='form.inputs.selectedRegencyId'
                                     placeholder="Pilih Kabupaten"
-                                    x-on:input="form.selectedRegencyId = $wire.form.inputs.selectedRegencyId; validate('selectedRegencyId')"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    x-on:change="form.selectedRegencyId = $wire.form.inputs.selectedRegencyId; validate('selectedRegencyId')"
+                                    :disabled="!$isCanEdit ? true : false"
                                     >
                                         @foreach ($regencyLists as $regency)
                                             <flux:select.option value="{{ $regency['id'] }}">{{ $regency['name'] }}</flux:select.option>
@@ -345,8 +356,8 @@
                                     </flux:label>
                                     <flux:select wire:model.live='form.inputs.selectedDistrictId'
                                     placeholder="Pilih Kecamatan"
-                                    x-on:input="form.selectedDistrictId = $wire.form.inputs.selectedDistrictId; validate('selectedDistrictId')"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    x-on:change="form.selectedDistrictId = $wire.form.inputs.selectedDistrictId; validate('selectedDistrictId')"
+                                    :disabled="!$isCanEdit ? true : false"
                                     >
                                         @foreach ($districtLists as $district)
                                             <flux:select.option value="{{ $district['id'] }}">{{ $district['name'] }}</flux:select.option>
@@ -365,21 +376,13 @@
                                     </flux:label>
                                     <flux:select wire:model='form.inputs.selectedVillageId'
                                     placeholder="Pilih Desa"
-                                    x-on:input="form.selectedVillageId = $wire.form.inputs.selectedVillageId; validate('selectedVillageId')"
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    x-on:change="form.selectedVillageId = $wire.form.inputs.selectedVillageId; validate('selectedVillageId')"
+                                    :disabled="!$isCanEdit ? true : false"
                                     >
                                         @foreach ($villageLists as $village)
                                             <flux:select.option value="{{ $village['id'] }}">{{ $village['name'] }}</flux:select.option>
                                         @endforeach
                                     </flux:select>
-
-                                    <template x-if="errors.selectedVillageId">
-                                        <flux:error name="selectedVillageId">
-                                            <x-slot:message>
-                                                <span x-text="errors.selectedVillageId"></span>
-                                            </x-slot:message>
-                                        </flux:error>
-                                    </template>
                                 </flux:field>
                             </div>
                             <!--#Select Village-->
@@ -393,10 +396,9 @@
                         <flux:radio.group 
                             wire:model="form.inputs.isParent" 
                             label="Apakah siswa tinggal bersama orang tua?"
-                            x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
                         >
-                            <flux:radio value="1" label="Iya" />
-                            <flux:radio value="0" label="Tidak" />
+                            <flux:radio value="1" label="Iya" x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"/>
+                            <flux:radio value="0" label="Tidak" x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"/>
                         </flux:radio.group>
                         <template x-if="errors.isParent">
                             <flux:error name="isParent">
@@ -424,7 +426,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Wajib diisi')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                     />
                                 </div>
                                 <!--#Father Name-->
@@ -438,10 +440,7 @@
                                             <flux:input type="number" wire:model="form.inputs.fatherMobilePhone"
                                                 placeholder="85775627364"
                                                 onInput="this.value = this.value.replace(/^0+/, '').replace(/[^0-9]/g, '')" 
-                                                x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
-                                                required
-                                                oninvalid="this.setCustomValidity('Wajib diisi')"
-                                                oninput="this.setCustomValidity('')"
+                                                :disabled="!$isCanEdit ? true : false"
                                             />
                                         </flux:input.group>
                                         <template x-if="errors.fatherMobilePhone">
@@ -462,7 +461,7 @@
                                     icon="hospital"
                                     placeholder="Kota kelahiran"
                                     wire:model='form.inputs.fatherBirthPlace'
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                     required
                                     oninvalid="this.setCustomValidity('Wajib diisi')"
                                     oninput="this.setCustomValidity('')"
@@ -476,7 +475,7 @@
                                     label="Tanggal Lahir Ayah"
                                     type="date" 
                                     wire:model='form.inputs.fatherBirthDate'
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                     required
                                     oninvalid="this.setCustomValidity('Wajib diisi')"
                                     oninput="this.setCustomValidity('')"
@@ -495,7 +494,7 @@
                                         placeholder="Tulis alamat tinggal saat ini dengan lengkap"
                                         rows="3"
                                         wire:model='form.inputs.fatherAddress'
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         required
                                         oninvalid="this.setCustomValidity('Wajib diisi')"
                                         oninput="this.setCustomValidity('')"
@@ -504,6 +503,7 @@
                                     <flux:field variant="inline">
                                         <flux:checkbox x-model="sameAddressAsStudent" 
                                         x-on:change="sameAddressAsStudent ? $wire.form.inputs.fatherAddress = $wire.form.inputs.address : $wire.form.inputs.fatherAddress = ''"
+                                        :disabled="!$isCanEdit ? true : false"
                                         />
                                         <flux:label>Sama dengan alamat siswa</flux:label>
                                     </flux:field>
@@ -523,7 +523,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih pendidikan terakhir')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                             @foreach ($lastEducationLists as $education)
                                                 <flux:select.option value="{{ $education['id'] }}">{{ $education['name'] }}</flux:select.option>
@@ -547,21 +547,21 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih pekerjaan')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
-                                            @forelse($jobLists as $job)
-                                                <x-inputs.dropdown-list
-                                                selectedName="{{ $job['name'] }}"
-                                                selectedId="{{ $job['id'] }}"
-                                                fieldName="searchFatherJobName"
-                                                selectedFieldName="fatherSelectedJobId"
-                                                isFormObject="true"
-                                                >
-                                                    {{ $job['name'] }}
-                                                </x-inputs.dropdown-list>
-                                            @empty
-                                                <li class="px-3 py-2 text-gray-500">Data Tidak Ditemukan!</li>
-                                            @endforelse
+                                        @forelse($jobLists as $job)
+                                            <x-inputs.dropdown-list
+                                            selectedName="{{ $job['name'] }}"
+                                            selectedId="{{ $job['id'] }}"
+                                            fieldName="searchFatherJobName"
+                                            selectedFieldName="fatherSelectedJobId"
+                                            isFormObject="true"
+                                            >
+                                                {{ $job['name'] }}
+                                            </x-inputs.dropdown-list>
+                                        @empty
+                                            <li class="px-3 py-2 text-gray-500">Data Tidak Ditemukan!</li>
+                                        @endforelse
                                     </x-inputs.searchable-dropdown>
                                 </div>
                                 <!--#Father's Job-->
@@ -575,7 +575,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih penghasilan')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                         @foreach ($sallaryLists as $sallary)
                                             <flux:select.option value="{{ $sallary['id'] }}">{{ $sallary['name'] }}</flux:select.option>
@@ -605,7 +605,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Wajib diisi')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                     />
                                 </div>
                                 <!--#Mother Name-->
@@ -619,10 +619,7 @@
                                             <flux:input type="number" wire:model="form.inputs.motherMobilePhone"
                                                 placeholder="85775627364"
                                                 onInput="this.value = this.value.replace(/^0+/, '').replace(/[^0-9]/g, '')" 
-                                                x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
-                                                required
-                                                oninvalid="this.setCustomValidity('Wajib diisi')"
-                                                oninput="this.setCustomValidity('')"
+                                                :disabled="!$isCanEdit ? true : false"
                                             />
                                         </flux:input.group>
                                         <template x-if="errors.motherMobilePhone">
@@ -643,7 +640,7 @@
                                     icon="hospital"
                                     placeholder="Kota kelahiran"
                                     wire:model='form.inputs.motherBirthPlace'
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                     required
                                     oninvalid="this.setCustomValidity('Wajib diisi')"
                                     oninput="this.setCustomValidity('')"
@@ -657,7 +654,7 @@
                                     label="Tanggal Lahir Ibu"
                                     type="date" 
                                     wire:model='form.inputs.motherBirthDate'
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                     required
                                     oninvalid="this.setCustomValidity('Wajib diisi')"
                                     oninput="this.setCustomValidity('')"
@@ -676,7 +673,7 @@
                                         placeholder="Tulis alamat tinggal saat ini dengan lengkap"
                                         rows="3"
                                         wire:model='form.inputs.motherAddress'
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         required
                                         oninvalid="this.setCustomValidity('Wajib diisi')"
                                         oninput="this.setCustomValidity('')"
@@ -685,6 +682,7 @@
                                     <flux:field variant="inline">
                                         <flux:checkbox x-model="sameAddressAsStudent" 
                                         x-on:change="sameAddressAsStudent ? $wire.form.inputs.motherAddress = $wire.form.inputs.address : $wire.form.inputs.motherAddress = ''"
+                                        :disabled="!$isCanEdit ? true : false"
                                         />
                                         <flux:label>Sama dengan alamat siswa</flux:label>
                                     </flux:field>
@@ -704,7 +702,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih pendidikan terakhir')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                         @foreach ($lastEducationLists as $education)
                                             <flux:select.option value="{{ $education['id'] }}">{{ $education['name'] }}</flux:select.option>
@@ -727,7 +725,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih pekerjaan')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                             @forelse($jobLists as $job)
                                                 <x-inputs.dropdown-list
@@ -755,7 +753,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Wajib diisi!')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                         @foreach ($sallaryLists as $sallary)
                                             <flux:select.option value="{{ $sallary['id'] }}">{{ $sallary['name'] }}</flux:select.option>
@@ -785,7 +783,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Wajib diisi')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                     />
                                 </div>
                                 <!--#Guardian Name-->
@@ -799,19 +797,9 @@
                                             <flux:input type="number" wire:model="form.inputs.guardianMobilePhone"
                                                 placeholder="85775627364"
                                                 onInput="this.value = this.value.replace(/^0+/, '').replace(/[^0-9]/g, '')" 
-                                                x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
-                                                required
-                                                oninvalid="this.setCustomValidity('Wajib diisi')"
-                                                oninput="this.setCustomValidity('')"
+                                                :disabled="!$isCanEdit ? true : false"
                                             />
                                         </flux:input.group>
-                                        <template x-if="errors.guardianMobilePhone">
-                                            <flux:error name="guardianMobilePhone">
-                                                <x-slot:message>
-                                                    <span x-text="errors.guardianMobilePhone"></span>
-                                                </x-slot:message>
-                                            </flux:error>
-                                        </template>
                                     </flux:field>
                                 </div>
                                 <!--#Guardian Mobile Phone-->
@@ -823,7 +811,7 @@
                                     icon="hospital"
                                     placeholder="Kota kelahiran"
                                     wire:model='form.inputs.guardianBirthPlace'
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                     required
                                     oninvalid="this.setCustomValidity('Wajib diisi')"
                                     oninput="this.setCustomValidity('')"
@@ -837,7 +825,7 @@
                                     label="Tanggal Lahir Wali"
                                     type="date" 
                                     wire:model='form.inputs.guardianBirthDate'
-                                    x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                    :disabled="!$isCanEdit ? true : false"
                                     required
                                     oninvalid="this.setCustomValidity('Wajib diisi')"
                                     oninput="this.setCustomValidity('')"
@@ -856,7 +844,7 @@
                                         placeholder="Tulis alamat tinggal saat ini dengan lengkap"
                                         rows="3"
                                         wire:model='form.inputs.guardianAddress'
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         required
                                         oninvalid="this.setCustomValidity('Wajib diisi')"
                                         oninput="this.setCustomValidity('')"
@@ -865,6 +853,7 @@
                                     <flux:field variant="inline">
                                         <flux:checkbox x-model="sameAddressAsStudent" 
                                         x-on:change="sameAddressAsStudent ? $wire.form.inputs.guardianAddress = $wire.form.inputs.address : $wire.form.inputs.guardianAddress = ''"
+                                        :disabled="!$isCanEdit ? true : false"
                                         />
                                         <flux:label>Sama dengan alamat siswa</flux:label>
                                     </flux:field>
@@ -884,7 +873,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih pendidikan terakhir')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                         @foreach ($lastEducationLists as $education)
                                             <flux:select.option value="{{ $education['id'] }}">{{ $education['name'] }}</flux:select.option>
@@ -907,7 +896,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih pekerjaan')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                             @forelse($jobLists as $job)
                                                 <x-inputs.dropdown-list
@@ -935,7 +924,7 @@
                                         required
                                         oninvalid="this.setCustomValidity('Pilih penghasilan')"
                                         oninput="this.setCustomValidity('')"
-                                        x-bind:disabled="{{ !$isCanEdit ? 'true' : 'false' }}"
+                                        :disabled="!$isCanEdit ? true : false"
                                         >
                                         @foreach ($sallaryLists as $sallary)
                                             <flux:select.option value="{{ $sallary['id'] }}">{{ $sallary['name'] }}</flux:select.option>
@@ -965,9 +954,9 @@
                         @if ($isCanEdit)
                             <div class="flex gap-2">
                                 <flux:spacer />
-                                <flux:modal.close>
-                                    <flux:button variant="filled" type="reset">Batal</flux:button>
-                                </flux:modal.close>
+                                    <a href="{{ route('student.student_dashboard') }}" wire:navigate>
+                                        <flux:button variant="filled" type="button">Batal</flux:button>
+                                    </a>
         
                                 <flux:button
                                 type="submit"

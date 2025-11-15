@@ -89,9 +89,9 @@
         <!--#Alert Account Verification-->
 
         <!--Alert when user unverified-->
-        @if (session('unverified-user'))
+        @if (session('user-unverified'))
             <x-notifications.basic-alert>
-                <x-slot:title>{{ session('unverified-user') }}</x-slot:title>
+                <x-slot:title>{{ session('user-unverified') }}</x-slot:title>
                 <x-slot:action>
                     <flux:button variant="primary" size="sm" wire:click='resendOtp'>
                         Kirim OTP
@@ -101,14 +101,21 @@
         @endif
         <!--#Alert when user unverified-->
 
+        @if (session('resend-otp-failed'))
+        <x-notifications.basic-alert variant="danger" isCloseable="true">
+            <x-slot:title>{{ session('resend-otp-failed') }}</x-slot:title>
+        </x-notifications.basic-alert>
+        @endif
+
         <form method="POST" wire:submit="login" class="flex flex-col gap-6">
             <!-- Email Address -->
             <flux:input
                 wire:model="username"
-                :label="__('Username')"
+                :label="__('Username/Nomor Whatsapp')"
                 type="text"
+                placeholder="Masukan nomor HP"
                 required
-                autofocus
+                autofocus       
             />
 
             <!-- Password -->
@@ -119,6 +126,7 @@
                     type="password"
                     required
                     autocomplete="current-password"
+                    placeholder="Masukan kata sandi"
                     viewable
                 />
 

@@ -3,6 +3,7 @@
 namespace App\Models\AdmissionData;
 
 use App\Models\User;
+use App\Models\Core\Job;
 use App\Models\Core\Sallary;
 use App\Models\Core\LastEducation;
 use Illuminate\Database\Eloquent\Model;
@@ -69,4 +70,20 @@ class ParentModel extends Model
     {
         return $this->hasOne(MultiStudent::class);
     }
+
+    public function jobFather(): BelongsTo
+    {
+        return $this->belongsTo(Job::class, 'father_job_id', 'id');
+    }
+
+    public function jobMother(): BelongsTo
+    {
+        return $this->belongsTo(Job::class, 'mother_job_id', 'id');
+    }
+
+    public function jobGuardian(): BelongsTo
+    {
+        return $this->belongsTo(Job::class, 'guardian_job_id', 'id');
+    }
+
 }
