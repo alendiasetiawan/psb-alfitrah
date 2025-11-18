@@ -115,4 +115,9 @@ class Student extends Model
     {
         return $this->hasOne(MultiStudent::class);
     }
+
+    public function studentAttachment(): HasOne
+    {
+        return $this->hasOne(StudentAttachment::class);
+    }
 }

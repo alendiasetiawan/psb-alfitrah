@@ -4,14 +4,25 @@ namespace App\Services;
 
 use App\Enums\VerificationStatusEnum;
 
-class AdmissionVerificationService 
+class AdmissionVerificationService
 {
-    public function isStudentCanEditBiodata($registrationPaymentStatus, $biodataStatus) {
+   public function isStudentCanEditBiodata($registrationPaymentStatus, $biodataStatus)
+   {
 
-        if ($registrationPaymentStatus == VerificationStatusEnum::VALID && ($biodataStatus == VerificationStatusEnum::NOT_STARTED || $biodataStatus == VerificationStatusEnum::INVALID)) {
-            return true;
-        }
+      if ($registrationPaymentStatus == VerificationStatusEnum::VALID && ($biodataStatus == VerificationStatusEnum::NOT_STARTED || $biodataStatus == VerificationStatusEnum::INVALID)) {
+         return true;
+      }
 
-        return false;
-    }
+      return false;
+   }
+
+
+   public function isStudentCadEditAttachment($registrationPaymentStatus, $attachmentStatus)
+   {
+      if ($registrationPaymentStatus == VerificationStatusEnum::VALID && ($attachmentStatus == VerificationStatusEnum::NOT_STARTED || $attachmentStatus == VerificationStatusEnum::INVALID)) {
+         return true;
+      }
+
+      return false;
+   }
 }
