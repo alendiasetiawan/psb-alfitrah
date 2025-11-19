@@ -16,6 +16,7 @@
         "livewire/flux": "^2.1.1",
         "livewire/volt": "^1.7.0",
         "mobiledetect/mobiledetectlib": "^4.8",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "wireui/wireui": "^2.4"
     },
     "require-dev": {

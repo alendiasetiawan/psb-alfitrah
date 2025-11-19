@@ -25,4 +25,13 @@ class AdmissionVerificationService
 
       return false;
    }
+
+   public function isStudentCanCreateQr($registrationPaymentStatus, $biodataStatus, $attachmentStatus)
+   {
+      if ($registrationPaymentStatus == VerificationStatusEnum::VALID && $biodataStatus == VerificationStatusEnum::VALID && $attachmentStatus == VerificationStatusEnum::VALID) {
+         return true;
+      }
+
+      return false;
+   }
 }

@@ -184,9 +184,7 @@ Alpine.data("countDownTimer", ({ countdown = 30 } = {}) => ({
   },
 
   resetTimer() {
-    if (this.countdown === 0) {
       this.countdown = this.initialCountdown;
       this.startTimer();
-    }
   },
 }));

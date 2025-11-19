@@ -47,4 +47,18 @@ class StudentQuery
          ->where('students.id', $studentId)
          ->first();
    }
+
+   public static function fetchStudentPresenceTest($studentId)
+   {
+      return Student::join('admission_verifications', 'students.id', 'admission_verifications.student_id')
+      ->join('branches', 'students.branch_id', 'branches.id')
+      ->join('education_programs', 'students.education_program_id', 'education_programs.id')
+      ->select('students.id', 'students.name as student_name', 'students.reg_number', 'registration_payment', 'biodata', 'attachment', 'branches.name as branch_name', 'education_programs.name as program_name')
+      ->with([
+         'testQrCode',
+         'placementTestPresence'
+      ])
+      ->where('students.id', $studentId)
+      ->first();
+   }
 }
