@@ -10,7 +10,7 @@ use Livewire\Attributes\Computed;
 use App\Services\StudentDataService;
 use App\Queries\AdmissionData\StudentQuery;
 use App\Services\AdmissionVerificationService;
-#[Title('QR Code Kehadiran Tes')]
+#[Title('Kehadiran Tes')]
 class QrPresenceTest extends Component
 {
    public bool $isMobile = false, $isShowQr = false, $isAttended = true, $isCanCreateQr = true;

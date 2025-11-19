@@ -18,7 +18,7 @@
          <!--Bayar Biaya Pendaftaran-->
          <flux:sidebar.item :current="Route::is('student.payment.registration_payment')" icon="banknotes"
             href="{{ route('student.payment.registration_payment') }}" wire:navigate>
-            {{ __('Bayar Pendaftaran') }}
+            {{ __('Biaya Pendaftaran') }}
          </flux:sidebar.item>
          <!--#Bayar Biaya Pendaftaran-->
 
@@ -39,7 +39,7 @@
       <!--#Menu Data Siswa-->
 
       <!--Menu Tes dan Pengumuman-->
-      <flux:navlist.group :heading="__('Tes dan Pengumuman')" class="grid">
+      <flux:navlist.group :heading="__('Tes dan Kelulusan')" class="grid">
          <!--Placement Test Presence-->
          <flux:sidebar.item :current="Route::is('student.placement_test.qr_presence_test')" icon="qr-code"
             href="{{ route('student.placement_test.qr_presence_test') }}" wire:navigate>
@@ -48,16 +48,16 @@
          <!--#Placement Test Presence-->
 
          <!--Test Announcement-->
-         <flux:sidebar.group expandable :expanded="Route::is('student.placement_test.announcement.*')" icon="megaphone"
-            heading="{{ __('Pengumuman') }}" class="grid">
-            <flux:sidebar.item href="{{ route('student.placement_test.announcement.private_announcement') }}"
-               :current="Route::is('student.placement_test.announcement.private_announcement')" wire:navigate>
-               {{ __('Kelulusan Pribadi') }}
+         <flux:sidebar.group expandable :expanded="Route::is('student.placement_test.test_result.*')" icon="megaphone"
+            heading="{{ __('Kelulusan') }}" class="grid">
+            <flux:sidebar.item href="{{ route('student.placement_test.test_result.private_announcement') }}"
+               :current="Route::is('student.placement_test.test_result.private_announcement')" wire:navigate>
+               {{ __('Pengumuman') }}
             </flux:sidebar.item>
 
-            <flux:sidebar.item href="{{ route('student.placement_test.announcement.public_announcement') }}"
-               :current="Route::is('student.placement_test.announcement.public_announcement')" wire:navigate>
-               {{ __('Kelulusan Umum') }}
+            <flux:sidebar.item href="{{ route('student.placement_test.test_result.public_announcement') }}"
+               :current="Route::is('student.placement_test.test_result.public_announcement')" wire:navigate>
+               {{ __('Daftar Ulang') }}
             </flux:sidebar.item>
          </flux:sidebar.group>
          <!--#Test Announcement-->

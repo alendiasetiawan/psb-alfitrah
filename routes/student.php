@@ -7,6 +7,7 @@ use App\Livewire\Student\PlacementTest\QrPresenceTest;
 use App\Livewire\Student\PlacementTest\PublicAnnouncement;
 use App\Livewire\Student\AdmissionData\AdmissionAttachment;
 use App\Livewire\Student\AdmissionData\RegistrationPayment;
+use App\Livewire\Student\PlacementTest\FinalRegistration;
 use App\Livewire\Student\PlacementTest\PrivateAnnouncement;
 use App\Livewire\Student\StudentDashboard;
 
@@ -28,9 +29,10 @@ Route::middleware('role:' . RoleEnum::STUDENT . '')->group(function () {
       //Placement Test Page Route
       Route::group(['prefix' => 'placement-test', 'as' => 'placement_test.'], function () {
          Route::get('/qr-presence-test', QrPresenceTest::class)->name('qr_presence_test');
-         Route::group(['prefix' => 'announcement', 'as' => 'announcement.'], function () {
+         Route::group(['prefix' => 'test-result', 'as' => 'test_result.'], function () {
             Route::get('/private-announcement', PrivateAnnouncement::class)->name('private_announcement');
             Route::get('/public-announcement', PublicAnnouncement::class)->name('public_announcement');
+            Route::get('/final-registration', FinalRegistration::class)->name('final_registration');
          });
       });
    });

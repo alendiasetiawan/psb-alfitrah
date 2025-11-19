@@ -1,6 +1,6 @@
 @props([
     'variant' => 'danger',
-    'icon' => 'x-circle',
+    'icon' => 'x-circle', //triangle-alert, check-circle
     'isCloseable' => false,
 ])
 

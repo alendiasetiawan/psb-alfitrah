@@ -1,6 +1,6 @@
 <div>
    <x-navigations.breadcrumb>
-      <x-slot:title>{{ __('QR Code Kehadiran Tes') }}</x-slot:title>
+      <x-slot:title>{{ __('Kehadiran Tes') }}</x-slot:title>
       <x-slot:activePage>{{ __('Cetak QR Code Tes Masuk') }}</x-slot:activePage>
    </x-navigations.breadcrumb>
 

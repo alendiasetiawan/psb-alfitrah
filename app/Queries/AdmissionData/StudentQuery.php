@@ -51,14 +51,28 @@ class StudentQuery
    public static function fetchStudentPresenceTest($studentId)
    {
       return Student::join('admission_verifications', 'students.id', 'admission_verifications.student_id')
-      ->join('branches', 'students.branch_id', 'branches.id')
-      ->join('education_programs', 'students.education_program_id', 'education_programs.id')
-      ->select('students.id', 'students.name as student_name', 'students.reg_number', 'registration_payment', 'biodata', 'attachment', 'branches.name as branch_name', 'education_programs.name as program_name')
+      ->joinBranchAndProgram()
+      ->addSelect('students.id', 'students.name as student_name', 'students.reg_number', 'registration_payment', 'biodata', 'attachment')
       ->with([
          'testQrCode',
          'placementTestPresence'
       ])
       ->where('students.id', $studentId)
+      ->first();
+   }
+
+   public static function fetchAnnouncementTestResult($studentId) {
+      return Student::baseEloquent($studentId)
+      ->joinAdmissionVerification()
+      ->joinBranchAndProgram()
+      ->joinAdmission()
+      ->addSelect('students.name as student_name', 'students.gender', 'students.id')
+      ->with([
+         'placementTestResult' => function ($query) {
+            $query->select('student_id',  'final_score', 'final_result', 'publication_status', )
+            ->where('publication_status', PlacementTestEnum::PUBLICATION_RELEASE);
+         }
+      ])
       ->first();
    }
 }
