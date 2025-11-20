@@ -75,4 +75,11 @@ class StudentQuery
       ])
       ->first();
    }
+
+   public static function fetchAnnouncementStudent($studentId) {
+      return Student::baseEloquent($studentId)
+      ->joinAdmissionVerification()
+      ->addSelect('students.name as student_name', 'students.gender', 'students.id')
+      ->first();
+   }
 }

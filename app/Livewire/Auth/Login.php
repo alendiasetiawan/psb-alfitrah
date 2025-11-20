@@ -14,6 +14,7 @@ use App\Helpers\WhaCenterHelper;
 use Livewire\Attributes\Validate;
 use Illuminate\Auth\Events\Lockout;
 use App\Helpers\CodeGeneratorHelper;
+use App\Services\StudentDataService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
@@ -82,7 +83,7 @@ class Login extends Component
                Cookie::queue('saveuser', $this->username, 20160);
                Cookie::queue('savepwd', $this->password, 20160);
             }
-
+            
             $userData = Auth::user();
             $userCheck = Auth::check();
             session([

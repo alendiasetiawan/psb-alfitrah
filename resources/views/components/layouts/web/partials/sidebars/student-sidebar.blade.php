@@ -55,8 +55,8 @@
                {{ __('Pengumuman') }}
             </flux:sidebar.item>
 
-            <flux:sidebar.item href="{{ route('student.placement_test.test_result.public_announcement') }}"
-               :current="Route::is('student.placement_test.test_result.public_announcement')" wire:navigate>
+            <flux:sidebar.item href="{{ route('student.placement_test.test_result.final_registration') }}"
+               :current="Route::is('student.placement_test.test_result.final_registration')" wire:navigate>
                {{ __('Daftar Ulang') }}
             </flux:sidebar.item>
          </flux:sidebar.group>
