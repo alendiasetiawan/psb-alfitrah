@@ -5,9 +5,10 @@ namespace App\Livewire\Student\PlacementTest;
 use Livewire\Component;
 use Detection\MobileDetect;
 use App\Helpers\MessageHelper;
+use Livewire\Attributes\Title;
 use App\Services\StudentDataService;
 use App\Queries\AdmissionData\StudentQuery;
-
+#[Title('Daftar Ulang')]
 class FinalRegistration extends Component
 {
    public bool $isMobile = false;

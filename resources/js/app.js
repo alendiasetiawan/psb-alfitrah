@@ -1,4 +1,5 @@
 import Iodine from "@caneara/iodine";
+import AlpineSwiper from "./components/swiper";
 
 const iodine = new Iodine();
 
@@ -14,6 +15,8 @@ iodine.setErrorMessages({
   startingWith: `Harus diawali dengan [PARAM]`,
   endingWith: `Harus diakhiri dengan [PARAM]`,
 });
+
+Alpine.data("swiperContainer", AlpineSwiper);
 
 Alpine.data("formValidation", (rules) => ({
   form: {},

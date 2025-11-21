@@ -22,13 +22,13 @@ default => null
          <svg width="100%" height="100%" viewBox="0 0 375 144" fill="none" xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none" class="filter drop-shadow-[0_-2px_8px_rgba(0,0,0,0.08)]">
             <path d="M0 48
-                    L127 48
-                    C140,50 140,130 182,130
-                    C235,140 235,50 245,50
-                    L375 48
-                    V144
-                    H0
-                    Z" class="fill-white dark:fill-zinc-800" />
+                  L127 48
+                  {{-- C140,50 140,130 182,130
+                  C235,140 235,50 245,50 --}}
+                  L375 48
+                  V144
+                  H0
+                  Z" class="fill-white dark:fill-zinc-800" />
          </svg>
       </div>
 
@@ -36,9 +36,9 @@ default => null
       <div class="absolute left-1/2 transform -translate-x-1/2 top-4 z-30">
          <a href="{{ route('student.placement_test.qr_presence_test') }}" wire:navigate>
             <button
-               class="w-15 h-15 rounded-full bg-primary-500 flex items-center justify-center text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-primary-300 transition-transform duration-200 hover:scale-105"
+               class="w-15 h-15 rounded-full bg-primary-500 flex flex-col items-center justify-center text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-primary-300 transition-transform duration-200 hover:scale-105"
                type="button">
-               <flux:icon icon="qr-code" class="size-7" />
+               <flux:icon icon="qr-code" class="size-8" />
             </button>
          </a>
       </div>
