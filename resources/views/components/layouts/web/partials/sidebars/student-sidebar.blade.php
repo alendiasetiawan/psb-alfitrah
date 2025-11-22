@@ -1,4 +1,4 @@
-<flux:sidebar class="bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
+<flux:sidebar class="bg-[#d7f3f9] dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
    <!--Brand & Collapse button-->
    <flux:sidebar.header>
       <flux:sidebar.brand href="#" logo="{{ asset('images/logo/alfitrah-logo.png') }}"

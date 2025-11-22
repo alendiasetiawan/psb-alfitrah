@@ -1,7 +1,7 @@
 <div>
    <!--Timeline Student Admission-->
    <div class="grid grid-cols-1 mt-4">
-      <x-cards.basic-card>
+      <x-cards.soft-glass-card>
          <flux:heading size="xl" class="mb-3">Alur Penerimaan Siswa Baru</flux:heading>
          <div class="relative">
             <!-- Vertical Line -->
@@ -81,14 +81,14 @@
                <!--#Registration Payment-->
             </div>
          </div>
-      </x-cards.basic-card>
+      </x-cards.soft-glass-card>
    </div>
    <!--#Timeline Student Admission-->
 
-   <div class="grid md:grid-cols-2 lg:grid-cols-3 mt-4 gap-3 items-stretch">
+   <div class="grid md:grid-cols-2 lg:grid-cols-3 mt-4 gap-3">
       <!--Student Account-->
       <div class="col-span-1">
-         <x-cards.user-card class="h-full">
+         <x-cards.user-card>
             <x-slot:fullName>Alendia Desta Setiawan</x-slot:fullName>
             <x-slot:position>
                Laki-Laki | 083927-0392 | 2027-2028
@@ -104,7 +104,7 @@
 
       <!--Student Biodata and Attachment-->
       <div class="col-span-1">
-         <x-cards.basic-card class="h-full space-y-2">
+         <x-cards.soft-glass-card class="space-y-2">
             <flux:heading size="xl">Status Validasi</flux:heading>
             <!--Registration Payment-->
             <x-lists.list-group>
@@ -150,13 +150,13 @@
                </x-slot:buttonAction>
             </x-lists.list-group>
             <!--#Attachment-->
-         </x-cards.basic-card>
+         </x-cards.soft-glass-card>
       </div>
       <!--#Student Biodata and Attachment-->
 
       <!--QR Code for Test Presence-->
       <div class="col-span-1">
-         <x-cards.basic-card class="h-full">
+         <x-cards.liquid-glass-card class="space-y-2">
             <flux:heading size="xl" class="mb-2">Hasil Tes</flux:heading>
 
             <div class="flex-grow">
@@ -182,11 +182,11 @@
             </div>
 
             <div class="grid grid-cols-1 w-full">
-               <flux:button variant="primary" icon="user-check">
+               <flux:button variant="primary" icon="user-check" href="{{ route('student.placement_test.test_result.final_registration') }}" wire:navigate>
                   Daftar Ulang
                </flux:button>
             </div>
-         </x-cards.basic-card>
+         </x-cards.liquid-glass-card>
       </div>
       <!--#QR Code for Test Presence-->
    </div>

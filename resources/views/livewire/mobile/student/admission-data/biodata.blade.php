@@ -1,4 +1,4 @@
-<div class="mb-12">
+<div class="mb-17">
    <div class="flex justify-start mt-3" wire:ignore>
       <x-navigations.pill-tab hrefOne="{{ route('student.admission_data.biodata') }}"
          hrefTwo="{{ route('student.admission_data.admission_attachment') }}">
@@ -58,7 +58,7 @@
    <div class="grid lg:grid-cols-6 mt-4 gap-4">
       <!--Overview Data-->
       <div class="lg:col-span-2">
-         <x-cards.basic-card>
+         <x-cards.soft-glass-card>
             @if ($detailStudent->biodata == \App\Enums\VerificationStatusEnum::VALID)
             <div class="flex flex-col justify-center items-center">
                <flux:badge color="green" icon="circle-check-big">Biodata Valid</flux:badge>
@@ -89,13 +89,13 @@
                   <flux:text variant="ghost">{{ $detailStudent->academic_year }}</flux:text>
                </div>
             </div>
-         </x-cards.basic-card>
+         </x-cards.soft-glass-card>
       </div>
       <!--#Overview Data-->
 
       <!--Persontal Data-->
       <div class="lg:col-span-4">
-         <x-cards.basic-card>
+         <x-cards.soft-glass-card>
             <flux:heading size="xl" class="mb-4">Data Pribadi</flux:heading>
 
             <form wire:submit='saveBiodata' x-data="
@@ -172,7 +172,9 @@
                      <div class="col-span-1">
                         <flux:input label="Tanggal Lahir" type="date" wire:model='form.inputs.birthDate'
                            fieldName="birthDate" isValidate="true" isFormObject="true"
-                           :disabled="!$isCanEdit ? true : false" />
+                           :disabled="!$isCanEdit ? true : false" 
+                           badge="{{ \App\Helpers\DateFormatHelper::shortIndoDate($form->inputs['birthDate']) }}"
+                           />
                      </div>
                      <!--#Birth Date-->
                   </div>
@@ -389,7 +391,9 @@
                         <div class="col-span-1">
                            <flux:input label="Tanggal Lahir Ayah" type="date" wire:model='form.inputs.fatherBirthDate'
                               :disabled="!$isCanEdit ? true : false" required
-                              oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" />
+                              oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" 
+                              badge="{{ \App\Helpers\DateFormatHelper::shortIndoDate($form->inputs['fatherBirthDate']) }}"
+                              />
                         </div>
                         <!--#Father Birth Date-->
                      </div>
@@ -524,7 +528,9 @@
                         <div class="col-span-1">
                            <flux:input label="Tanggal Lahir Ibu" type="date" wire:model='form.inputs.motherBirthDate'
                               :disabled="!$isCanEdit ? true : false" required
-                              oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" />
+                              oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" 
+                              badge="{{ \App\Helpers\DateFormatHelper::shortIndoDate($form->inputs['motherBirthDate']) }}"
+                              />
                         </div>
                         <!--#Mother Birth Date-->
                      </div>
@@ -652,7 +658,9 @@
                         <div class="col-span-1">
                            <flux:input label="Tanggal Lahir Wali" type="date" wire:model='form.inputs.guardianBirthDate'
                               :disabled="!$isCanEdit ? true : false" required
-                              oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" />
+                              oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" 
+                              badge="{{ \App\Helpers\DateFormatHelper::shortIndoDate($form->inputs['guardianBirthDate']) }}"
+                              />
                         </div>
                         <!--#Guardian Birth Date-->
                      </div>
@@ -768,7 +776,7 @@
                   <!--#Action Button-->
                </div>
             </form>
-         </x-cards.basic-card>
+         </x-cards.soft-glass-card>
       </div>
       <!--#Persontal Data-->
    </div>

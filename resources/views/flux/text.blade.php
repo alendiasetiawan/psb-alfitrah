@@ -33,9 +33,12 @@ $classes = Flux::classes()
         'fuchsia' => 'text-fuchsia-600 dark:text-fuchsia-400',
         'pink' => 'text-pink-600 dark:text-pink-400',
         'rose' => 'text-rose-600 dark:text-rose-400',
+        'white' => 'text-white dark:text-white',
     } : match ($variant) {
         'strong' => '[:where(&)]:text-zinc-800 [:where(&)]:dark:text-white',
         'subtle' => '[:where(&)]:text-zinc-400 [:where(&)]:dark:text-white/50',
+        'soft' => '[:where(&)]:text-white/70 [:where(&)]:white:text-white/50',
+        'bold' => '[:where(&)]:text-white/90 [:where(&)]:white:text-white/75',
         default => '[:where(&)]:text-zinc-500 [:where(&)]:dark:text-white/70',
     })
     ;

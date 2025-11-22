@@ -9,28 +9,34 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function AlpineSwiper(options = {}) {
-  return {
-    swiper: null,
+   return {
+      swiper: null,
 
-    init() {
-      // default config (bisa di-override dari HTML)
-      const defaultOptions = {
-        modules: [FreeMode, Mousewheel, Navigation, Pagination, EffectCoverflow],
-        slidesPerView: "auto",
-        spaceBetween: 16,
-        navigation: {
-          nextEl: this.$refs.next,
-          prevEl: this.$refs.prev,
-        },
-        pagination: {
-          el: this.$refs.pagination,
-          clickable: true,
-        },
-      };
+      init() {
+         // default config (bisa di-override dari HTML)
+         const defaultOptions = {
+            modules: [FreeMode, Mousewheel, Navigation, Pagination, EffectCoverflow],
+            slidesPerView: "auto",
+            spaceBetween: 16,
+            // ➜ FIX CLICK
+            preventClicks: false,
+            preventClicksPropagation: false,
+            touchStartPreventDefault: false,
+            simulateTouch: true,
+            noSwipingSelector: 'a, button, .no-swipe',
+            navigation: {
+               nextEl: this.$refs.next,
+               prevEl: this.$refs.prev,
+            },
+            pagination: {
+               el: this.$refs.pagination,
+               clickable: true,
+            },
+         };
 
-      const finalOptions = { ...defaultOptions, ...options };
+         const finalOptions = { ...defaultOptions, ...options };
 
-      this.swiper = new Swiper(this.$refs.container, finalOptions);
-    },
-  };
+         this.swiper = new Swiper(this.$refs.container, finalOptions);
+      },
+   };
 }

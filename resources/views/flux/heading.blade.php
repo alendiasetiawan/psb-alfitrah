@@ -4,6 +4,7 @@
     'size' => 'base',
     'accent' => false,
     'level' => null,
+    'variant' => 'bold'
 ])
 
 @php
@@ -12,6 +13,11 @@ $classes = Flux::classes()
     ->add(match ($accent) {
         true => 'text-[var(--color-accent-content)]',
         default => '[:where(&)]:text-zinc-800 [:where(&)]:dark:text-white',
+    })
+    ->add(match ($variant) {
+        'soft' => 'text-white/70',
+        'bold' => 'text-white/90',
+        default => 'text-white',
     })
     ->add(match ($size) {
         'xxl' => 'text-2xl [&:has(+[data-flux-subheading])]:mb-2 [[data-flux-subheading]+&]:mt-2',

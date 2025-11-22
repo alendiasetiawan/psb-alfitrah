@@ -1,0 +1,17 @@
+@layer utilities {
+
+   /* MASK BORDER (cut content area) */
+   .mask-border {
+     mask:
+       linear-gradient(#000 0 0) content-box,
+       linear-gradient(#000 0 0);
+   }
+ 
+   /* SAFARI / CHROME masking exclusion */
+   .mask-border-exclude {
+     mask-composite: exclude;
+     -webkit-mask-composite: xor;
+   }
+ 
+ }
+ 

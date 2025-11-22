@@ -12,7 +12,7 @@
    @include('partials.head')
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-white via-primary-100 to-primary-300 dark:bg-zinc-800 mb-6">
+<body class="min-h-screen bg-gradient-to-br from-[#0070af] via-[#004996] to-[#241f6e] dark:bg-zinc-800">
 
    <!--Header-->
    @if ($isShowBackButton)
@@ -33,45 +33,17 @@
 
    <!--Bottom Navbar-->
    @if ($isShowBottomNavbar)
-   @if (session('userData')->role_id == \App\Enums\RoleEnum::ADMIN)
-   <x-layouts.mobile.partials.bottom-navbars.admin-bottom-navbar />
-   @else
-   <x-layouts.mobile.partials.bottom-navbars.student-bottom-navbar />
-   @endif
+      @if (session('userData')->role_id == \App\Enums\RoleEnum::ADMIN)
+         <x-layouts.mobile.partials.bottom-navbars.admin-bottom-navbar />
+      @else
+         <x-layouts.mobile.partials.bottom-navbars.student-bottom-navbar />
+      @endif
    @endif
    <!--#Bottom Navbar-->
 
    <x-notifications.toast />
 
    @fluxScripts
-
-   <!--Animate Element When Insert Into Viewport-->
-   <script>
-      document.addEventListener('alpine:init', () => {
-      
-          Alpine.directive('intersect', (el, { modifiers, expression }, { evaluateLater, cleanup }) => {
-              let evaluate = evaluateLater(expression)
-      
-              let observer = new IntersectionObserver(entries => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                          evaluate()
-                          if (!modifiers.includes('multiple')) {
-                              observer.unobserve(el)
-                          }
-                      }
-                  })
-              })
-      
-              observer.observe(el)
-      
-              cleanup(() => observer.disconnect())
-          })
-      
-      })
-   </script>
-   <!--#Animate Element When Insert Into Viewport-->
-
 </body>
 
 </html>

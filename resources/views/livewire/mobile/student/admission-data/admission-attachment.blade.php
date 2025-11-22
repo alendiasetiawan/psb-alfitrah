@@ -66,7 +66,7 @@
    <div class="grid grid-cols-1 mt-4">
       <div class="col-span-1">
          <!--Upload Instruction-->
-         <x-cards.basic-card>
+         <x-cards.liquid-glass-card>
             <flux:heading size="xl" class="mb-3">Instruksi Upload Berkas</flux:heading>
             <flux:text variant="ghost">
                Kepada ananda <strong>{{ $detailAttachment->student_name }}</strong>, untuk melanjutkan tahapan
@@ -88,7 +88,7 @@
                2. File dalam format image <strong>(.jpg, .jpeg, .png)</strong> <br />
                3. Ukuran maksimal masing-masing file adalah <strong>3 MB</strong>
             </flux:text>
-         </x-cards.basic-card>
+         </x-cards.liquid-g>
          <!--#Upload Instruction-->
       </div>
    </div>
@@ -111,7 +111,7 @@
          });
    });">
       <div class="col-span-1">
-         <x-cards.basic-card>
+         <x-cards.liquid-glass-card>
             <flux:heading size="xl" class="mb-3">Lampiran Berkas</flux:heading>
 
             <form wire:submit='saveAttachment'>
@@ -515,7 +515,7 @@
                   <!--#Action Button-->
                @endif
             </form>
-         </x-cards.basic-card>
+         </x-cards.liquid-glass-card>
       </div>
    </div>
 </div>

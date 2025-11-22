@@ -15,7 +15,7 @@
       isShowQrCode = false,
       " 
       >
-         <x-cards.basic-card class="md:w-4/6 lg:w-3/6">
+         <x-cards.basic-card class="md:w-4/6 lg:w-3/6 border-2 shadow-lg">
             @if ($isAttended)
                <!--Attandance alert-->
                <div class="flex flex-col items-center">

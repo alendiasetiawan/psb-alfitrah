@@ -3,8 +3,8 @@
     'class' => 'flex justify-between items-center py-1'
 ]) }}>
     <div>
-        <flux:heading size="lg">{{ $title }}</flux:heading>
-        <flux:text variant="subtle">{{ $subTitle }}</flux:text>
+        <flux:heading size="lg" variant="bold">{{ $title }}</flux:heading>
+        <flux:text variant="soft">{{ $subTitle }}</flux:text>
         {{ $slot }}
     </div>
 
