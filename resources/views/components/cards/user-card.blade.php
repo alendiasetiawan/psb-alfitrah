@@ -1,18 +1,47 @@
 @props([
 'isLink' => false,
 'src' => null,
+'rounded' => 'rounded-xl'
 ])
 
 <div {{ $attributes->merge([
-   'class' => 'overflow-hidden relative p-[2px] rounded-xl 
-   bg-gradient-to-br from-white/20 via-white/10 to-white/5
-   backdrop-blur-xl ' . ($isLink ? 'hover:shadow-xl cursor-pointer' : ''),
-   ])}}>
-   <div
-      class="rounded-xl bg-white/10 
-      backdrop-blur-2xl backdrop-saturate-200
-      shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]"
-   >
+   'class' => "relative overflow-hidden $rounded",
+]) }}>
+
+   {{-- MASKED GRADIENT BORDER (Tailwind v4) --}}
+  <div class="
+  pointer-events-none absolute inset-0
+  p-[2px] {{ $rounded }}
+  bg-gradient-to-br from-white/20 via-white/10 to-white/5
+  backdrop-saturate-100
+  shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)]
+  z-[1]
+  "></div>
+
+   {{-- LIQUID GEL BORDER (soft jelly shine) --}}
+   <div class="
+       pointer-events-none absolute inset-0 z-[4]
+       p-[3px] {{ $rounded }}
+       [@background:linear-gradient(
+           135deg,
+           rgba(255,255,255,0.55),
+           rgba(255,255,255,0.25),
+           rgba(255,255,255,0.15),
+           rgba(255,255,255,0.45)
+       )]
+       [mask:linear-gradient(#fff_0_0)]
+       blur-[2px] opacity-95
+   "></div>
+
+   {{-- GEL CORE BLUR (soft & thick) --}}
+   <div class="
+       absolute inset-0 {{ $rounded }}
+       backdrop-blur-[30px]
+       bg-white/12 dark:bg-white/6
+       backdrop-saturate-100
+       shadow-[inset_0_0_25px_rgba(255,255,255,0.25)]
+       z-[0]
+   "></div>
       <!-- Header background -->
       <div class="relative flex flex-col justify-between">
          <img src="{{ asset('images/background/background-user.jpg') }}" alt="background" class="w-full h-16 object-cover">
@@ -46,7 +75,7 @@
             <!-- Avatar + Nama -->
             <div class="flex items-center space-x-4">
                <div>
-                  <flux:heading size="lg">{{ $fullName }}</flux:heading>
+                  <flux:heading size="lg" variant="bold">{{ $fullName }}</flux:heading>
                   <flux:text variant="soft">{{ $position }}</flux:text>
                </div>
             </div>
@@ -79,6 +108,5 @@
          </div>
          @endisset
       </div>
-   </div>
 </div>
 

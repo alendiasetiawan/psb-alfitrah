@@ -17,10 +17,15 @@
       </div>
 
       <!--Quick Action-->
-      <div class="flex gap-2">
-         <flux:icon.circle-user-round class="size-6 text-primary-500" />
-         <flux:icon.log-out class="size-6 text-primary-500" />
-      </div>
+      <form method="POST" action="{{ route('logout') }}">
+         <div class="flex gap-2">
+            <flux:icon.circle-user-round class="size-6 text-primary-400" />
+               @csrf
+               <button type="submit">
+                  <flux:icon.log-out class="size-6 text-primary-400"/>
+               </button>
+         </div>
+      </form>
       <!--#Quick Action-->
    </div>
    <!--#Welcome Header-->
@@ -154,11 +159,11 @@
       <!-- Biodata -->
       <button class="flex flex-col items-center">
          <a href="{{ route('student.admission_data.biodata') }}" wire:navigate >
-               <div class="w-13 h-13 rounded-full bg-primary-100 flex items-center justify-center shadow-xl">
-                  <!-- Icon di sini -->
-                  <flux:icon.contact-round class="text-primary-500 size-7" />
-               </div>
-               <flux:heading class="mt-2 text-dark/70">Biodata</flux:heading>
+            <div class="w-13 h-13 rounded-full bg-primary-100 flex items-center justify-center shadow-xl">
+               <!-- Icon di sini -->
+               <flux:icon.contact-round class="text-primary-500 size-7" />
+            </div>
+            <flux:heading class="mt-2 text-dark/70">Biodata</flux:heading>
          </a>
       </button>
 
@@ -195,7 +200,7 @@
    <div class="grid grid-cols-1 mt-3 mb-5 gap-3 mb-6">
       <x-animations.fade-down showTiming="250">
          <x-cards.soft-glass-card >
-            <flux:heading size="xl" class="mb-3 text-dark/75">Alur Penerimaan Siswa Baru</flux:heading>
+            <flux:heading size="xl" class="mb-3" variant="bold">Alur Penerimaan Siswa Baru</flux:heading>
             <div class="relative">
                <!-- Vertical Line -->
                <div class="absolute top-0 bottom-0 left-5 w-px bg-gray-200"></div>
@@ -215,14 +220,12 @@
                            <flux:heading size="lg" class="text-dark/75">Registrasi Akun</flux:heading>
                            <div class="flex gap-1 items-center">
                               <!--Valid Status-->
-                              <flux:icon.check-circle variant="micro" class="text-green-600" />
-                              <flux:text variant="strong" class="text-green-600">Selesai</flux:text>
+                              <flux:badge variant="solid" size="sm" color="green" icon="check-circle">Selesai</flux:badge>
                               <!--#Valid Status-->
 
                               {{--
                               <!--Process Status-->
-                              <flux:icon.refresh-cw variant="micro" class="text-amber-600" />
-                              <flux:text variant="strong" class="text-amber-600">Proses</flux:text>
+                              <flux:badge variant="solid" size="sm" color="orange" icon="check-circle">Selesai</flux:badge>
                               <!--#Process Status--> --}}
 
                               {{--
@@ -233,7 +236,7 @@
                            </div>
                         </div>
 
-                        <flux:text class="mt-1 text-dark/50">
+                        <flux:text class="mt-1" variant="soft">
                            Alhamdulillah, pendaftaran akun berhasil dan anda resmi menjadi calon siswa
                         </flux:text>
                      </div>
@@ -260,8 +263,7 @@
                               <!--#Valid Status--> --}}
 
                               <!--Process Status-->
-                              <flux:icon.refresh-cw variant="micro" class="text-amber-600" />
-                              <flux:text variant="strong" class="text-amber-600">Proses</flux:text>
+                              <flux:badge variant="solid" size="sm" color="orange" icon="refresh-cw">Proses</flux:badge>
                               <!--#Process Status-->
 
                               {{--

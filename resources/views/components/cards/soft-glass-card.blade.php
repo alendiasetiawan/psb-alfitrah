@@ -1,6 +1,6 @@
 @props([
-    'rounded' => 'rounded-3xl',
-    'padding' => 'p-6',
+    'rounded' => 'rounded-xl',
+    'padding' => 'px-5 py-4',
 ])
 
 <div {{ $attributes->merge([

@@ -1,4 +1,4 @@
-<div class="mb-12">
+<div class="mb-17">
    <div class="flex justify-start mt-3" wire:ignore>
       <x-navigations.pill-tab hrefOne="{{ route('student.admission_data.biodata') }}"
          hrefTwo="{{ route('student.admission_data.admission_attachment') }}">

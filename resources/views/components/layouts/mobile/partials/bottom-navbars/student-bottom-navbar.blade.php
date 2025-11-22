@@ -28,7 +28,7 @@ default => null
                   L375 48
                   V144
                   H0
-                  Z" class="fill-white/60 dark:fill-zinc-800" />
+                  Z" class="fill-white dark:fill-zinc-800" />
          </svg>
       </div>
 
@@ -36,7 +36,7 @@ default => null
       <div class="absolute left-1/2 transform -translate-x-1/2 top-4 z-30">
          <a href="{{ route('student.placement_test.qr_presence_test') }}" wire:navigate>
             <button
-               class="w-15 h-15 rounded-full bg-primary-500 flex flex-col items-center justify-center text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-primary-300 transition-transform duration-200 hover:scale-105"
+               class="w-15 h-15 rounded-full bg-primary-400 flex flex-col items-center justify-center text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-primary-300 transition-transform duration-200 hover:scale-105"
                type="button">
                <flux:icon icon="qr-code" class="size-8" />
             </button>
@@ -46,7 +46,7 @@ default => null
       <!-- Item Menu -->
       <div class="absolute bottom-0 w-full h-16 flex items-center justify-between z-20">
          <!--First Menu-->
-         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeOne ? 'text-primary-500 dark:text-primary-500' : 'text-zinc-500 dark:text-zinc-400' }}"
+         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeOne ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
             href="{{ route('student.student_dashboard') }}" wire:navigate>
             <flux:icon icon="home" variant="solid" />
             @if ($activeOne)
@@ -55,7 +55,7 @@ default => null
          </a>
 
          <!--Second Menu-->
-         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeTwo ? 'text-primary-500 dark:text-primary-500' : 'text-zinc-500 dark:text-zinc-400' }}"
+         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeTwo ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
             href="{{ route('student.payment.registration_payment') }}" wire:navigate>
             <flux:icon icon="banknotes" />
             @if ($activeTwo)
@@ -66,7 +66,7 @@ default => null
          <div class="w-1/4"></div>
 
          <!--Third Menu-->
-         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeThree ? 'text-primary-500 dark:text-primary-500' : 'text-zinc-500 dark:text-zinc-400' }}"
+         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeThree ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
             href="{{ route('student.admission_data.biodata') }}" wire:navigate>
             <flux:icon icon="contact-round" />
             @if ($activeThree)
@@ -75,7 +75,7 @@ default => null
          </a>
 
          <!--Fourth Menu-->
-         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeFour ? 'text-primary-500 dark:text-primary-500' : 'text-zinc-500 dark:text-zinc-400' }}"
+         <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeFour ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
             href="{{ route('student.placement_test.test_result.private_announcement') }}" wire:navigate>
             <flux:icon icon="book-open-check" />
             @if ($activeFour)

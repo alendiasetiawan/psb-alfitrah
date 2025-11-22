@@ -1,4 +1,4 @@
-<div>
+<div class="mb-17">
    @if ($isCanCreateQr)       
       <div class="flex justify-center mt-4"
       x-data="{
@@ -15,7 +15,7 @@
       isShowQrCode = false,
       " 
       >
-         <x-cards.basic-card class="md:w-4/6 lg:w-3/6 border-2 shadow-lg">
+         <x-cards.soft-glass-card class="md:w-4/6 lg:w-3/6">
             @if ($isAttended)
                <!--Attandance alert-->
                <div class="flex flex-col items-center">
@@ -84,7 +84,7 @@
                </div>
             <!--#Generate and Show QR Code-->
             @endif
-         </x-cards.basic-card>
+         </x-cards.soft-glass-card>
       </div>
    @else
    <!--Alert When Student Can't Create QR Code-->
