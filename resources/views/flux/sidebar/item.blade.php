@@ -27,23 +27,23 @@ $classes = Flux::classes()
     ->add('h-8 in-data-flux-sidebar-on-mobile:h-10 relative flex items-center gap-3 rounded-lg')
     ->add('in-data-flux-sidebar-collapsed-desktop:w-10 in-data-flux-sidebar-collapsed-desktop:justify-center')
     ->add('py-0 text-start w-full px-3 has-data-flux-navlist-badge:not-in-data-flux-sidebar-collapsed-desktop:pe-1.5 my-px')
-    ->add('text-zinc-500 dark:text-white/80')
+    ->add('text-white dark:text-white/80')
     ->add(match ($accent) {
         true => [
             'data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content)',
             'data-current:bg-white dark:data-current:bg-white/[7%] data-current:border data-current:border-zinc-200 dark:data-current:border-transparent',
-            'hover:text-zinc-800 dark:hover:text-white dark:hover:bg-white/[7%] hover:bg-zinc-800/5 ',
+            'hover:text-white/80 dark:hover:text-white dark:hover:bg-white/[7%] hover:bg-zinc-800/5 ',
             'border border-transparent',
         ],
         false => [
-            'data-current:text-zinc-800 dark:data-current:text-zinc-100 data-current:border-zinc-200',
+            'data-current:text-white/80 dark:data-current:text-white/10 data-current:border-zinc-200',
             'data-current:bg-white dark:data-current:bg-white/10 data-current:border data-current:border-zinc-200 dark:data-current:border-white/10 data-current:shadow-xs',
-            'hover:text-zinc-800 dark:hover:text-white',
+            'hover:text-white/80 dark:hover:text-white',
         ],
     })
     // Override the default styles to match dropdowns for when the item is inside a collapsed group dropdown...
     ->add('in-data-flux-sidebar-group-dropdown:w-auto! in-data-flux-sidebar-group-dropdown:px-2!')
-    ->add('in-data-flux-sidebar-group-dropdown:text-zinc-800! in-data-flux-sidebar-group-dropdown:bg-white! in-data-flux-sidebar-group-dropdown:hover:bg-zinc-50!')
+    ->add('in-data-flux-sidebar-group-dropdown:text-white/80! in-data-flux-sidebar-group-dropdown:bg-white! in-data-flux-sidebar-group-dropdown:hover:bg-zinc-50!')
     ->add('dark:in-data-flux-sidebar-group-dropdown:text-white! dark:in-data-flux-sidebar-group-dropdown:bg-transparent! dark:in-data-flux-sidebar-group-dropdown:hover:bg-zinc-600!')
     ;
 @endphp

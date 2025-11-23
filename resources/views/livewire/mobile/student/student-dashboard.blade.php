@@ -71,7 +71,9 @@
                             <x-slot:title>
                                 <div class="flex items-center gap-1">
                                     Biaya Pendaftaran
-                                    <flux:icon.external-link variant="micro" class="text-primary" />
+                                    <a href="{{ route('student.payment.registration_payment') }}" wire:navigate>
+                                        <flux:icon.external-link variant="micro" class="text-primary" />
+                                    </a>
                                 </div>
                             </x-slot:title>
                             <x-slot:subTitle>{{ \App\Helpers\FormatCurrencyHelper::convertToRupiah($studentQuery->registration_fee) }}</x-slot:subTitle>
@@ -125,7 +127,9 @@
                             <x-slot:title>
                                 <div class="flex items-center gap-1">
                                     Berkas
-                                    <flux:icon.external-link variant="micro" class="text-primary" />
+                                    <a href="{{ route('student.admission_data.admission_attachment') }}" wire:navigate>
+                                        <flux:icon.external-link variant="micro" class="text-primary" />
+                                    </a>
                                 </div>
                             </x-slot:title>
                             <x-slot:subTitle>

@@ -17,7 +17,7 @@
 $iconTrailing = $iconTrailing ?? ($chevron ? 'chevron-down' : null);
 
 // When using the outline icon variant, we need to size it down to match the default icon sizes...
-$iconClasses = Flux::classes('text-zinc-400 dark:text-white/80 group-hover:text-zinc-800 dark:group-hover:text-white')
+$iconClasses = Flux::classes('text-white/40 dark:text-white/80 group-hover:text-white/80 dark:group-hover:text-white')
     ->add($iconVariant === 'outline' ? 'size-4' : '');
 
 $classes = Flux::classes()
@@ -38,7 +38,7 @@ $classes = Flux::classes()
     </div>
 
     <?php if ($name): ?>
-        <span class="in-data-flux-sidebar-collapsed-desktop:hidden mx-2 text-sm text-zinc-500 dark:text-white/80 group-hover:text-zinc-800 dark:group-hover:text-white font-medium truncate">
+        <span class="in-data-flux-sidebar-collapsed-desktop:hidden mx-2 text-sm text-white dark:text-white/80 group-hover:text-white/80 dark:group-hover:text-white font-medium truncate">
             {{ $name }}
         </span>
     <?php endif; ?>

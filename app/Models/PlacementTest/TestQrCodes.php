@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TestQrCodes extends Model
 {
-   protected $fillable = [
-      'student_id',
-      'qr'
-   ];
+    protected $fillable = [
+        'student_id',
+        'qr',
+        'expired_at'
+    ];
 
-   public function student(): BelongsTo
-   {
-      return $this->belongsTo(Student::class);
-   }
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

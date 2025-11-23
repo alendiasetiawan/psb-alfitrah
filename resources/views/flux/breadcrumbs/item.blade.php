@@ -17,11 +17,11 @@ $classes = Flux::classes()
     ;
 
 $linkClasses = Flux::classes()
-    ->add('text-zinc-800 dark:text-white')
-    ->add('hover:underline decoration-zinc-800/20 underline-offset-4');
+    ->add('text-white dark:text-white')
+    ->add('hover:underline decoration-white/20 underline-offset-4');
 
 $staticTextClasses = Flux::classes()
-    ->add('text-gray-500 dark:text-white/80')
+    ->add('text-white dark:text-white/80')
     ;
 
 $separatorClasses = Flux::classes()
