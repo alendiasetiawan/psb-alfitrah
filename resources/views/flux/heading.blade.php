@@ -15,8 +15,10 @@ $classes = Flux::classes()
         default => '[:where(&)]:text-zinc-800 [:where(&)]:dark:text-white',
     })
     ->add(match ($variant) {
-        'soft' => 'text-white/75',
+        'soft' => 'text-white/65',
         'bold' => 'text-white',
+        'dark-bold' => 'text-dark',
+        'dark-soft' => 'text-dark/65',
         default => 'text-white',
     })
     ->add(match ($size) {

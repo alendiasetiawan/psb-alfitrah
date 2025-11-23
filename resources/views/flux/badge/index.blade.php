@@ -56,6 +56,7 @@ $classes = Flux::classes()
         'fuchsia' => 'text-white dark:text-white bg-fuchsia-500 dark:bg-fuchsia-600 [&:is(button)]:hover:bg-fuchsia-600 dark:[button]:hover:bg-fuchsia-500',
         'pink' => 'text-white dark:text-white bg-pink-500 dark:bg-pink-600 [&:is(button)]:hover:bg-pink-600 dark:[button]:hover:bg-pink-500',
         'rose' => 'text-white dark:text-white bg-rose-500 dark:bg-rose-600 [&:is(button)]:hover:bg-rose-600 dark:[button]:hover:bg-rose-500',
+        'gray' => 'text-white dark:text-white bg-gray-500 dark:bg-gray-600 [&:is(button)]:hover:bg-gray-600 dark:[button]:hover:bg-gray-500',
     } :  match ($color) {
         default => 'text-zinc-700 [&_button]:text-zinc-700! dark:text-zinc-200 dark:[&_button]:text-zinc-200! bg-zinc-400/15 dark:bg-zinc-400/40 [&:is(button)]:hover:bg-zinc-400/25 dark:[button]:hover:bg-zinc-400/50',
         'primary' => 'text-primary-700 [&_button]:text-primary-700! dark:text-primary-200 dark:[&_button]:text-primary-200! bg-primary-400/25 dark:bg-primary-400/40 [&:is(button)]:hover:bg-primary-400/40 dark:[button]:hover:bg-primary-400/50',
@@ -76,6 +77,7 @@ $classes = Flux::classes()
         'fuchsia' => 'text-fuchsia-700 [&_button]:text-fuchsia-700! dark:text-fuchsia-200 dark:[&_button]:text-fuchsia-200! bg-fuchsia-400/20 dark:bg-fuchsia-400/40 [&:is(button)]:hover:bg-fuchsia-400/30 dark:[button]:hover:bg-fuchsia-400/50',
         'pink' => 'text-pink-700 [&_button]:text-pink-700! dark:text-pink-200 dark:[&_button]:text-pink-200! bg-pink-400/20 dark:bg-pink-400/40 [&:is(button)]:hover:bg-pink-400/30 dark:[button]:hover:bg-pink-400/50',
         'rose' => 'text-rose-700 [&_button]:text-rose-700! dark:text-rose-200 dark:[&_button]:text-rose-200! bg-rose-400/20 dark:bg-rose-400/40 [&:is(button)]:hover:bg-rose-400/30 dark:[button]:hover:bg-rose-400/50',
+        'gray' => 'text-gray-700 [&_button]:text-gray-700! dark:text-gray-200 dark:[&_button]:text-gray-200! bg-gray-400/20 dark:bg-gray-400/40 [&:is(button)]:hover:bg-gray-400/30 dark:[button]:hover:bg-gray-400/50',
     });
 @endphp
 

@@ -11,8 +11,8 @@ class StudentMegaMenu extends Component
     public function render()
     {
         return view('livewire.mobile.student.student-mega-menu')->layout('components.layouts.mobile.mobile-app', [
-            'isShowBottomNavbar' => true,
-            'isShowTitle' => true,
+            'isShowBottomNavbar' => false,
+            'isShowBackButton' => true,
         ]);
     }
 }

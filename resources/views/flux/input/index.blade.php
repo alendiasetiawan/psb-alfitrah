@@ -107,7 +107,7 @@ $classes = Flux::classes()
     })
     ->add(match ($variant) { // Background...
         'outline' => 'bg-white dark:bg-white/10 dark:disabled:bg-white/[7%]',
-        'filled'  => 'bg-zinc-800/5 dark:bg-white/10 dark:disabled:bg-white/[7%]',
+        'filled'  => 'bg-zinc-500/30 dark:bg-white/10 dark:disabled:bg-white/[7%]',
     })
     ->add(match ($variant) { // Text color
         'outline' => 'text-zinc-700 disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-zinc-300 dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500',

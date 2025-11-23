@@ -12,7 +12,6 @@
    pointer-events-none absolute inset-0
    p-[2px] {{ $rounded }}
    bg-gradient-to-br from-white/20 via-white/10 to-white/5
-   backdrop-saturate-100
    shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)]
    z-[1]
    "></div>
@@ -37,7 +36,6 @@
         absolute inset-0 {{ $rounded }}
         backdrop-blur-[30px]
         bg-white/12 dark:bg-white/6
-        backdrop-saturate-100
         shadow-[inset_0_0_25px_rgba(255,255,255,0.25)]
         z-[0]
     "></div>
