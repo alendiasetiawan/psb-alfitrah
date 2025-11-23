@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\AdmissionData\MultiStudent;
 use App\Models\Core\Owner;
 use Illuminate\Support\Str;
 use App\Models\Core\Reseller;
@@ -76,5 +77,11 @@ class User extends Authenticatable
     public function parent(): HasOne
     {
         return $this->hasOne(ParentModel::class);
+    }
+
+
+    public function multiStudent(): HasOne
+    {
+        return $this->hasOne(MultiStudent::class);
     }
 }

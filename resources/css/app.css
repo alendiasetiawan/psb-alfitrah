@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "glass.css";
 @import "../../vendor/livewire/flux/dist/flux.css";
 
 @source '../views';

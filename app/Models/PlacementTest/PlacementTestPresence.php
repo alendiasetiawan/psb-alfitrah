@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PlacementTestPresence extends Model
 {
-   protected $fillable = [
-      'test_qr_code_id',
-      'check_in_time'
-   ];
+    protected $fillable = [
+        'student_id',
+        'check_in_time'
+    ];
 
-   public function student(): BelongsTo
-   {
-      return $this->belongsTo(Student::class);
-   }
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

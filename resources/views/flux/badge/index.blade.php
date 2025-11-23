@@ -38,7 +38,7 @@ $classes = Flux::classes()
      */
     ->add($variant === 'solid' ? match ($color) {
         default => 'text-white dark:text-white bg-zinc-600 dark:bg-zinc-600 [&:is(button)]:hover:bg-zinc-700 dark:[button]:hover:bg-zinc-500',
-        'red' => 'text-white dark:text-white bg-red dark:bg-red [&:is(button)]:hover:bg-red dark:[button]:hover:bg-red',
+        'red' => 'text-white dark:text-white bg-red-500 dark:bg-red-500 [&:is(button)]:hover:bg-red-600 dark:[button]:hover:bg-red-400',
         'orange' => 'text-white dark:text-white bg-orange-500 dark:bg-orange-600 [&:is(button)]:hover:bg-orange-600 dark:[button]:hover:bg-orange-500',
         'primary' => 'text-white dark:text-zinc-950 bg-primary-500 dark:bg-primary-500 [&:is(button)]:hover:bg-primary-600 dark:[button]:hover:bg-primary-400',
         'amber' => 'text-white dark:text-zinc-950 bg-amber-500 dark:bg-amber-500 [&:is(button)]:hover:bg-amber-600 dark:[button]:hover:bg-amber-400',
