@@ -66,14 +66,14 @@
                                         Terima kasih atas pembayaran anda, jazakumullahu khoiron
                                     @elseif ($studentQuery->registration_payment == \App\Enums\VerificationStatusEnum::INVALID)
                                         Upss.. Terjadi kesalahan dalam pembayaran, silahkan coba lagi
-                                        <flux:link href="{{ route('student.payment.registration_payment') }}" wire:navigate class="text-blue-400 font-semibold">
+                                        <flux:link href="{{ route('student.payment.registration_payment') }}" wire:navigate>
                                             disini
                                         </flux:link>
                                     @elseif ($studentQuery->registration_payment == \App\Enums\VerificationStatusEnum::PROCESS)
                                         Segera selesaikan pembayaran anda agar bisa melanjutkan pendaftaran
                                     @else
                                         Anda belum melunasi biaya pendaftaran, segera lakukan pembayaran
-                                        <flux:link href="{{ route('student.payment.registration_payment') }}" wire:navigate class="text-blue-400 font-semibold">
+                                        <flux:link href="{{ route('student.payment.registration_payment') }}" wire:navigate>
                                             disini
                                         </flux:link>
                                     @endif
@@ -112,14 +112,14 @@
                                         Selamat, biodata anda sudah valid
                                     @elseif ($studentQuery->biodata == \App\Enums\VerificationStatusEnum::INVALID)
                                         Terdapat kesalahan dalam pengisian biodata, mohon untuk melakukan perbaikan 
-                                        <flux:link wire:navigate href="{{ route('student.admission_data.biodata') }}" class="text-blue-400 font-semibold">
+                                        <flux:link wire:navigate href="{{ route('student.admission_data.biodata') }}">
                                             disini
                                         </flux:link>
                                     @elseif ($studentQuery->biodata == \App\Enums\VerificationStatusEnum::PROCESS)
                                         Kami sedang melakukan pengecekan biodata anda, mohon kesediaannya untuk menunggu.
                                     @else
                                         Anda belum melengkapi biodata, silahkan mengisi 
-                                        <flux:link href="" class="text-blue-400 font-semibold">
+                                        <flux:link href="">
                                             <span>disini</span>
                                         </flux:link>
                                     @endif
@@ -158,14 +158,14 @@
                                         Selamat, berkas anda sudah valid
                                     @elseif ($studentQuery->attachment == \App\Enums\VerificationStatusEnum::INVALID)
                                         Terdapat kesalahan pada berkas yang anda lampirkan, mohon untuk melakukan perbaikan 
-                                        <flux:link wire:navigate href="{{ route('student.admission_data.admission_attachment') }}" class="text-blue-400 font-semibold">
+                                        <flux:link wire:navigate href="{{ route('student.admission_data.admission_attachment') }}">
                                             disini
                                         </flux:link>
                                     @elseif ($studentQuery->attachment == \App\Enums\VerificationStatusEnum::PROCESS)
                                         Kami sedang melakukan pengecekan berkas anda, mohon kesediaannya untuk menunggu.
                                     @else
                                         Anda belum melampirkan berkas, silahkan mengisi 
-                                        <flux:link href="" class="text-blue-400 font-semibold">
+                                        <flux:link href="">
                                             <span>disini</span>
                                         </flux:link>
                                     @endif
@@ -198,7 +198,7 @@
                                 <flux:text variant="soft" class="mt-1">
                                     @if (is_null($studentQuery->placementTestPresence))
                                         Untuk mengikuti tes, anda harus menunjukan QR Code ke panitia. Cek 
-                                        <flux:link wire:navigate href="{{ route('student.placement_test.qr_presence_test') }}" class="text-blue-400 font-semibold">
+                                        <flux:link wire:navigate href="{{ route('student.placement_test.qr_presence_test') }}">
                                             disini
                                         </flux:link>
                                     @else
@@ -238,7 +238,7 @@
                                             Kami sedang melakukan perhitungan hasil tes, mohon kesediaannya untuk menunggu
                                         @else
                                             Anda bisa melihat hasil tes 
-                                            <flux:link wire:navigate href="{{ route('student.placement_test.test_result.private_announcement') }}" class="text-blue-400 font-semibold">
+                                            <flux:link wire:navigate href="{{ route('student.placement_test.test_result.private_announcement') }}">
                                                 disini
                                             </flux:link>
                                         @endif
@@ -279,7 +279,7 @@
                                     @else
                                         @if ($studentQuery->placementTestResult->final_result == \App\Enums\PlacementTestEnum::RESULT_PASS)
                                             Anda bisa melakukan daftar ulang
-                                            <flux:link wire:navigate href="{{ route('student.placement_test.test_result.final_registration') }}" class="text-blue-400 font-semibold">
+                                            <flux:link wire:navigate href="{{ route('student.placement_test.test_result.final_registration') }}">
                                                 disini
                                             </flux:link>
                                         @else
@@ -298,7 +298,7 @@
     <!--#Timeline Student Admission-->
 
     <x-animations.fade-down showTiming="150">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 mt-4 gap-3 items-stretch">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 mt-4 gap-4 items-stretch">
             <!--Student Account-->
             <div class="col-span-1">
                 <x-cards.user-card class="h-full">

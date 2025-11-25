@@ -1,7 +1,7 @@
 <div>
     <!--Admission Data-->
     <x-animations.fade-down showTiming="50">
-        <div class="grid grid-cols-1 mt-4">
+        <div class="grid grid-cols-1">
             <flux:heading size="lg">Data Siswa</flux:heading>
         </div>
     </x-animations.fade-down>

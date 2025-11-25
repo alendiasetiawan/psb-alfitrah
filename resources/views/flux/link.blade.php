@@ -10,7 +10,7 @@
 @php
 $classes = Flux::classes()
     ->add('inline font-medium')
-    ->add('underline-offset-[6px] hover:decoration-current')
+    ->add('underline-offset-[5px] hover:decoration-current')
     ->add(match ($variant) {
         'ghost' => 'no-underline hover:underline',
         'subtle' => 'no-underline',
@@ -20,7 +20,7 @@ $classes = Flux::classes()
     ->add(match ($variant) {
         'subtle' => 'text-zinc-500 dark:text-white/70 hover:text-zinc-800 dark:hover:text-white',
         default => match ($accent) {
-            true => 'text-[var(--color-accent-content)] decoration-[color-mix(in_oklab,var(--color-accent-content),transparent_80%)]',
+            true => 'text-[var(--color-accent-content)] decoration-[color-mix(in_oklab,var(--color-accent-content),transparent_70%)]',
             false => 'text-zinc-800 dark:text-white decoration-zinc-800/20 dark:decoration-white/20',
         },
     })

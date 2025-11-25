@@ -1,8 +1,7 @@
-<flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+<flux:header container class="bg-white/10 shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)] backdrop-blur-sm dark:bg-zinc-900 border-b border-white/30 dark:border-zinc-700">
     <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-    <flux:brand href="#" logo="{{ asset('images/logo/alfitrah-logo.png') }}" name="{{ config('app.name') }}" class="max-lg:hidden dark:hidden" />
-    <flux:brand href="#" logo="{{ asset('images/logo/alfitrah-logo.png') }}" name="{{ config('app.name') }}" class="max-lg:hidden! hidden dark:flex" />
+    <flux:brand href="https://alfitrah.id" logo="{{ asset('images/logo/alfitrah-logo.png') }}" name="{{ config('app.name') }}" class="max-lg:hidden dark:hidden" />
 
     <flux:navbar class="-mb-px max-lg:hidden">
         <flux:navbar.item

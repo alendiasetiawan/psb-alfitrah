@@ -7,7 +7,7 @@
 <div wire:click="{{ $clickFunction }}">
     <div 
     {{ $attributes->merge([
-        'class'  => "w-full max-w-md bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 transform " . ($clickable ? "hover:shadow-xl hover:-translate-y-1 cursor-pointer" : '')
+        'class'  => "w-full max-w-md bg-white/10 shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)] backdrop-blur-lg rounded-lg overflow-hidden " . ($clickable ? "hover:shadow-xl hover:-translate-y-1 cursor-pointer" : '')
     ]) }}>
         <!-- Product Image Section -->
         <div class="relative h-35 overflow-hidden bg-gray-100">
@@ -31,13 +31,13 @@
 
 
             <!-- Title -->
-            <flux:heading size="xl">
+            <flux:heading size="xl" variant="bold">
                 {{ $productTitle }}
             </flux:heading>
 
             <!-- Description with truncation -->
             <div class="mb-2">
-                <flux:text variant="subtle" size="sm">
+                <flux:text variant="soft" size="sm">
                     {{ $productDescription }}
                 </flux:text>
             </div>

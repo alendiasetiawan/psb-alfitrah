@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-zinc-100 dark:bg-zinc-800">
+    <body class="min-h-screen bg-gradient-to-br from-[#0070af] via-[#004996] to-[#241f6e] dark:bg-zinc-800">
         <!--Header-->
         <x-layouts.web.partials.headers.visitor-blank-header />
         <!--#Header-->

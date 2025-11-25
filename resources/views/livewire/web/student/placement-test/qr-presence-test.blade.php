@@ -23,7 +23,7 @@
                     @if ($isAttended)
                     <!--Attandance alert-->
                     <div class="flex flex-col items-center">
-                        <flux:icon.check-check class="size-25" color="green" />
+                        <flux:icon.check-check class="size-25 text-green-500" />
                     </div>
                     <flux:text variant="bold">
                         Terima kasih atas kehadiran ananda <strong>{{ $presenceTestQuery->student_name }}</strong>

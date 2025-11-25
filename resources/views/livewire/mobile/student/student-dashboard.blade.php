@@ -38,33 +38,21 @@
             effect: 'coverflow',
             loop: true,
             grabCursor: false,
-            centeredSlides: false,
             slidesPerView: 'auto',
+            centeredSlides: true,
             spaceBetween: 5,
             coverflowEffect: {
                 rotate: 50,
                 stretch: 20,
-                depth: 50,
-                modifier: 1,
+                depth: 300,
+                modifier: 1.5,
                 slideShadows: false,
             },
-        })" x-init="init()" class="mt-4">
-            <div class="swiper w-screen" x-ref="container">
-                <div class="swiper-wrapper">
+        })" x-init="init()" class="mt-4 relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <div class="swiper" x-ref="container">
+                <div class="swiper-wrapper items-stretch">
                     <!--CARD 1-->
-                    <x-cards.user-card class="swiper-slide shadow-md" style="width: 85vw">
-                        <x-slot:fullName>{{ $studentQuery->branch_name }}</x-slot:fullName>
-                        <x-slot:position>
-                            {{ $studentQuery->program_name }}
-                        </x-slot:position>
-                        <div class="flex justify-between mt-2 gap-2">
-                            <flux:badge color="primary" variant="solid">{{ $studentQuery->reg_number }}</flux:badge>
-                            <flux:badge color="primary" variant="solid">{{ $studentQuery->academic_year }}</flux:badge>
-                        </div>
-                    </x-cards.user-card>
-
-                    <!--CARD 2-->
-                    <x-cards.soft-glass-card class="swiper-slide" style="width: 85vw">
+                    <x-cards.soft-glass-card class="swiper-slide h-full" style="width: 85vw">
                         <flux:heading size="xl">Status Validasi</flux:heading>
                         <!--Registration Payment-->
                         <x-lists.list-group>
@@ -154,12 +142,24 @@
                         <!--#Attachment-->
                     </x-cards.soft-glass-card>
 
+                    <!--CARD 2-->
+                    <x-cards.user-card class="swiper-slide h-full" style="width: 85vw">
+                        <x-slot:fullName>{{ $studentQuery->branch_name }}</x-slot:fullName>
+                        <x-slot:position>
+                            {{ $studentQuery->program_name }}
+                        </x-slot:position>
+                        <div class="flex justify-between mt-2 gap-2">
+                            <flux:badge color="primary" variant="solid">{{ $studentQuery->reg_number }}</flux:badge>
+                            <flux:badge color="primary" variant="solid">{{ $studentQuery->academic_year }}</flux:badge>
+                        </div>
+                    </x-cards.user-card>
+
                     <!--Card 3-->
-                    <x-cards.soft-glass-card class="swiper-slide shadow-md" style="width: 85vw">
+                    <x-cards.soft-glass-card class="swiper-slide h-full" style="width: 85vw">
                         <flux:heading size="xl" class="mb-2" variant="bold">Hasil Tes</flux:heading>
 
                         <div class="flex-grow">
-                            <x-lists.list-group class="mb-3">
+                            <x-lists.list-group class="mb-2">
                                 <x-slot:title>Kehadiran Tes</x-slot:title>
                                 <x-slot:subTitle>
                                     @if (is_null($studentQuery->placementTestPresence))
@@ -175,7 +175,7 @@
                                 </x-slot:buttonAction>
                             </x-lists.list-group>
 
-                            <div class="flex justify-between mb-3">
+                            <div class="flex justify-between mb-2">
                                 <div class="flex flex-col items-center">
                                     <flux:heading size="lg">Nilai Akhir</flux:heading>
                                     <flux:text variant="soft">
@@ -204,11 +204,12 @@
                 </div>
             </div>
         </div>
+
     </x-animations.fade-down>
     <!--#Swiper Card-->
 
     <!--Quick Menu-->
-    <x-animations.fade-down showTiming="150" class="grid grid-cols-4 mt-2">
+    <x-animations.fade-down showTiming="150" class="grid grid-cols-4 mt-4">
         <!-- Biodata -->
         <a href="{{ route('student.admission_data.biodata') }}" wire:navigate class="flex flex-col items-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">

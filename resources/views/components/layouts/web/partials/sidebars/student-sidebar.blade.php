@@ -1,4 +1,4 @@
-<flux:sidebar class="bg-white/20 shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)] backdrop-blur-sm dark:bg-zinc-900 border-r border-white/30 dark:border-zinc-700">
+<flux:sidebar class="bg-white/10 shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)] backdrop-blur-sm dark:bg-zinc-900 border-r border-white/30 dark:border-zinc-700">
     <!--Brand & Collapse button-->
     <flux:sidebar.header>
         <flux:sidebar.brand href="{{ route('student.student_dashboard') }}" wire:navigate logo="{{ asset('images/logo/alfitrah-logo.png') }}"
