@@ -15,8 +15,8 @@ default => null
 };
 @endphp
 
-<div class="fixed inset-x-0 bottom-0 z-50 bg-transparent overflow-x-hidden" style="padding-bottom: env(safe-area-inset-bottom, 0);">
-    <div class="relative mx-auto w-full h-24 overflow-x-hidden">
+<div class="fixed inset-x-0 bottom-0 z-50 bg-transparent" style="padding-bottom: env(safe-area-inset-bottom, 0);">
+    <div class="relative mx-auto w-full h-24">
         <!-- Latar Belakang Navbar dengan SVG -->
         <div class="absolute bottom-0 w-full h-24 pointer-events-none">
             <svg width="100%" height="100%" viewBox="0 0 375 144" fill="none" xmlns="http://www.w3.org/2000/svg"

@@ -75,6 +75,7 @@ $classes = Flux::classes()
         'xs' => 'h-6 text-xs rounded-md' . ' ' . ($square ? 'w-6' : 'px-2'),
         'sm-circle' => 'h-8 text-sm rounded-full' . ' ' . ($square ? 'w-8' : 'px-3'),
         'xs-circle' => 'h-6 text-xs rounded-full' . ' ' . ($square ? 'w-6' : 'px-2'),
+        'base-circle' => 'h-10 text-sm rounded-full' . ' ' . ($square ? 'w-8' : 'px-3'),
     })
     ->add('inline-flex') // Buttons are inline by default but links are blocks, so inline-flex is needed here to ensure link-buttons are displayed the same as buttons...
     ->add($inset ? match ($size) { // Inset...
@@ -89,7 +90,7 @@ $classes = Flux::classes()
             : Flux::applyInset($inset, top: '-mt-1', right: '-me-2', bottom: '-mb-1', left: '-ms-2'),
     } : '')
     ->add(match ($variant) { // Background color...
-        'primary' => 'bg-[var(--color-accent)] hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_10%)]',
+        'primary' => 'bg-[var(--color-accent)] shadow-[inset_1px_2px_5px_rgba(255,255,255,0.7)] backdrop-blur-sm hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_20%)]',
         'filled' => 'bg-zinc-800/25 hover:bg-zinc-800/10 dark:bg-white/10 dark:hover:bg-white/20',
         'outline' => 'bg-white hover:bg-zinc-50 dark:bg-zinc-700 dark:hover:bg-zinc-600/75',
         'danger' => 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500',

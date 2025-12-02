@@ -31,7 +31,7 @@ $classes = Flux::classes()
     ->add(match ($accent) {
         true => [
             'data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content)',
-            'data-current:bg-white dark:data-current:bg-white/[7%] data-current:border data-current:border-zinc-200 dark:data-current:border-transparent',
+            'data-current:bg-white dark:data-current:bg-white/[7%] data-current:border data-current:border-white/80 dark:data-current:border-transparent',
             'hover:text-white/80 dark:hover:text-white dark:hover:bg-white/[7%] hover:bg-zinc-800/5 ',
             'border border-transparent',
         ],

@@ -30,4 +30,11 @@ class CodeGeneratorHelper {
 
         return $result . '-' . $month . $date . '-' . '0'. $studentNumber;
     }
+
+    public static function registrationInvoiceNumber($admissionName) {
+        list($start, $end) = explode('-', $admissionName);
+        $lastDigitAdmission = substr($start, 2) . substr($end, 2);
+
+        return 'INV-PSB' .$lastDigitAdmission. '-'. now()->timestamp . '-' . rand(1000, 9999);
+    }
 }

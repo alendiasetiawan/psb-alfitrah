@@ -211,7 +211,7 @@
     <!--Quick Menu-->
     <x-animations.fade-down showTiming="150" class="grid grid-cols-4 mt-4">
         <!-- Biodata -->
-        <a href="{{ route('student.admission_data.biodata') }}" wire:navigate class="flex flex-col items-center">
+        <a href="{{ route('student.admission_data.biodata') }}" wire:navigate class="flex flex-col items-center text-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
                 <flux:icon.contact-round class="text-primary-300 size-7" />
@@ -220,7 +220,7 @@
         </a>
 
         <!-- Berkas -->
-        <a href="{{ route('student.admission_data.admission_attachment') }}" wire:navigate class="flex flex-col items-center">
+        <a href="{{ route('student.admission_data.admission_attachment') }}" wire:navigate class="flex flex-col items-center text-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
                 <flux:icon.file-text class="text-primary-300 size-7" />
@@ -238,7 +238,7 @@
         </a>
 
         <!-- Menu -->
-        <a class="flex flex-col items-center" wire:navigate href="{{ route('student.student_mega_menu') }}">
+        <a class="flex flex-col items-center text-center" wire:navigate href="{{ route('student.student_mega_menu') }}">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
                 <flux:icon.list class="text-primary-300 size-7" />

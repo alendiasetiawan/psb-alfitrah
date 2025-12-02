@@ -1,12 +1,10 @@
 <div>
     <!--Admission Data-->
-    <x-animations.fade-down showTiming="50">
-        <div class="grid grid-cols-1">
-            <flux:heading size="lg">Data Siswa</flux:heading>
-        </div>
+    <x-animations.fade-down showTiming="50" class="grid grid-cols-1 mt-1">
+        <flux:heading size="lg">Data Siswa</flux:heading>
     </x-animations.fade-down>
 
-    <x-animations.fade-down showTiming="50" class="grid grid-cols-4 gap-6 mt-3">
+    <x-animations.fade-down showTiming="50" class="grid grid-cols-4 gap-6 mt-2">
         <a href="{{ route('student.payment.registration_payment') }}" wire:navigate class="flex flex-col items-center text-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
@@ -42,13 +40,11 @@
     <!--#Admission Data-->
 
     <!--Placement Test-->
-    <x-animations.fade-down showTiming="150">
-        <div class="grid grid-cols-1 mt-4">
-            <flux:heading size="lg">Tes & Kelulusan</flux:heading>
-        </div>
+    <x-animations.fade-down showTiming="150" class="grid grid-cols-1 mt-4">
+        <flux:heading size="lg">Tes & Kelulusan</flux:heading>
     </x-animations.fade-down>
 
-    <x-animations.fade-down showTiming="150" class="grid grid-cols-4 gap-6 mt-3">
+    <x-animations.fade-down showTiming="150" class="grid grid-cols-4 gap-6 mt-2">
         <a href="{{ route('student.placement_test.test_result.private_announcement') }}" wire:navigate class="flex flex-col items-center text-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->

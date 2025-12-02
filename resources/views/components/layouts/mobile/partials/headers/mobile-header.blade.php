@@ -5,7 +5,7 @@
 ])
 
 <div>
-    <div class="flex items-center px-4 py-2 bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-lg w-full gap-2 shadow-xl border-b border-white/30">
+    <div class="flex items-center px-4 py-3 bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-lg w-full gap-2 shadow-xl border-b border-white/30">
         <!-- Tombol Back -->
         @if (is_null($link))
             <a href="#" onclick="history.back(); return false;">

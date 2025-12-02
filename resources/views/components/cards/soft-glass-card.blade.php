@@ -1,5 +1,5 @@
 @props([
-    'rounded' => 'rounded-xl',
+    'rounded' => 'rounded-2xl',
     'padding' => 'px-5 py-4',
 ])
 
@@ -12,7 +12,7 @@
    pointer-events-none absolute inset-0
    p-[2px] {{ $rounded }}
    bg-gradient-to-br from-white/20 via-white/10 to-white/5
-   shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)]
+   shadow-[inset_2px_3px_5px_rgba(255,255,255,0.7)]
    z-[1]
    "></div>
 

@@ -17,14 +17,14 @@
 $iconTrailing = $iconTrailing ?? ($chevron ? 'chevron-down' : null);
 
 // When using the outline icon variant, we need to size it down to match the default icon sizes...
-$iconClasses = Flux::classes('text-white/40 dark:text-white/80 group-hover:text-white/80 dark:group-hover:text-white')
+$iconClasses = Flux::classes('text-white/40 dark:text-white/80 group-hover:text-white/10 dark:group-hover:text-white')
     ->add($iconVariant === 'outline' ? 'size-4' : '');
 
 $classes = Flux::classes()
     ->add('group flex items-center')
     ->add('rounded-lg has-data-[circle=true]:rounded-full')
     ->add('[ui-dropdown>&]:w-full') // Without this, the "name" won't get truncated in a sidebar dropdown...
-    ->add('p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10')
+    ->add('p-1 hover:bg-dark/50 dark:hover:bg-white/10')
     ;
 @endphp
 
@@ -38,7 +38,7 @@ $classes = Flux::classes()
     </div>
 
     <?php if ($name): ?>
-        <span class="in-data-flux-sidebar-collapsed-desktop:hidden mx-2 text-sm text-white dark:text-white/80 group-hover:text-white/80 dark:group-hover:text-white font-medium truncate">
+        <span class="in-data-flux-sidebar-collapsed-desktop:hidden mx-2 text-sm text-white dark:text-white/80 group-hover:text-white dark:group-hover:text-white font-medium truncate">
             {{ $name }}
         </span>
     <?php endif; ?>

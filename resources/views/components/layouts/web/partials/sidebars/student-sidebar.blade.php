@@ -1,4 +1,4 @@
-<flux:sidebar class="bg-white/10 shadow-[inset_0_2px_2px_rgba(255,255,255,0.7)] backdrop-blur-sm dark:bg-zinc-900 border-r border-white/30 dark:border-zinc-700">
+<flux:sidebar class="bg-white/10 shadow-[inset_-2px_0px_4px_rgba(255,255,255,0.4)] backdrop-blur-sm dark:bg-zinc-900 dark:border-zinc-700">
     <!--Brand & Collapse button-->
     <flux:sidebar.header>
         <flux:sidebar.brand href="{{ route('student.student_dashboard') }}" wire:navigate logo="{{ asset('images/logo/alfitrah-logo.png') }}"
@@ -84,8 +84,8 @@
                         </span>
 
                         <div class="grid flex-1 text-start text-sm leading-tight">
-                            <span class="truncate font-semibold">{{ session('userData')->fullname }}</span>
-                            <span class="truncate text-xs">{{ session('userData')->username }}</span>
+                            <span class="truncate font-semibold text-white">{{ session('userData')->fullname }}</span>
+                            <span class="truncate text-xs text-white/70">{{ session('userData')->username }}</span>
                         </div>
                     </div>
                 </div>

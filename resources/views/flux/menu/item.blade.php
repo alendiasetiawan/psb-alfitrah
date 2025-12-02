@@ -21,7 +21,7 @@ $iconClasses = Flux::classes()
     ;
 
 $trailingIconClasses = Flux::classes()
-    ->add('ms-auto text-zinc-400 [[data-flux-menu-item-icon]:hover_&]:text-current')
+    ->add('ms-auto text-white/70 [[data-flux-menu-item-icon]:hover_&]:text-current')
     // When using the outline icon variant, we need to size it down to match the default icon sizes...
     ->add($iconVariant === 'outline' ? 'size-5' : null)
     ;
@@ -34,11 +34,11 @@ $classes = Flux::classes()
     ->add(match ($variant) {
         'danger' => [
             'text-zinc-800 data-active:text-red-600 data-active:bg-red-50 dark:text-white dark:data-active:bg-red-400/20 dark:data-active:text-red-400',
-            '**:data-flux-menu-item-icon:text-zinc-400 dark:**:data-flux-menu-item-icon:text-white/60 [&[data-active]_[data-flux-menu-item-icon]]:text-current',
+            '**:data-flux-menu-item-icon:text-white/70 dark:**:data-flux-menu-item-icon:text-white/60 [&[data-active]_[data-flux-menu-item-icon]]:text-current',
         ],
         'default' => [
-            'text-zinc-800 data-active:bg-zinc-50 dark:text-white dark:data-active:bg-zinc-600',
-            '**:data-flux-menu-item-icon:text-zinc-400 dark:**:data-flux-menu-item-icon:text-white/60 [&[data-active]_[data-flux-menu-item-icon]]:text-current',
+            'text-white data-active:bg-dark/50 dark:text-white dark:data-active:bg-zinc-600',
+            '**:data-flux-menu-item-icon:text-white/70 dark:**:data-flux-menu-item-icon:text-white/60 [&[data-active]_[data-flux-menu-item-icon]]:text-current',
         ]
     })
     ;

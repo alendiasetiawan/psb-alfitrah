@@ -11,6 +11,7 @@ use App\Models\Core\Province;
 use App\Models\Core\Admission;
 use App\Models\Core\AdmissionBatch;
 use App\Models\Core\EducationProgram;
+use App\Models\Payment\RegistrationInvoice;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PlacementTest\TestQrCodes;
 use App\Models\PlacementTest\PlacementTestResult;
@@ -133,6 +134,11 @@ class Student extends Model
         return $this->hasOne(PlacementTestPresence::class);
     }
 
+    public function registrationInvoices(): HasMany
+    {
+        return $this->hasMany(RegistrationInvoice::class);
+    }
+
     //Scope for get branch_name and program_names
     public function scopeJoinBranchAndProgram($query)
     {
@@ -165,7 +171,7 @@ class Student extends Model
     public function scopeJoinRegistrationPayment($query) 
     {
         return $query->join('registration_payments', 'students.id', 'registration_payments.student_id')
-            ->addSelect('amount as registration_fee', 'evidence');
+            ->addSelect('amount as registration_fee', 'evidence', 'payment_status');
     }
 
     public static function baseEloquent($studentId = null, $branchId = null, $educationProgramId = null, $admissionId = null, $admissionBatchId = null, $searchStudent = null)
