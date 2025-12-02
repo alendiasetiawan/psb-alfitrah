@@ -54,7 +54,7 @@
                                         @elseif ($studentQuery->registration_payment == \App\Enums\VerificationStatusEnum::INVALID)
                                             <flux:badge color="red" variant="solid" size="sm" icon="x-circle">Tidak Valid</flux:badge>
                                         @elseif ($studentQuery->registration_payment == \App\Enums\VerificationStatusEnum::PROCESS)
-                                            <flux:badge color="orange" variant="solid" size="sm" icon="refresh-cw">Proses</flux:badge>
+                                            <flux:badge color="orange" variant="solid" size="sm" icon="refresh-cw">Pending</flux:badge>
                                         @else
                                             <flux:badge color="gray" variant="solid" size="sm" icon="circle-minus">Belum</flux:badge>
                                         @endif

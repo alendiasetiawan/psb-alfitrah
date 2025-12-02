@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="flex justify-between mb-2">
-                            <flux:text variant="soft">Metode</flux:text>
+                            <flux:text variant="soft">Pembayaran Via</flux:text>
                             <flux:text variant="bold">
                                 {{ $this->detailPayment->registrationInvoices[0]->payment_method ?? 'Transfer' }}
                             </flux:text>

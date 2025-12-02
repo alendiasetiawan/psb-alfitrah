@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\PaymentGateway;
 
+use App\Enums\VerificationStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AdmissionData\AdmissionVerification;
 use App\Models\AdmissionData\RegistrationPayment;
 use App\Models\Payment\InvoiceLog;
 use App\Models\Payment\RegistrationInvoice;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class XenditWebhookController extends Controller
@@ -16,9 +16,9 @@ class XenditWebhookController extends Controller
     {
         // 2. Simpan log webhook
         InvoiceLog::create([
-            'event'       => $request->event,
             'external_id' => $request->external_id,
             'payload'     => json_encode($request->all()),
+            'payment_method' => $request->payment_channel
         ]);
 
         // 3. Cari transaksi internal
@@ -26,38 +26,50 @@ class XenditWebhookController extends Controller
 
         if (!$trx) {
             return response()->json(['error' => 'Transaction not found'], 404);
+        } else {
+            $studentId = $trx->student_id;
+            $payment = RegistrationPayment::where('student_id', $studentId)->first();
+            $verification = AdmissionVerification::where('student_id', $studentId)->first();
+
+            // 4. Update status
+            switch ($request->status) {
+                case 'PAID':
+                    $trx->update([
+                        'status'       => 'PAID',
+                        'paid_at'      => now(),
+                        'raw_callback' => json_encode($request->all()),
+                        'payment_method' => $request->payment_channel,
+                    ]);
+
+                    $payment->update([
+                        'payment_status' => VerificationStatusEnum::VALID,
+                    ]);
+
+                    $verification->update([
+                        'registration_payment' => VerificationStatusEnum::VALID,
+                    ]);
+                    break;
+
+                case 'EXPIRED':
+                    $trx->update([
+                        'status' => 'EXPIRED'
+                    ]);
+                    break;
+
+                case 'FAILED':
+                    $trx->update(['status' => 'FAILED']);
+
+                    $payment->update([
+                        'payment_status' => VerificationStatusEnum::INVALID,
+                    ]);
+
+                    $verification->update([
+                        'registration_payment' => VerificationStatusEnum::INVALID
+                    ]);
+                    break;
+            }
+
+            return response()->json(['success' => true]);
         }
-
-        // 4. Update status
-        switch ($request->status) {
-            case 'PAID':
-                $trx->update([
-                    'status'       => 'PAID',
-                    'paid_at'      => now(),
-                    'raw_callback' => json_encode($request->all()),
-                    'payment_method' => $request->payment_channel
-                ]);
-                break;
-
-            case 'EXPIRED':
-                $trx->update(['status' => 'EXPIRED']);
-                break;
-
-            case 'FAILED':
-                $trx->update(['status' => 'FAILED']);
-                break;
-        }
-
-        // 5. Update Verification and Payment Status
-        $studentId = $trx->student_id;
-        RegistrationPayment::where('student_id', $studentId)->update([
-            'payment_status' => "Valid"
-        ]);
-
-        AdmissionVerification::where('student_id', $studentId)->update([
-            'registration_payment' => "Valid"
-        ]);
-
-        return response()->json(['success' => true]);
     }
 }

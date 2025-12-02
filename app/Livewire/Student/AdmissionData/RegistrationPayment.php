@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Student\AdmissionData;
 
+use App\Enums\VerificationStatusEnum;
 use Livewire\Component;
 use Detection\MobileDetect;
 use Livewire\Attributes\Title;
@@ -10,9 +11,10 @@ use App\Helpers\AdmissionHelper;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\CodeGeneratorHelper;
+use App\Models\AdmissionData\AdmissionVerification;
+use App\Models\AdmissionData\RegistrationPayment as AdmissionDataRegistrationPayment;
 use App\Services\StudentDataService;
 use App\Models\Payment\RegistrationInvoice;
-use Symfony\Component\HttpKernel\Log\Logger;
 use App\Queries\Payment\RegistrationInvoiceQuery;
 use App\Queries\Payment\RegistrationPaymentQuery;
 use Carbon\Carbon;
@@ -71,6 +73,7 @@ class RegistrationPayment extends Component
     {
         try {
             DB::transaction(function () {
+                //Make internal invoice
                 $transaction = RegistrationInvoice::create([
                     'username' => session('userData')->username,
                     'student_id' => $this->studentId,
@@ -80,11 +83,20 @@ class RegistrationPayment extends Component
                     'expiry_date' => Carbon::now()->addHours(6)->toIso8601String(),
                 ]);
         
+                //Fetch invoice from xendit
                 $invoice = $this->xenditService->createInvoice($transaction);
-        
                 $transaction->update([
                     'invoice_id' => $invoice['id'],
                     'payment_url' => $invoice['invoice_url'],
+                ]);
+
+                //Update internal payment status
+                AdmissionDataRegistrationPayment::where('student_id', $this->studentId)->update([
+                    'payment_status' => VerificationStatusEnum::PROCESS
+                ]);
+
+                AdmissionVerification::where('student_id', $this->studentId)->update([
+                    'registration_payment' => VerificationStatusEnum::PROCESS
                 ]);
 
                 $this->redirect(route('student.payment.registration_payment'), navigate: true);
