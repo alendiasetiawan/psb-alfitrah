@@ -23,7 +23,7 @@
                 <flux:spacer />
 
                 <flux:modal.close>
-                    <flux:button variant="ghost">
+                    <flux:button variant="filled">
                         {{ $closeButton }}
                     </flux:button>
                 </flux:modal.close>

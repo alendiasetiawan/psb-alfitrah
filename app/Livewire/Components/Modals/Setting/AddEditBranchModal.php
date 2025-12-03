@@ -20,7 +20,7 @@ class AddEditBranchModal extends Component
     //String
     public $modalId, $branchPhoto;
     //Boolean
-    public $isEditing = false;
+    public $isEditing = false, $isMobile = false;
     //Array
     public $inputs = [
         'selectedBranchId' => null,
@@ -34,13 +34,19 @@ class AddEditBranchModal extends Component
 
     protected $rules = [
         'inputs.branchName' => [
-            'required', 'min:3', 'max:50'
+            'required',
+            'min:3',
+            'max:50'
         ],
         'inputs.mobilePhone' => [
-            'required', 'min:7', 'max:12'
+            'required',
+            'min:7',
+            'max:12'
         ],
         'inputs.branchAddress' => [
-            'required', 'min:3', 'max:500'
+            'required',
+            'min:3',
+            'max:500'
         ]
     ];
 
@@ -59,12 +65,13 @@ class AddEditBranchModal extends Component
     ];
 
     #[On('pen-add-edit-branch-modal')]
-    public function setEditValue($id) {
+    public function setEditValue($id)
+    {
         try {
             $this->isEditing = true;
             $realId = Crypt::decrypt($id);
             $branchData = BranchQuery::fetchBranchWithProgram($realId);
-    
+
             $this->inputs['selectedBranchId'] = Crypt::encrypt($branchData->id);
             $this->inputs['branchName'] = $branchData->name;
             $this->inputs['mobilePhone'] = $branchData->mobile_phone;
@@ -77,12 +84,14 @@ class AddEditBranchModal extends Component
     }
 
     //HOOK - Execute every time component is rendered
-    public function boot(UploadFileService $uploadFileService) {
+    public function boot(UploadFileService $uploadFileService)
+    {
         $this->uploadFileService = $uploadFileService;
     }
 
     //HOOK - Execute when the property is updated
-    public function updated($property) {
+    public function updated($property)
+    {
         if ($property == 'branchPhoto') {
             $this->validate([
                 'branchPhoto' => 'mimes:jpg,jpeg,png|max:5120'
@@ -94,7 +103,8 @@ class AddEditBranchModal extends Component
     }
 
     //ACTION - Reset property when modal is closed
-    public function resetAllProperty() {
+    public function resetAllProperty()
+    {
         $this->resetErrorBag();
         $this->resetValidation();
         $this->reset();
@@ -102,13 +112,14 @@ class AddEditBranchModal extends Component
     }
 
     //ACTION - Save branch data
-    public function saveBranch() {
+    public function saveBranch()
+    {
         $this->validate($this->rules, $this->messages);
 
         try {
             $decryptedBranchId = $this->isEditing ? Crypt::decrypt($this->inputs['selectedBranchId']) : null;
 
-            DB::transaction(function () use($decryptedBranchId) {
+            DB::transaction(function () use ($decryptedBranchId) {
                 // Determine logo value to persist
                 $folderName = "images/branch-logo";
                 $photoToPersist = null;
@@ -116,10 +127,10 @@ class AddEditBranchModal extends Component
                 // If new upload
                 if ($this->branchPhoto instanceof TemporaryUploadedFile) {
                     $photoToPersist = $this->uploadFileService->compressAndSavePhoto($this->branchPhoto, $folderName);
-                // If existing string path (editing without changing photo)
+                    // If existing string path (editing without changing photo)
                 } elseif (is_string($this->branchPhoto) && $this->branchPhoto !== '') {
                     $photoToPersist = $this->branchPhoto;
-                // If creating and no upload provided, keep null
+                    // If creating and no upload provided, keep null
                 } else {
                     $photoToPersist = null;
                 }

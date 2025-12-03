@@ -23,7 +23,7 @@
     <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-4 gap-3">
         @forelse ($this->quotaPerBranchLists as $quota)
             <div class="col-span-1" wire:key='quota-{{ $quota->id }}'>
-                <x-cards.basic-card>
+                <x-cards.soft-glass-card>
                     <div class="mb-1">
                         <flux:heading size="xl">{{ $quota->branch_name }}</flux:heading>
                     </div>
@@ -32,28 +32,31 @@
                             <x-slot:title>
                                 {{ $program->name }}
                             </x-slot:title>
+
                             <x-slot:subTitle>
                                 {{ $program->admissionQuotas[0]->amount ?? 'Belum Ditentukan' }} 
                                 @if ($program->admissionQuotas->count() != 0)
                                     Santri
                                 @endif
                             </x-slot:subTitle>
+
                             @if ($program->admissionQuotas->count() != 0)
-                                <flux:text color="{{ $program->admissionQuotas[0]->status == 'Tutup' ? 'rose' : 'green' }}" variant="strong">
+                                <flux:badge variant="solid" size="sm" color="{{ $program->admissionQuotas[0]->status == 'Tutup' ? 'rose' : 'green' }}">
                                     {{ $program->admissionQuotas[0]->status ?? '' }}
-                                </flux:text>
+                                </flux:badge>
                             @endif
+                            
                             <x-slot:buttonAction>
                                 <flux:modal.trigger 
                                 name="edit-admission-quota-modal" 
                                 wire:click="$dispatch('open-edit-admission-quota-modal', { id: '{{ Crypt::encrypt($program->id) }}' })"
                                 >
-                                    <flux:icon.pencil-square variant="mini"/>
+                                    <flux:icon.pencil-square variant="mini" class="text-white"/>
                                 </flux:modal.trigger>
                             </x-slot:buttonAction>
                         </x-lists.list-group>
                     @endforeach
-                </x-cards.basic-card>
+                </x-cards.soft-glass-card>
             </div>
         @empty
             <x-notifications.not-found />

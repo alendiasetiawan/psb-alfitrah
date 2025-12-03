@@ -34,7 +34,7 @@
                         <flux:button.group>
                             <flux:modal.trigger name="add-edit-branch-modal">
                                 <flux:button 
-                                variant="primary" 
+                                variant="outline" 
                                 size="sm"
                                 wire:click="$dispatch('open-add-edit-branch-modal', { id: '{{ Crypt::encrypt($branch->id) }}' })"
                                 >

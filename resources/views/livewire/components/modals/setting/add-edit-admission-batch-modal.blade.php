@@ -1,5 +1,5 @@
 <div>
-    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150" @close="resetAllProperty">
+    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150 w-full" @close="resetAllProperty">
         <form wire:submit='saveAdmissionBatch'
         x-data="
         formValidation({

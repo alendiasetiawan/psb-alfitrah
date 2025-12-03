@@ -39,7 +39,7 @@ $classes = Flux::classes()
         'subtle' => '[:where(&)]:text-zinc-400 [:where(&)]:dark:text-white/50',
         'soft' => '[:where(&)]:text-white/75 [:where(&)]:white:text-white/65',
         'bold' => '[:where(&)]:text-white [:where(&)]:white:text-white',
-        default => '[:where(&)]:text-zinc-500 [:where(&)]:dark:text-white/70',
+        default => '[:where(&)]:text-white [:where(&)]:dark:text-white/70',
     })
     ;
 @endphp

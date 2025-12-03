@@ -1,5 +1,9 @@
+@props([
+    'isMobile' => false
+])
+
 <div>
-    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150" @close="resetAllProperty">
+    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150" @close="resetAllProperty" variant="{{ $isMobile ? 'flyout' : '' }}" position="{{ $isMobile ? 'bottom' : '' }}">
         <form wire:submit='saveBranch'
         x-data="
         formValidation({

@@ -29,7 +29,8 @@ class AddEditEducationProgramModal extends Component
     protected $rules = [
         'inputs.selectedBranchId' => 'required',
         'inputs.educationProgramName' => [
-            'required', 'min:2'
+            'required',
+            'min:2'
         ],
     ];
 
@@ -41,7 +42,8 @@ class AddEditEducationProgramModal extends Component
 
     //LISTENER - Set detail value for selected program and fill in the modal
     #[On('open-add-edit-education-program-modal')]
-    public function setEditValue($id) {
+    public function setEditValue($id)
+    {
         try {
             $this->isEditing = true;
             $realId = Crypt::decrypt($id);
@@ -58,12 +60,14 @@ class AddEditEducationProgramModal extends Component
     }
 
     //HOOK - Execute once when component is rendered
-    public function mount() {
+    public function boot()
+    {
         $this->branchLists = Branch::pluck('name', 'id');
     }
 
     //ACTION - Reset property when modal is closed
-    public function resetAllProperty() {
+    public function resetAllProperty()
+    {
         $this->resetErrorBag();
         $this->resetValidation();
         $this->reset();
@@ -71,7 +75,8 @@ class AddEditEducationProgramModal extends Component
     }
 
     //ACTION - Save education program data
-    public function saveEducationProgram() {
+    public function saveEducationProgram()
+    {
         $this->validate($this->rules, $this->messages);
 
         try {

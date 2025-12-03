@@ -1,7 +1,6 @@
 <?php
 
 use App\Enums\RoleEnum;
-use App\Livewire\Admin\Setting\AdmissionDraft;
 use App\Livewire\Admin\Setting\AdmissionDraft\AcademicYear;
 use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
 use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
@@ -14,7 +13,7 @@ use App\Livewire\Core\Owner\Management\OwnerAccount;
 use App\Livewire\Core\Owner\Management\StoreProfile;
 use App\Livewire\Core\Owner\Management\ResellerAccount;
 
-Route::middleware('role:'.RoleEnum::ADMIN.'')->group(function () {
+Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard', OwnerDashboard::class)->name('dashboard');
 

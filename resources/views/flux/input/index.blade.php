@@ -191,7 +191,7 @@ $classes = Flux::classes()
         </div>
     </flux:with-field>
 
-    @if ($isValidate)
+    @if ($isValidate && !$isValidateGroup)
         <!--Show error message-->
         <template x-if="errors.{{ $fieldName }}">
             <flux:error name="{{ $fieldName }}">

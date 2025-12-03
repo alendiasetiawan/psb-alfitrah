@@ -18,7 +18,7 @@ class EditAdmissionFeeModal extends Component
     //String
     public $modalId, $branchName, $educationProgramName, $academicYear;
     //Boolean
-    public $isEditing = true;
+    public $isEditing = true, $isMobile = false;
     #[Reactive]
     public $activeAdmission;
     //Array
@@ -32,10 +32,12 @@ class EditAdmissionFeeModal extends Component
 
     protected $rules = [
         'inputs.registrationFee' => [
-            'required', 'min:1'
+            'required',
+            'min:1'
         ],
         'inputs.internalRegistrationFee' => [
-            'required', 'min:1'
+            'required',
+            'min:1'
         ]
     ];
 
@@ -47,12 +49,13 @@ class EditAdmissionFeeModal extends Component
     ];
 
     #[On('open-edit-admission-fee-modal')]
-    public function setEditValue($id) {
+    public function setEditValue($id)
+    {
         try {
             $educationProgramId = Crypt::decrypt($id);
             $checkFeeData = AdmissionFee::where('education_program_id', $educationProgramId)
-            ->where('admission_id', $this->activeAdmission->id)
-            ->first();
+                ->where('admission_id', $this->activeAdmission->id)
+                ->first();
 
             $checkFeeData ? $admissionFeeData = AdmissionFeeQuery::fetchDetailFeeWithProgram($checkFeeData->id) : null;
 
@@ -79,10 +82,11 @@ class EditAdmissionFeeModal extends Component
             session()->flash('error-id-edit', 'Dilarang modifikasi ID parameter');
         }
     }
-    
+
 
     //ACTION - Reset property and validation when modal is closed
-    public function resetAllProperty() {
+    public function resetAllProperty()
+    {
         $this->resetErrorBag();
         $this->resetValidation();
         $this->reset('inputs', 'isEditing', 'branchName', 'educationProgramName', 'academicYear');
@@ -90,7 +94,8 @@ class EditAdmissionFeeModal extends Component
     }
 
     //ACTION - Save admission fee data
-    public function saveAdmissionFee() {
+    public function saveAdmissionFee()
+    {
         $this->validate($this->rules, $this->messages);
         try {
             $decryptedAdmissionFeeId = $this->isEditing ? Crypt::decrypt($this->inputs['selectedAdmissionFeeId']) : null;

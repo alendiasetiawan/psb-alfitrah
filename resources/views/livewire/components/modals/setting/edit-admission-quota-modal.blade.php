@@ -1,5 +1,9 @@
+@props([
+    'isMobile' => false
+])
+
 <div>
-    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150" @close="resetAllProperty">
+    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150 w-full" @close="resetAllProperty" variant="{{ $isMobile ? 'flyout' : '' }}" position="{{ $isMobile ? 'bottom' : '' }}">
         <form wire:submit='saveAdmissionQuota'
         x-data="
         formValidation({
@@ -55,7 +59,7 @@
                         <div class="col-span-1">
                             <flux:field>
                                 <flux:label>Cabang</flux:label>
-                                <flux:text variant="subtle">{{ $branchName }}</flux:text>
+                                <flux:text variant="soft">{{ $branchName }}</flux:text>
                             </flux:field>
                         </div>
                         <!--#Branch Name-->
@@ -64,7 +68,7 @@
                         <div class="col-span-1">
                             <flux:field>
                                 <flux:label>Program</flux:label>
-                                <flux:text variant="subtle">{{ $educationProgramName }}</flux:text>
+                                <flux:text variant="soft">{{ $educationProgramName }}</flux:text>
                             </flux:field>
                         </div>
                         <!--#Branch Name-->

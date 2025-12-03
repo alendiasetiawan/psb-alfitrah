@@ -1,5 +1,9 @@
+@props([
+    'isMobile' => false,
+])
+
 <div>
-    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150" @close="resetAllProperty">
+    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150 w-full" @close="resetAllProperty" variant="{{ $isMobile ? 'flyout' : '' }}" position="{{ $isMobile ? 'bottom' : '' }}">
         <form wire:submit='saveAdmissionFee'
         x-data="
         formValidation({
@@ -56,7 +60,7 @@
                         <div class="col-span-1">
                             <flux:field>
                                 <flux:label>Cabang</flux:label>
-                                <flux:text variant="subtle">{{ $branchName }}</flux:text>
+                                <flux:text variant="soft">{{ $branchName }}</flux:text>
                             </flux:field>
                         </div>
                         <!--#Branch Name-->
@@ -65,7 +69,7 @@
                         <div class="col-span-1">
                             <flux:field>
                                 <flux:label>Program</flux:label>
-                                <flux:text variant="subtle">{{ $educationProgramName }}</flux:text>
+                                <flux:text variant="soft">{{ $educationProgramName }}</flux:text>
                             </flux:field>
                         </div>
                         <!--#Branch Name-->
@@ -83,6 +87,7 @@
                                     x-mask:dynamic="$money($input, ',')"
                                     fieldName="registrationFee"
                                     :isValidate="true"
+                                    :isValidateGroup="true"
                                     />
                                 </flux:input.group>
                                 <template x-if="errors.registrationFee">
@@ -92,9 +97,6 @@
                                         </x-slot:message>
                                     </flux:error>
                                 </template>
-                                @error('inputs.registrationFee')
-                                    <flux:error name="inputs.registrationFee"/>
-                                @enderror
                             </flux:field>
                         </div>
 
@@ -110,6 +112,7 @@
                                     x-mask:dynamic="$money($input, ',')"
                                     fieldName="internalRegistrationFee"
                                     :isValidate="true"
+                                    :isValidateGroup="true"
                                     />
                                 </flux:input.group>
                                 <template x-if="errors.internalRegistrationFee">
@@ -119,9 +122,6 @@
                                         </x-slot:message>
                                     </flux:error>
                                 </template>
-                                @error('inputs.internalRegistrationFee')
-                                    <flux:error name="inputs.internalRegistrationFee"/>
-                                @enderror
                             </flux:field>
                         </div>
                         <!--#Status-->

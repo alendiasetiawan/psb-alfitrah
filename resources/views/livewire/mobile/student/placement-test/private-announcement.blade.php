@@ -50,7 +50,7 @@
 
                         <div class="flex-1">
                             <flux:modal.trigger name="detail-announcement-modal">
-                                <flux:button icon="eye" variant="primary" class="mt-3">
+                                <flux:button icon="eye" variant="primary" class="mt-3 w-full">
                                     Lihat Hasil
                                 </flux:button>
                             </flux:modal.trigger>

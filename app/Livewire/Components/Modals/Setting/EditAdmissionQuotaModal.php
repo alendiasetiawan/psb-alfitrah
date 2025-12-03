@@ -25,14 +25,16 @@ class EditAdmissionQuotaModal extends Component
         'selectedEducationProgramId' => null
     ];
     //Boolean
-    public $isEditing = true;
+    public $isEditing = true, $isMobile = false;
     //Object
     #[Reactive]
     public $activeAdmission;
 
     protected $rules = [
         'inputs.quotaAmount' => [
-            'required', 'numeric', 'min:1'
+            'required',
+            'numeric',
+            'min:1'
         ],
         'inputs.quotaStatus' => 'required'
     ];
@@ -44,12 +46,13 @@ class EditAdmissionQuotaModal extends Component
     ];
 
     #[On('open-edit-admission-quota-modal')]
-    public function setEditValue($id) {
+    public function setEditValue($id)
+    {
         try {
             $educationProgramId = Crypt::decrypt($id);
             $checkQuotaData = AdmissionQuota::where('education_program_id', $educationProgramId)
-            ->where('admission_id', $this->activeAdmission->id)
-            ->first();
+                ->where('admission_id', $this->activeAdmission->id)
+                ->first();
             $checkQuotaData ? $admissionQuotaData = AdmissionQuotaQuery::fetchDetailQuotaWithProgram($checkQuotaData->id) : null;
 
             if ($checkQuotaData) {
@@ -77,7 +80,8 @@ class EditAdmissionQuotaModal extends Component
     }
 
     //ACTION - Reset property and validation when modal is closed
-    public function resetAllProperty() {
+    public function resetAllProperty()
+    {
         $this->resetErrorBag();
         $this->resetValidation();
         $this->reset('inputs', 'isEditing', 'branchName', 'educationProgramName', 'academicYear');
@@ -85,7 +89,8 @@ class EditAdmissionQuotaModal extends Component
     }
 
     //ACTION - Save admission quota
-    public function saveAdmissionQuota() {
+    public function saveAdmissionQuota()
+    {
         $this->validate($this->rules, $this->messages);
 
         try {

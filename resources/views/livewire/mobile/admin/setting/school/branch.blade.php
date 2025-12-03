@@ -1,4 +1,4 @@
-<div>
+<div class="mb-17">
     <div class="grid grid-cols-1 mb-4 mt-4">
         <div class="col-span-1">
             <flux:modal.trigger name="add-edit-branch-modal">
@@ -29,7 +29,7 @@
                         <flux:button.group>
                             <flux:modal.trigger name="add-edit-branch-modal">
                                 <flux:button 
-                                variant="primary" 
+                                variant="outline" 
                                 size="sm"
                                 wire:click="$dispatch('open-add-edit-branch-modal', { id: '{{ Crypt::encrypt($branch->id) }}' })"
                                 >
@@ -76,6 +76,6 @@
     </div>
 
     <!--Modal Add/Edit Branch-->
-    <livewire:components.modals.setting.add-edit-branch-modal modalId="add-edit-branch-modal"/>
+    <livewire:components.modals.setting.add-edit-branch-modal modalId="add-edit-branch-modal" :$isMobile/>
     <!--#Modal Add/Edit Branch-->
 </div>

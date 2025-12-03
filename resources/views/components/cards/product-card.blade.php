@@ -24,7 +24,7 @@
         <div class="p-5">
             <!-- Category -->
             @isset($category)
-            <flux:badge color="primary" size="sm" class="mb-1">
+            <flux:badge color="primary" size="sm" class="mb-1" variant="solid">
                 {{ $category }}
             </flux:badge>
             @endisset

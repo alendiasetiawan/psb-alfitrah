@@ -36,16 +36,21 @@
                         <flux:text variant="soft">Termin 1 : Rp 2.500.000</flux:text>
                         <flux:text variant="soft">Termin 2 : Rp 1.500.000</flux:text>
                         <flux:text variant="soft" class="mb-2">Termin 3 : Rp 1.000.000</flux:text>
-
-                        <div class="flex justify-start">
-                            <flux:button icon="message-circle-more" variant="primary" wire:click='chatAdminFinalRegistration'>
-                                Daftar Ulang Sekarang
-                            </flux:button>
-                        </div>
                     </x-cards.soft-glass-card>
                 </div>
             </div>
         </x-animations.fade-down>
+
+        <div class="fixed bottom-0 left-0 right-0 p-3 bg-white/30 backdrop-blur-sm border-t border-white z-50">
+            <flux:button 
+            icon="message-circle-more" 
+            size="base-circle"
+            variant="primary" 
+            wire:click='chatAdminFinalRegistration' 
+            class="w-full">
+                Daftar Ulang Sekarang
+            </flux:button>
+        </div>
         @endif
     @endif
 </div>

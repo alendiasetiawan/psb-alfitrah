@@ -15,14 +15,20 @@
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3 md:mt-4">
         @forelse ($this->listAcademicYears as $year)
             <div class="col-span-1" wire:key='academic-year-{{ $year->id }}'>
-                <x-cards.border-card subTextVariant="strong" subTextColor="{{ $year->status == 'Buka' ? 'green' : 'red' }}" borderColor="primary">
+                <x-cards.border-card subTextVariant="strong" subTextColor="{{ $year->status == 'Buka' ? 'green' : 'red' }}">
                     <x-slot:title>{{ $year->name }}</x-slot:title>
-                    <x-slot:subTitle>{{ $year->status }}</x-slot:subTitle>
+
+                    <x-slot:subTitle>
+                        <flux:badge variant="solid" size="sm" color="{{ $year->status == 'Buka' ? 'green' : 'red' }}" class="mb-3">
+                            {{ $year->status }}
+                        </flux:badge>
+                    </x-slot:subTitle>
+
                     <x-slot:buttonAction>
                         <a x-on:click.stop>
                             <flux:dropdown offset="-5" gap="1">
                                 <flux:button variant="ghost" size="xs">
-                                    <flux:icon.ellipsis-vertical variant="micro" />
+                                    <flux:icon.ellipsis-vertical variant="micro" class="text-white" />
                                 </flux:button>
                                 <flux:menu>
                                     <flux:modal.trigger name="add-edit-admission-modal" 
@@ -43,7 +49,7 @@
                     </x-slot:buttonAction>
 
                     <!--Delete Admission Modal-->
-                    <x-modals.delete-modal modalName="delete-admission-modal({{ $year->id }})" :isMobile="$isMobile" wire:click="deleteAdmission('{{ Crypt::encrypt($year->id) }}')">
+                    <x-modals.delete-modal modalName="delete-admission-modal({{ $year->id }})" :isMobile="$isMobile" wire:click="deleteAdmission('{{ Crypt::encrypt($year->id) }}')" wire:key="delete-admission-modal-{{ $year->id }}">
                         <x-slot:heading>Konfirmasi Hapus Tahun Ajaran</x-slot:heading>
                         <!--Feedback when delete is failed-->
                         @if (session('error-delete-program'))
@@ -67,7 +73,7 @@
 
                     <!--List of Batches-->
                     @foreach ($year->admissionBatches as $batch)
-                        <x-lists.list-group>
+                        <x-lists.list-group wire:key="batch-{{ $batch->id }}">
                             <x-slot:title>
                                 {{ $batch->name }}
                             </x-slot:title>
@@ -80,17 +86,17 @@
                             <x-slot:buttonAction>
                                 <flux:modal.trigger name="add-edit-admission-batch-modal" 
                                 wire:click="$dispatch('open-add-edit-admission-batch-modal', { id: '{{ Crypt::encrypt($batch->id) }}' })">
-                                    <flux:icon.pencil-square variant="mini"/>
+                                    <flux:icon.pencil-square variant="mini" class="text-white"/>
                                 </flux:modal.trigger>
 
-                                <flux:modal.trigger name="delete-admission-batch-modal({{ $year->id }})">
-                                    <flux:icon.trash variant="mini"/>
+                                <flux:modal.trigger name="delete-admission-batch-modal({{ $batch->id }})">
+                                    <flux:icon.trash variant="mini" class="text-white"/>
                                 </flux:modal.trigger>
                             </x-slot:buttonAction>
                         </x-lists.list-group>
 
                         <!--Delete Admission Batch Modal-->
-                        <x-modals.delete-modal modalName="delete-admission-batch-modal({{ $year->id }})" :isMobile="$isMobile" wire:click="deleteAdmissionBatch('{{ Crypt::encrypt($batch->id) }}')">
+                        <x-modals.delete-modal modalName="delete-admission-batch-modal({{ $batch->id }})" :isMobile="$isMobile" wire:click="deleteAdmissionBatch('{{ Crypt::encrypt($batch->id) }}')" wire:key="delete-admission-batch-modal-{{ $batch->id }}">
                             <x-slot:heading>Konfirmasi Hapus Gelombang PSB</x-slot:heading>
                             <!--Feedback when delete is failed-->
                             @if (session('error-delete-program'))

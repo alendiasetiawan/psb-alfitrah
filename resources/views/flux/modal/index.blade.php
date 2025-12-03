@@ -3,7 +3,7 @@
 @props([
     'dismissible' => null,
     'position' => null,
-    'closable' => null,
+    'closable' => false,
     'trigger' => null,
     'variant' => null,
     'name' => null,
@@ -23,8 +23,8 @@ $classes = Flux::classes()
         'bare' => '',
     })
     ->add(match ($variant) {
-        default => 'bg-white/10 shadow-[inset_2px_3px_5px_rgba(255,255,255,0.7)] backdrop-blur-sm dark:bg-zinc-800 border border-transparent dark:border-zinc-700',
-        'flyout' => 'bg-white/10 shadow-[inset_2px_3px_5px_rgba(255,255,255,0.7)] backdrop-blur-sm dark:bg-zinc-800 border-transparent dark:border-zinc-700',
+        default => 'bg-white/10 shadow-[inset_2px_3px_5px_rgba(255,255,255,0.7)] backdrop-blur-md dark:bg-zinc-800 border border-transparent dark:border-zinc-700',
+        'flyout' => 'bg-white/10 shadow-[inset_0px_3px_5px_rgba(255,255,255,0.7)] backdrop-blur-md dark:bg-zinc-800 border-transparent dark:border-zinc-700',
         'bare' => 'bg-transparent',
     });
 

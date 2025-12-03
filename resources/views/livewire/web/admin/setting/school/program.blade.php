@@ -38,11 +38,11 @@
                                 <div class="flex justify-center">
                                     <flux:modal.trigger name="add-edit-education-program-modal"
                                     wire:click="$dispatch('open-add-edit-education-program-modal', { id: '{{ Crypt::encrypt($program->id); }}' })">
-                                        <flux:icon.pencil-square variant="mini"/>
+                                        <flux:icon.pencil-square variant="mini" class="text-white"/>
                                     </flux:modal.trigger>
 
                                     <flux:modal.trigger name="delete-program-modal({{ $program->id }})">
-                                        <flux:icon.trash variant="mini"/>
+                                        <flux:icon.trash variant="mini" class="text-white"/>
                                     </flux:modal.trigger>
                                 </div>
                             </x-slot:action>
