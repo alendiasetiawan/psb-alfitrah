@@ -8,7 +8,7 @@
         <div class="md:w-4/6 lg:w-3/6 w-full">
             <x-animations.fade-down showTiming="50">
                 @if ($this->detailPayment->payment_status == \App\Enums\VerificationStatusEnum::VALID)
-                    <!--PAYMENT SUCCESS-->
+                    <!--ANCHOR: PAYMENT SUCCESS-->
                     <x-cards.soft-glass-card>
                         <div class="flex flex-col items-center mb-2">
                             <img src="{{ asset('images/background/payment.png') }}" width="300" height="auto" />
@@ -72,8 +72,8 @@
                             </flux:button>
                         </div>
                     </x-cards.soft-glass-card>
-                    <!--#PAYMENT SUCCESS-->
                 @else
+                    <!--ANCHOR: INVOICE NOT CREATED YET-->
                     <x-cards.soft-glass-card>
                         <flux:heading variant="bold" size="xl" class="mb-2">Instruksi Pembayaran</flux:heading>
 
@@ -85,49 +85,100 @@
                             <!--Alert when create invoice failed-->
                         @endif
 
-                        @if ($isPendingPayment)
-                            <!--When user have pending payment-->
-                            <flux:text variant="soft">
-                                Anda memiliki tagihan biaya pendaftaran yang belum dibayar sebagai berikut :
-                            </flux:text>
+                        <!--ANCHOR: WHEN USER HAS ACTIVE INVOICE-->
+                        @if ($isHasActiveInvoice)
+                            @if ($this->detailPayment->registrationInvoices[0]->status == \App\Enums\PaymentStatusEnum::PENDING)
+                                <flux:text variant="soft">
+                                    Anda memiliki tagihan biaya pendaftaran yang belum dibayar sebagai berikut :
+                                </flux:text>
 
-                            <div class="flex justify-between mt-4 mb-2">
-                                <flux:text variant="soft">Nominal </flux:text>
-                                <flux:text variant="bold">
-                                    {{ \App\Helpers\FormatCurrencyHelper::convertToRupiah($this->detailPayment->registrationInvoices[0]->amount) }}
-                                </flux:text>
-                            </div>
-                            <div class="flex justify-between mb-2">
-                                <flux:text variant="soft">Waktu Checkout</flux:text>
-                                <flux:text variant="bold">
-                                    {{ \App\Helpers\DateFormatHelper::indoDateTime($this->detailPayment->registrationInvoices[0]->created_at) }}
-                                </flux:text>
-                            </div>
-                            <div class="flex justify-between mb-2">
-                                <flux:text variant="soft">Batas Waktu</flux:text>
-                                <flux:text variant="bold">
-                                    {{ \App\Helpers\DateFormatHelper::indoDateTime($this->detailPayment->registrationInvoices[0]->expiry_date) }}
-                                </flux:text>
-                            </div>
-                            <div class="flex justify-between mb-4">
-                                <flux:text variant="soft">Sisa Waktu</flux:text>
-                                <div x-data="countDown({ expiry_date: '{{ $this->detailPayment->registrationInvoices[0]->expiry_date }}' })">
-                                    <flux:badge variant="solid" color="red">
-                                        <span x-text="timeString"></span>
-                                    </flux:badge>
+                                <div class="flex justify-between mt-4 mb-2">
+                                    <flux:text variant="soft">Nominal </flux:text>
+                                    <flux:text variant="bold">
+                                        {{ \App\Helpers\FormatCurrencyHelper::convertToRupiah($this->detailPayment->registrationInvoices[0]->amount) }}
+                                    </flux:text>
                                 </div>
-                            </div>
+                                <div class="flex justify-between mb-2">
+                                    <flux:text variant="soft">Waktu Checkout</flux:text>
+                                    <flux:text variant="bold">
+                                        {{ \App\Helpers\DateFormatHelper::indoDateTime($this->detailPayment->registrationInvoices[0]->created_at) }}
+                                    </flux:text>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <flux:text variant="soft">Batas Waktu</flux:text>
+                                    <flux:text variant="bold">
+                                        {{ \App\Helpers\DateFormatHelper::indoDateTime($this->detailPayment->registrationInvoices[0]->expiry_date) }}
+                                    </flux:text>
+                                </div>
+                                <div class="flex justify-between mb-4">
+                                    <flux:text variant="soft">Sisa Waktu</flux:text>
+                                    <div x-data="countDown({ expiry_date: '{{ $this->detailPayment->registrationInvoices[0]->expiry_date }}' })">
+                                        <flux:badge variant="solid" color="red">
+                                            <span x-text="timeString"></span>
+                                        </flux:badge>
+                                    </div>
+                                </div>
 
-                            <flux:text variant="soft">Segera selesaikan pembayaran anda sebelum waktu habis, apabila ada kendala atau kesulitan silahkan hubungi admin</flux:text>
+                                <flux:text variant="soft">Segera selesaikan pembayaran anda sebelum waktu habis, apabila ada kendala atau kesulitan silahkan hubungi admin</flux:text>
 
-                            <flux:button 
-                                variant="primary" 
-                                class="mt-4 w-full" 
-                                size="base-circle" 
-                                icon="hand-coins"
-                                href="{{ $this->detailPayment->registrationInvoices[0]->payment_url }}"
-                            >Bayar Sekarang</flux:button>
-                            <!--#When user have pending payment-->
+                                <flux:button 
+                                    variant="primary" 
+                                    class="mt-4" 
+                                    size="base-circle" 
+                                    icon="hand-coins"
+                                    href="{{ $this->detailPayment->registrationInvoices[0]->payment_url }}">
+                                    Bayar Sekarang
+                                </flux:button>
+
+                            <!--ANCHOR: INVOICE EXPIRED-->
+                            @elseif ($this->detailPayment->registrationInvoices[0]->status == \App\Enums\PaymentStatusEnum::EXPIRED || $this->detailPayment->registrationInvoices[0]->expiry_date < now())   
+                                <flux:text variant="soft">
+                                    Mohon maaf, tagihan biaya pendaftaran anda sudah tidak aktif. Silahkan membuat tagihan baru, berikut detail datanya:
+                                </flux:text>
+
+                                <div class="flex justify-between mt-4 mb-2">
+                                    <flux:text variant="soft">Nominal </flux:text>
+                                    <flux:text variant="bold">
+                                        {{ \App\Helpers\FormatCurrencyHelper::convertToRupiah($this->detailPayment->registrationInvoices[0]->amount) }}
+                                    </flux:text>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <flux:text variant="soft">Waktu Checkout</flux:text>
+                                    <flux:text variant="bold">
+                                        {{ \App\Helpers\DateFormatHelper::indoDateTime($this->detailPayment->registrationInvoices[0]->created_at) }}
+                                    </flux:text>
+                                </div>
+                                <div class="flex justify-between mb-4">
+                                    <flux:text variant="soft">Batas Waktu</flux:text>
+                                    <flux:text variant="bold">
+                                        {{ \App\Helpers\DateFormatHelper::indoDateTime($this->detailPayment->registrationInvoices[0]->expiry_date) }}
+                                    </flux:text>
+                                </div>
+
+                                <flux:button 
+                                    variant="primary" 
+                                    class="mt-4" 
+                                    size="base-circle" 
+                                    icon="credit-card"
+                                    wire:click="createInvoice">
+                                    Checkout Pembayaran
+                                </flux:button>
+                            
+                            <!--ANCHOR: INVOICE FAILED-->
+                            @else
+                                <flux:text variant="soft">
+                                    Mohon maaf, telah terjadi kesalahan dalam proses verifikasi pembayaran anda. Silahkan hubungi admin untuk informasi lebih lanjut.
+                                </flux:text>
+
+                                <flux:button
+                                    variant="primary"
+                                    class="mt-4"
+                                    size="base-circle"
+                                    icon="phone"
+                                    href="https://wa.me/{{ config('services.whatsapp.phone') }}">
+                                        Hubungi Admin
+                                </flux:button>
+                            @endif
                         @else
                             <flux:text variant="soft">
                                 Kepada ananda <strong class="text-white">Nafiysah</strong>, untuk melanjutkan tahapan proses penerimaan siswa baru silahkan melakukan pembayaran biaya pendaftaran sebagai berikut:
@@ -141,11 +192,12 @@
 
                             <flux:button 
                                 variant="primary" 
-                                class="mt-4 w-full" 
+                                class="mt-4" 
                                 size="base-circle" 
                                 icon="credit-card"
-                                wire:click="createInvoice"
-                            >Checkout Pembayaran</flux:button>
+                                wire:click="createInvoice">
+                                    Checkout Pembayaran
+                            </flux:button>
                         @endif
                     </x-cards.soft-glass-card>
                 @endif

@@ -22,7 +22,7 @@ use Carbon\Carbon;
 #[Title('Biaya Pendaftaran')]
 class RegistrationPayment extends Component
 {
-    public bool $isMobile = false, $isPendingPayment = false;
+    public bool $isMobile = false, $isPendingPayment = false, $isHasActiveInvoice = false;
     public int $studentId;
     public string $admissionName;
     public float $amount;
@@ -31,12 +31,14 @@ class RegistrationPayment extends Component
 
 
     #[Computed]
-    public function detailPayment() {
+    public function detailPayment()
+    {
         return RegistrationInvoiceQuery::fetchLatestPayment($this->studentId);
     }
 
     //HOOK - Execute once when component is rendered
-    public function mount(MobileDetect $mobileDetect, StudentDataService $studentDataService) {
+    public function mount(MobileDetect $mobileDetect, StudentDataService $studentDataService)
+    {
         $this->isMobile = $mobileDetect->isMobile();
 
         //Defind student_id
@@ -51,20 +53,16 @@ class RegistrationPayment extends Component
         $this->amount = RegistrationPaymentQuery::fetchStudentPayment($this->studentId)->amount;
 
         //Define if there is pending payment
-        if  ($this->detailPayment->registrationInvoices->count() != 0) {
-            if ($this->detailPayment->registrationInvoices[0]->status == \App\Enums\PaymentStatusEnum::PENDING) {
-                $this->isPendingPayment = true;
-            } else {
-                $this->isPendingPayment = false;
-            }
+        if ($this->detailPayment->registrationInvoices->count() != 0) {
+            $this->isHasActiveInvoice = true;
         } else {
-            $this->isPendingPayment = false;
+            $this->isHasActiveInvoice = false;
         }
-        
     }
 
     //HOOK - Execute every time component is rendered
-    public function boot(XenditService $xenditService) {
+    public function boot(XenditService $xenditService)
+    {
         $this->xenditService = $xenditService;
     }
 
@@ -79,10 +77,10 @@ class RegistrationPayment extends Component
                     'student_id' => $this->studentId,
                     'external_id' => CodeGeneratorHelper::registrationInvoiceNumber($this->admissionName),
                     'amount' => $this->amount,
-                    'description' => 'Biaya Pendaftaran Siswa Baru a/n '.session('userData')->fullname.' di '.$this->detailPayment->branch_name.' Program '.$this->detailPayment->program_name.'',
+                    'description' => 'Biaya Pendaftaran Siswa Baru a/n ' . session('userData')->fullname . ' di ' . $this->detailPayment->branch_name . ' Program ' . $this->detailPayment->program_name . '',
                     'expiry_date' => Carbon::now()->addHours(6)->toIso8601String(),
                 ]);
-        
+
                 //Fetch invoice from xendit
                 $invoice = $this->xenditService->createInvoice($transaction);
                 $transaction->update([
@@ -101,12 +99,10 @@ class RegistrationPayment extends Component
 
                 $this->redirect(route('student.payment.registration_payment'), navigate: true);
             });
-    
         } catch (\Throwable $th) {
             logger($th);
             session()->flash('create-invoice-failed', 'Upss.. terjadi kesalahan, silahkan coba beberapa saat lagi!');
         }
-
     }
 
     public function render()

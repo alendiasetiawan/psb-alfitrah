@@ -41,4 +41,8 @@ return [
         'base_url' => env('XENDIT_BASE_URL', 'https://api.xendit.co'),
     ],
 
+    'whatsapp' => [
+        'phone' => env('WHATSAPP_PHONE'),
+    ],
+
 ];
