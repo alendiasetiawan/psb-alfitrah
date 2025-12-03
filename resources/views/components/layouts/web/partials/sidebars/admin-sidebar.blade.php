@@ -25,31 +25,31 @@
             <!--Menu Database-->
             <flux:sidebar.group
             expandable
-            :expanded="Route::is('owner.management.owner_account') || Route::is('owner.management.reseller_account')"
+            :expanded="Route::is('admin.master_data.registrant_database') || Route::is('admin.master_data.student_database') || Route::is('admin.master_data.registrant_demographic') || Route::is('admin.master_data.monitoring_quota')"
             icon="database"
             heading="{{ __('Database') }}"
             class="grid">
                 <flux:sidebar.item
-                href="#"
-                :current="Route::is('owner.management.owner_account')"
+                href="{{ route('admin.master_data.registrant_database') }}"
+                :current="Route::is('admin.master_data.registrant_database')"
                 wire:navigate>
                     {{ __('Pendaftar') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="#"
-                :current="Route::is('owner.management.reseller_account')"
+                href="{{ route('admin.master_data.student_database') }}"
+                :current="Route::is('admin.master_data.student_database')"
                 wire:navigate>
-                    {{ __('Santri') }}
+                    {{ __('Siswa') }}
                 </flux:sidebar.item>
             </flux:sidebar.group>
             <!--#Menu Database-->
 
             <!--Demografi Santri-->
             <flux:sidebar.item
-                :current="Route::is('owner.management.store_profile')"
+                :current="Route::is('admin.master_data.registrant_demographic')"
                 icon="map-pinned"
-                href="#"
+                href="{{ route('admin.master_data.registrant_demographic') }}"
                 wire:navigate>
             {{ __('Demografi Pendaftar') }}
             </flux:sidebar.item>
@@ -57,9 +57,9 @@
 
             <!--Kuota Santri-->
             <flux:sidebar.item
-                :current="Route::is('owner.management.store_profile')"
+                :current="Route::is('admin.master_data.monitoring_quota')"
                 icon="list-checks"
-                href="#"
+                href="{{ route('admin.master_data.monitoring_quota') }}"
                 wire:navigate>
             {{ __('Kuota Santri') }}
             </flux:sidebar.item>
@@ -72,7 +72,7 @@
             <!--Menu Biaya Pendaftaran-->
             <flux:sidebar.group
             expandable
-            :expanded="Route::is('owner.warehouse.product.*')"
+            :expanded="Route::is('admin.master_data.monitoring_quota')"
             icon="banknotes"
             heading="{{ __('Biaya Pendaftaran') }}"
             class="grid">

@@ -1,25 +1,32 @@
 <?php
 
 use App\Enums\RoleEnum;
-use App\Livewire\Admin\Setting\AdmissionDraft\AcademicYear;
-use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
-use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
-use App\Livewire\Admin\Setting\PlacementTestFormula;
+use Illuminate\Support\Facades\Route;
+use App\Livewire\Admin\AdminDashboard;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
-use Illuminate\Support\Facades\Route;
-use App\Livewire\Core\Owner\OwnerDashboard;
-use App\Livewire\Core\Owner\Management\OwnerAccount;
-use App\Livewire\Core\Owner\Management\StoreProfile;
-use App\Livewire\Core\Owner\Management\ResellerAccount;
+use App\Livewire\Admin\MasterData\MonitoringQuota;
+use App\Livewire\Admin\MasterData\StudentDatabase;
+use App\Livewire\Admin\MasterData\RegistrantDatabase;
+use App\Livewire\Admin\MasterData\RegistrantDemographic;
+use App\Livewire\Admin\Setting\AdmissionDraft\AcademicYear;
+use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
+use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
 
 Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-        Route::get('/dashboard', OwnerDashboard::class)->name('dashboard');
+        Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+
+        //ANCHOR - Master Data Route
+        Route::group(['prefix' => 'master-data', 'as' => 'master_data.'], function () {
+            Route::get('/registrant-database', RegistrantDatabase::class)->name('registrant_database');
+            Route::get('/student-database', StudentDatabase::class)->name('student_database');
+            Route::get('/registrant-demographic', RegistrantDemographic::class)->name('registrant_demographic');
+            Route::get('/monitoring-quota', MonitoringQuota::class)->name('monitoring_quota');
+        });
 
         //Setting Page Route
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
-            Route::get('/placement-test-formula', PlacementTestFormula::class)->name('placement_test_formula');
             Route::group(['prefix' => 'admission-draft', 'as' => 'admission_draft.'], function () {
                 Route::get('/academic-year', AcademicYear::class)->name('academic_year');
                 Route::get('/student-quota', StudentQuota::class)->name('student_quota');
@@ -29,12 +36,6 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
                 Route::get('/branch', Branch::class)->name('branch');
                 Route::get('/program', Program::class)->name('program');
             });
-        });
-
-        Route::group(['prefix' => 'management', 'as' => 'management.'], function () {
-            Route::get('/store-profile', StoreProfile::class)->name('store_profile');
-            Route::get('/owner-account', OwnerAccount::class)->name('owner_account');
-            Route::get('/reseller-account', ResellerAccount::class)->name('reseller_account');
         });
     });
 });

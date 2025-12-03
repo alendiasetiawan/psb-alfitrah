@@ -4,6 +4,7 @@ namespace App\Queries\AdmissionData;
 
 use App\Enums\PlacementTestEnum;
 use App\Models\AdmissionData\Student;
+use Illuminate\Support\Facades\DB;
 
 class StudentQuery
 {
@@ -85,5 +86,30 @@ class StudentQuery
             ->joinAdmissionVerification()
             ->addSelect('students.name as student_name', 'students.gender', 'students.id')
             ->first();
+    }
+
+    public static function  paginateStudentRegistrant($searchStudent = null, $selectedAdmissionId, $limitData)
+    {
+        return Student::baseEloquent(
+            searchStudent: $searchStudent,
+            admissionId: $selectedAdmissionId
+        )
+            ->joinBranchAndProgram()
+            ->addSelect('students.name as student_name', 'students.gender', 'students.id', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date')
+            ->with([
+                'parent' => function ($query) {
+                    $query->join('users', 'parents.user_id', 'users.id')
+                        ->addSelect('users.username', 'parents.id');
+                }
+            ])
+            ->orderBy('students.id', 'desc')
+            ->paginate($limitData);
+    }
+
+    public static function countStudentRegistrant($selectedAdmissionId)
+    {
+        return DB::table('students')
+            ->where('admission_id', $selectedAdmissionId)
+            ->count();
     }
 }

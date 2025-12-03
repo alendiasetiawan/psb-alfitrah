@@ -26,30 +26,35 @@ class Program extends Component
     protected AdmissionHelper $admissionHelper;
 
     #[Computed]
-    public function listEducationPrograms() {
+    public function listEducationPrograms()
+    {
         return EducationProgramQuery::getProgramsBranchInAdmission($this->selectedAdmissionId);
     }
 
     //LISTENER - Get latest data when Create or Update success
     #[On('toast')]
-    public function refetchListBranch() {
+    public function refetchListBranch()
+    {
         $this->listEducationPrograms();
     }
 
     //HOOK - Execute every time component is render
-    public function boot(AdmissionHelper $admissionHelper, MobileDetect $mobileDetect) {
+    public function boot(AdmissionHelper $admissionHelper, MobileDetect $mobileDetect)
+    {
         $this->admissionHelper = $admissionHelper;
         $this->isMobile = $mobileDetect->isMobile();
     }
 
     //HOOK - Execute once when component is rendered
-    public function mount() {
-        $this->academicYearLists = Admission::pluck('name', 'id');
+    public function mount()
+    {
+        $this->academicYearLists = AdmissionHelper::getAdmissionYearLists();
         $this->selectedAdmissionId = $this->admissionHelper->activeAdmission()->id;
     }
 
     //ACTION - Delete data program
-    public function deleteProgram($id) {
+    public function deleteProgram($id)
+    {
         try {
             $realIdProgram = Crypt::decrypt($id);
             EducationProgram::find($realIdProgram)->delete();

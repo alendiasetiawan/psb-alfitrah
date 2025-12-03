@@ -168,7 +168,7 @@ class Student extends Model
     }
 
     //Scope for get registration payment status
-    public function scopeJoinRegistrationPayment($query) 
+    public function scopeJoinRegistrationPayment($query)
     {
         return $query->join('registration_payments', 'students.id', 'registration_payments.student_id')
             ->addSelect('amount as registration_fee', 'evidence', 'payment_status');

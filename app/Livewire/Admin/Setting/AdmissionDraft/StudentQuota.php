@@ -24,30 +24,35 @@ class StudentQuota extends Component
     public $activeAdmission;
 
     #[Computed]
-    public function quotaPerBranchLists() {
+    public function quotaPerBranchLists()
+    {
         return BranchQuery::getBranchProgramWithQuota($this->selectedAdmissionId);
     }
 
     //LISTENER - Get latest data when Create or Update success
     #[On('toast')]
-    public function refetchQuotaPerBranchLists() {
+    public function refetchQuotaPerBranchLists()
+    {
         $this->quotaPerBranchLists();
     }
 
     //HOOK - Execute every time component is render 
-    public function boot(MobileDetect $mobileDetect) {
+    public function boot(MobileDetect $mobileDetect)
+    {
         $this->isMobile = $mobileDetect->isMobile();
     }
 
     //HOOK - Execute once when component is rendered
-    public function mount() {
-        $this->academicYearLists = Admission::pluck('name', 'id');
+    public function mount()
+    {
+        $this->academicYearLists = AdmissionHelper::getAdmissionYearLists();
         $this->activeAdmission = AdmissionHelper::activeAdmission();
         $this->selectedAdmissionId = $this->activeAdmission->id;
     }
 
     //HOOK - Execute when property is changed
-    public function updated($propertyName) {
+    public function updated($propertyName)
+    {
         if ($propertyName == 'selectedAdmissionId') {
             $this->activeAdmission = Admission::find($this->selectedAdmissionId);
         }

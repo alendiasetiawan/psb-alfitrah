@@ -48,4 +48,9 @@ class AdmissionHelper
 
         return $checkOpen;
     }
+
+    public static function getAdmissionYearLists()
+    {
+        return Admission::orderBy('id', 'desc')->limit(4)->pluck('name', 'id');
+    }
 }
