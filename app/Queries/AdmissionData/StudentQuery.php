@@ -88,7 +88,7 @@ class StudentQuery
             ->first();
     }
 
-    public static function  paginateStudentRegistrant($searchStudent = null, $selectedAdmissionId, $limitData)
+    public static function paginateStudentRegistrant($searchStudent = null, $selectedAdmissionId, $limitData)
     {
         return Student::baseEloquent(
             searchStudent: $searchStudent,
@@ -97,7 +97,7 @@ class StudentQuery
             ->joinBranchAndProgram()
             ->joinRegistrationPayment()
             ->joinUser()
-            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.id', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date')
+            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date')
             ->orderBy('students.id', 'desc')
             ->paginate($limitData);
     }
@@ -107,5 +107,17 @@ class StudentQuery
         return DB::table('students')
             ->where('admission_id', $selectedAdmissionId)
             ->count();
+    }
+
+    public static function fetchDetailRegistrant($studentId)
+    {
+        return Student::baseEloquent(
+            studentId: $studentId
+        )
+            ->joinBranchAndProgram()
+            ->joinRegistrationPayment()
+            ->joinUser()
+            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.created_at as registration_date')
+            ->first();
     }
 }

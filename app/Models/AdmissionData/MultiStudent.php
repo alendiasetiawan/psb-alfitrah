@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MultiStudent extends Model
 {
     protected $fillable = [
+        'user_id',
         'parent_id',
         'student_id'
     ];

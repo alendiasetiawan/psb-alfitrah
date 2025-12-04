@@ -67,9 +67,9 @@
                     @endif
 
                     <div class="flex flex-col justify-center items-center py-4">
-                        <flux:avatar size="xxl" class="mb-2" 
+                        <flux:avatar size="xxl" class="mb-2"
+                        icon="user"
                         src="{{ !empty($detailStudent->parent->user_photo) ? asset('storage/' . $detailStudent->parent->user_photo) : '' }}"
-                        
                         />
                         <flux:heading size="xxl">{{ $detailStudent->name }}</flux:heading>
                         <flux:text variant="soft">{{ $detailStudent->reg_number }}</flux:text>

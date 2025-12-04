@@ -20,7 +20,7 @@
     @endif
     <!--#Header-->
 
-    <div class="px-3 py-3 overflow-x-hidden">
+    <div class="px-3 py-3">
         @if (!$isShowBackButton && $isShowTitle)
         <!--Header Title When Back Button is Off-->
         <div class="mb-4">

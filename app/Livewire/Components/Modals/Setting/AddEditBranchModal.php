@@ -64,7 +64,7 @@ class AddEditBranchModal extends Component
         'inputs.branchAddress.max' => 'Maksimal 500 karakter',
     ];
 
-    #[On('pen-add-edit-branch-modal')]
+    #[On('open-add-edit-branch-modal')]
     public function setEditValue($id)
     {
         try {

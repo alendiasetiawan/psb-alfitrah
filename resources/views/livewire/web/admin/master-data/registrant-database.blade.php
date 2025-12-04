@@ -66,23 +66,15 @@
                         <flux:text>{{ \App\Helpers\DateFormatHelper::indoDateTime($registrant->registration_date) }}</flux:text>
                     </x-tables.cell>
                     <x-tables.cell>
-                        <a x-on:click.stop>
-                            <flux:dropdown offset="-5" gap="1">
-                                <flux:button variant="ghost" size="xs">
-                                    <flux:icon.ellipsis-vertical variant="micro" class="text-white" />
-                                </flux:button>
-                                <flux:menu>
-                                    <flux:modal.trigger name="add-edit-admission-modal" 
-                                    wire:click="#">
-                                        <flux:menu.item icon="eye">Detail</flux:menu.item>
-                                    </flux:modal.trigger>
+                        <div class="flex items-center gap-1">
+                            <flux:modal.trigger name="delete-student-modal({{ $registrant->id }})">
+                                <flux:icon.trash class="text-primary hover:cursor-pointer" variant="mini"/>
+                            </flux:modal.trigger>
 
-                                    <flux:modal.trigger name="delete-student-modal({{ $registrant->id }})">
-                                        <flux:menu.item icon="trash">Hapus</flux:menu.item>
-                                    </flux:modal.trigger>
-                                </flux:menu>
-                            </flux:dropdown>
-                        </a>    
+                            <flux:modal.trigger name="detail-registrant-modal" wire:click="$dispatch('open-detail-registrant-modal', { id: '{{ Crypt::encrypt($registrant->id) }}' })">
+                                <flux:icon.eye class="text-primary hover:cursor-pointer" variant="mini"/>
+                            </flux:modal.trigger>
+                        </div>
                     </x-tables.cell>
                 </x-tables.row>
 
@@ -124,4 +116,8 @@
             @endif
         </x-tables.basic-table>
     </div>
+
+    <!--ANCHOR - DETAIL REGISTRANT MODAL-->
+    <livewire:components.modals.master-data.detail-registrant-modal modalId="detail-registrant-modal"/>
+    <!--#DETAIL REGISTRANT MODAL-->
 </div>

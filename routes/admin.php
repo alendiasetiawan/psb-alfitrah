@@ -22,9 +22,9 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
 
         //ANCHOR - Master Data Route
         Route::group(['prefix' => 'master-data', 'as' => 'master_data.'], function () {
+            Route::get('/registrant-database', RegistrantDatabase::class)->name('registrant_database');
             //ANCHOR - Registrant Database Route
             Route::group(['prefix' => 'registrant-database', 'as' => 'registrant_database.'], function () {
-                Route::get('/index', IndexRegistrantDatabase::class)->name('index');
                 Route::get('/detail', DetailRegistrantDatabase::class)->name('detail');
             });
 
@@ -33,7 +33,7 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
             Route::get('/monitoring-quota', MonitoringQuota::class)->name('monitoring_quota');
         });
 
-        //Setting Page Route
+        //ANCHOR - Setting Page Route
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
             Route::group(['prefix' => 'admission-draft', 'as' => 'admission_draft.'], function () {
                 Route::get('/academic-year', AcademicYear::class)->name('academic_year');
