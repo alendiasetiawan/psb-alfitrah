@@ -92,7 +92,6 @@ class RegistrationPayment extends Component
                 AdmissionDataRegistrationPayment::where('student_id', $this->studentId)->update([
                     'payment_status' => VerificationStatusEnum::PROCESS
                 ]);
-
                 AdmissionVerification::where('student_id', $this->studentId)->update([
                     'registration_payment' => VerificationStatusEnum::PROCESS
                 ]);

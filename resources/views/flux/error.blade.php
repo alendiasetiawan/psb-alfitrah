@@ -13,7 +13,7 @@ if ($name && (is_null($message) || $message === '') && filter_var($nested, FILTE
     $message = $errorBag->first($name . '.*');
 }
 
-$classes = Flux::classes('mt-1 text-sm font-medium text-red-400 dark:text-red-400')
+$classes = Flux::classes('mt-1 text-sm font-medium text-amber-400 dark:text-red-400')
     ->add($message ? '' : 'hidden');
 @endphp
 

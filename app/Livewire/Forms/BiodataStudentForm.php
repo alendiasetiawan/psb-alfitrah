@@ -56,27 +56,38 @@ class BiodataStudentForm extends Form
 
     protected $rules = [
         'inputs.studentName' => [
-            'required', 'min:3'
+            'required',
+            'min:3'
         ],
         'inputs.gender' => 'required',
         'inputs.birthPlace' => [
-            'required', 'min:5'
+            'required',
+            'min:5'
         ],
         'inputs.birthDate' => 'required',
         'inputs.mobilePhone' => [
-            'required', 'min:7', 'max:12'
+            'required',
+            'min:7',
+            'max:12'
         ],
         'inputs.nisn' => [
-            'required', 'min:10', 'max:10'
+            'required',
+            'min:10',
+            'max:10'
         ],
         'inputs.address' => [
-            'required', 'min:20',  'max:500'
+            'required',
+            'min:20',
+            'max:500'
         ],
         'inputs.oldSchoolName' => [
-            'required', 'min:5'
+            'required',
+            'min:5'
         ],
         'inputs.oldSchoolAddress' => [
-            'required', 'min:20',  'max:500'
+            'required',
+            'min:20',
+            'max:500'
         ],
         'inputs.selectedProvinceId' => 'required',
         'inputs.selectedRegencyId' => 'required',
@@ -113,7 +124,8 @@ class BiodataStudentForm extends Form
     ];
 
     //ACTION - Save student and parent data
-    public function save($parentId, $studentId)  {
+    public function save($parentId, $studentId)
+    {
         $this->validate();
 
         if ($this->inputs['isParent'] == 1) {
@@ -153,16 +165,14 @@ class BiodataStudentForm extends Form
             ];
         }
 
-        DB::transaction(function () use($parentId, $studentId, $dataParent) {            
+        DB::transaction(function () use ($parentId, $studentId, $dataParent) {
             //Save parent data
-            ParentModel::where('user_id', session('userData')->id)
-            ->update(
-                $dataParent
-            );
+            $parentModel = ParentModel::where('user_id', session('userData')->id)->first();
+            $parentModel->update($dataParent);
 
             //Update Student Data
-            Student::where('id', $studentId)
-            ->update([
+            $student = Student::find($studentId);
+            $student->update([
                 'parent_id' => $parentId,
                 'province_id' => $this->inputs['selectedProvinceId'],
                 'regency_id' => $this->inputs['selectedRegencyId'],
@@ -180,10 +190,12 @@ class BiodataStudentForm extends Form
             ]);
 
             //Update admission verification data
-            AdmissionVerification::where('student_id', $studentId)
-            ->update([
-                'biodata' => VerificationStatusEnum::PROCESS
-            ]);
-        });      
+            $verification = AdmissionVerification::where('student_id', $studentId)->first();
+            if ($verification) {
+                $verification->update([
+                    'biodata' => VerificationStatusEnum::PROCESS
+                ]);
+            }
+        });
     }
 }

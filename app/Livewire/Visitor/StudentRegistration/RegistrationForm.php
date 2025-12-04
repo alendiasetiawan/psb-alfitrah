@@ -183,6 +183,7 @@ class RegistrationForm extends Component
 
                 //Insert student data
                 $createStudent = Student::create([
+                    'user_id' => $createUser->id,
                     'parent_id' => $createParent->id,
                     'branch_id' => $this->inputs['selectedBranchId'],
                     'education_program_id' => $this->inputs['selectedEducationProgramId'],
@@ -197,6 +198,7 @@ class RegistrationForm extends Component
 
                 //Insert multi student data
                 MultiStudent::create([
+                    'user_id' => $createUser->id,
                     'parent_id' => $createParent->id,
                     'student_id' => $createStudent->id
                 ]);

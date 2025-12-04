@@ -29,7 +29,7 @@ class StudentQuery
             ->with([
                 'parent' => function ($query) {
                     $query->join('users', 'parents.user_id', 'users.id')
-                        ->select('parents.*', 'users.username')
+                        ->select('parents.*', 'users.username', 'users.photo as user_photo')
                         ->with('jobFather')
                         ->with('jobMother')
                         ->with('jobGuardian');
@@ -96,16 +96,8 @@ class StudentQuery
         )
             ->joinBranchAndProgram()
             ->joinRegistrationPayment()
-            ->addSelect('students.name as student_name', 'students.gender', 'students.id', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date')
-            ->with([
-                'parent' => function ($query) {
-                    $query->join('users', 'parents.user_id', 'users.id')
-                        ->addSelect('users.username', 'parents.id');
-                },
-                'studentAttachment' => function ($query) {
-                    $query->addSelect('student_id', 'photo as student_photo');
-                }
-            ])
+            ->joinUser()
+            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.id', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date')
             ->orderBy('students.id', 'desc')
             ->paginate($limitData);
     }

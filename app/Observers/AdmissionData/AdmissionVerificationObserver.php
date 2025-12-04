@@ -8,6 +8,7 @@ use App\Models\AdmissionData\AdmissionVerification;
 class AdmissionVerificationObserver
 {
    use FlushStudentAdmissionDataTrait;
+
    public $afterCommit = true;
    /**
     * Handle the AdmissionVerification "created" event.
@@ -15,6 +16,7 @@ class AdmissionVerificationObserver
    public function created(AdmissionVerification $admissionVerification): void
    {
       $this->flushAttachment($admissionVerification->student_id);
+      $this->flushBiodata($admissionVerification->student_id);
    }
 
    /**
@@ -23,6 +25,7 @@ class AdmissionVerificationObserver
    public function updated(AdmissionVerification $admissionVerification): void
    {
       $this->flushAttachment($admissionVerification->student_id);
+      $this->flushBiodata($admissionVerification->student_id);
    }
 
    /**
@@ -31,5 +34,6 @@ class AdmissionVerificationObserver
    public function deleted(AdmissionVerification $admissionVerification): void
    {
       $this->flushAttachment($admissionVerification->student_id);
+      $this->flushBiodata($admissionVerification->student_id);
    }
 }

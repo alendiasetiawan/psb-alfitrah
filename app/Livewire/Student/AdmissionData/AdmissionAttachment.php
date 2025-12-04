@@ -2,28 +2,29 @@
 
 namespace App\Livewire\Student\AdmissionData;
 
-use Livewire\Component;
-use Detection\MobileDetect;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Locked;
-use App\Services\UploadFileService;
-use App\Services\StudentDataService;
 use App\Enums\VerificationStatusEnum;
-use Illuminate\Support\Facades\Cache;
+use App\Helpers\CacheKeys\Student\AdmissionDataCacheKey;
+use App\Helpers\CacheKeys\Student\StudentAdmissionDataKey;
+use App\Models\AdmissionData\AdmissionVerification;
+use App\Models\AdmissionData\StudentAttachment;
+use App\Models\User;
 use App\Queries\AdmissionData\StudentQuery;
 use App\Services\AdmissionVerificationService;
-use App\Models\AdmissionData\StudentAttachment;
-use App\Models\AdmissionData\AdmissionVerification;
-use App\Helpers\CacheKeys\Student\AdmissionDataCacheKey;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
-use App\Helpers\CacheKeys\Student\StudentAdmissionDataKey;
+use App\Services\StudentDataService;
+use App\Services\UploadFileService;
+use Detection\MobileDetect;
+use Illuminate\Support\Facades\Cache;
+use Livewire\Attributes\Locked;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 #[Title('Berkas Siswa')]
 class AdmissionAttachment extends Component
 {
    use WithFileUploads;
-   
+
    #[Locked]
    public $studentId;
    #[Locked]
@@ -79,7 +80,8 @@ class AdmissionAttachment extends Component
       $this->isCanEdit = $this->admissionVerificationService->isStudentCadEditAttachment($this->detailAttachment->registration_payment, $this->detailAttachment->attachment);
    }
 
-   public function boot(MobileDetect $mobileDetect, UploadFileService $uploadFileService, StudentDataService $studentDataService, AdmissionVerificationService $admissionVerificationService) {
+   public function boot(MobileDetect $mobileDetect, UploadFileService $uploadFileService, StudentDataService $studentDataService, AdmissionVerificationService $admissionVerificationService)
+   {
       //Set dependency injection
       $this->studentDataService = $studentDataService;
       $this->isMobile = $mobileDetect->isMobile();
@@ -132,9 +134,9 @@ class AdmissionAttachment extends Component
       $this->reset($property);
       $this->isSubmitActive = false;
    }
-   
+
    //ACTION - Save attachment data
-   public function saveAttachment() 
+   public function saveAttachment()
    {
       //Logic to set folder name
       $folderName = 'student-attachments/' . $this->academicYear . '';
@@ -194,9 +196,15 @@ class AdmissionAttachment extends Component
             'family_card_status' => VerificationStatusEnum::PROCESS
          ]);
 
+         //Update photo for user's avatar
+         $user = User::find(session('userData')->id);
+         $user->update([
+            'photo' => $uploadedStudentPhoto
+         ]);
+
          //Update admission verification status
-         AdmissionVerification::where('student_id', $this->studentId)
-         ->update([
+         $verification = AdmissionVerification::where('student_id', $this->studentId)->firstOrFail();
+         $verification->update([
             'attachment' => VerificationStatusEnum::PROCESS
          ]);
 

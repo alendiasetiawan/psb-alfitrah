@@ -18,10 +18,10 @@
                     <x-cards.product-card src="{{ $branch->photo ? asset('storage/'.$branch->photo) : null }}">
                         @if (!is_null($branch->map_link))
                             <x-slot:category>
-                                <a href="{{ $branch->map_link }}" target="_blank" class="text-primary-400">
+                                <a href="{{ $branch->map_link }}" target="_blank">
                                     <div class="flex flex-between items-center">
                                         Lihat Map
-                                        <flux:icon.map-pin variant="mini"/>
+                                        <flux:icon.map-pin variant="micro"/>
                                     </div>
                                 </a>
                             </x-slot:category>

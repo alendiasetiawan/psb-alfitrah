@@ -12,7 +12,7 @@
     }
 
     if ($striped && $loop && $loop->iteration % 2 === 0) {
-        $classString .= ' bg-dark/15';
+        $classString .= ' bg-dark/10';
     }
 @endphp
 

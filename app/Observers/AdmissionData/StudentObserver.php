@@ -4,11 +4,14 @@ namespace App\Observers\AdmissionData;
 
 
 use App\Models\AdmissionData\Student;
+use App\Traits\FlushAdminMasterDataTrait;
 use App\Traits\FlushStudentAdmissionDataTrait;
 
 class StudentObserver
 {
    use FlushStudentAdmissionDataTrait;
+   use FlushAdminMasterDataTrait;
+
    public $afterCommit = true;
    /**
     * Handle the Student "created" event.
@@ -17,6 +20,8 @@ class StudentObserver
    {
       $this->flushBiodata($student->id);
       $this->flushAttachment($student->id);
+      $this->flushRegistrant();
+      $this->flushTotalRegistrant();
    }
 
    /**
@@ -26,7 +31,8 @@ class StudentObserver
    {
       $this->flushBiodata($student->id);
       $this->flushAttachment($student->id);
-      
+      $this->flushRegistrant();
+      $this->flushTotalRegistrant();
    }
 
    /**
@@ -36,6 +42,7 @@ class StudentObserver
    {
       $this->flushBiodata($student->id);
       $this->flushAttachment($student->id);
-
+      $this->flushRegistrant();
+      $this->flushTotalRegistrant();
    }
 }

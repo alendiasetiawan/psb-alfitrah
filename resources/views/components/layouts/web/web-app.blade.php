@@ -19,7 +19,7 @@
     </flux:main>
 
     @persist('toast')
-    <x-notifications.toast />
+        <x-notifications.toast />
     @endpersist
 
     @fluxScripts

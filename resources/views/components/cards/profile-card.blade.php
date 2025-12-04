@@ -36,7 +36,7 @@
 
     <!--Content-->
     <div class="mt-2">
-        <flux:heading size="xl" variant="bold" class="truncate max-w-[150px]">
+        <flux:heading size="xl" variant="bold" class="truncate max-w-[250px]">
             {{ $title }}
         </flux:heading>
         <flux:text variant="soft" size="sm">

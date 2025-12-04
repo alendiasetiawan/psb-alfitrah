@@ -42,6 +42,7 @@
        shadow-[inset_0_0_25px_rgba(255,255,255,0.25)]
        z-[0]
    "></div>
+   
         <!-- Header background -->
         <div class="relative flex flex-col justify-between">
             <img src="{{ !empty($src) ? $src : asset('images/background/alfitrah-school.jpeg') }}" alt="background"

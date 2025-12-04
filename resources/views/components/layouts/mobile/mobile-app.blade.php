@@ -41,7 +41,9 @@
     @endif
     <!--#Bottom Navbar-->
 
-    <x-notifications.toast />
+    @persist('toast')
+        <x-notifications.toast />
+    @endpersist
 
     @stack('scripts')
     @fluxScripts

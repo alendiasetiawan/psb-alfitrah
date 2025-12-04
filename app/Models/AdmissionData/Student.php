@@ -174,6 +174,13 @@ class Student extends Model
             ->addSelect('amount as registration_fee', 'evidence', 'payment_status');
     }
 
+    //Scope for get user detail data
+    public function scopeJoinUser($query)
+    {
+        return $query->join('users', 'students.user_id', 'users.id')
+            ->addSelect('users.username', 'users.photo as user_photo');
+    }
+
     public static function baseEloquent($studentId = null, $branchId = null, $educationProgramId = null, $admissionId = null, $admissionBatchId = null, $searchStudent = null)
     {
         return self::when(!empty($studentId), function ($query) use ($studentId) {
@@ -192,7 +199,8 @@ class Student extends Model
                 $query->where('admission_batch_id', $admissionBatchId);
             })
             ->when(!empty($searchStudent), function ($query) use ($searchStudent) {
-                $query->where('students.name', 'like', '%' . $searchStudent . '%');
+                $query->where('students.name', 'like', '%' . $searchStudent . '%')
+                    ->orWhere('users.username', 'like', '%' . $searchStudent . '%');
             });
     }
 }

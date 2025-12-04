@@ -18,7 +18,7 @@ $classes = Flux::classes()
     ->add($color ? match($color) {
         'red' => 'text-red-600 dark:text-red-400',
         'orange' => 'text-orange-600 dark:text-orange-400',
-        'amber' => 'text-amber-600 dark:text-amber-500',
+        'amber' => 'text-amber-400 dark:text-amber-500',
         'yellow' => 'text-yellow-600 dark:text-yellow-500',
         'lime' => 'text-lime-600 dark:text-lime-500',
         'green' => 'text-green-600 dark:text-green-500',
