@@ -28,13 +28,13 @@
                         </div>
                     </div>
                     <div class="flex justify-end">
-                        <flux:badge variant="solid" color="primary" icon="user-check">Jumlah: {{ $totalStudent }}</flux:badge>
+                        <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $totalStudent }}</flux:badge>
                     </div>
                 </div>
             </x-slot:action>
 
             @forelse ($this->registrantLists as $registrant)
-                <x-tables.row :striped="true">
+                <x-tables.row :striped="true" wire:key="{{ $registrant->id }}" :loop=$loop>
                     <x-tables.cell>
                         <flux:text>{{ $loop->iteration }}</flux:text>
                     </x-tables.cell>
@@ -42,7 +42,19 @@
                         <flux:text>{{ $registrant->parent->username }}</flux:text>
                     </x-tables.cell>
                     <x-tables.cell>
-                        <flux:text>{{ $registrant->student_name }}</flux:text>
+                        <flux:text>
+                            {{ $registrant->student_name }}
+                        </flux:text>
+
+                        @if ($registrant->payment_status == \App\Enums\VerificationStatusEnum::VALID)
+                            <flux:badge color="green" size="sm" icon="banknotes">
+                                Sudah Bayar
+                            </flux:badge>
+                        @else
+                            <flux:badge color="red" size="sm" icon="x-circle">
+                                Belum Bayar
+                            </flux:badge>
+                        @endif
                     </x-tables.cell>
                     <x-tables.cell>
                         <flux:text>{{ $registrant->branch_name }}</flux:text>
@@ -62,7 +74,12 @@
                                 <flux:menu>
                                     <flux:modal.trigger name="add-edit-admission-modal" 
                                     wire:click="#">
-                                        <flux:menu.item icon="file-pen-line">Edit</flux:menu.item>
+                                        <flux:menu.item icon="eye">Detail</flux:menu.item>
+                                    </flux:modal.trigger>
+
+                                    <flux:modal.trigger name="add-edit-admission-modal" 
+                                    wire:click="#">
+                                        <flux:menu.item icon="file-pen-line">Pindah Cabang/Program</flux:menu.item>
                                     </flux:modal.trigger>
 
                                     <flux:modal.trigger name="delete-admission-modal">
@@ -84,5 +101,4 @@
             @endif
         </x-tables.basic-table>
     </div>
-
 </div>

@@ -1,17 +1,20 @@
 <?php
 
 use App\Enums\RoleEnum;
-use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\AdminDashboard;
+use App\Livewire\Admin\MasterData\MonitoringQuota;
+use App\Livewire\Admin\MasterData\RegistrantDatabase;
+use App\Livewire\Admin\MasterData\RegistrantDatabase\DetailRegistrantDatabase;
+use App\Livewire\Admin\MasterData\RegistrantDatabase\IndexRegistrantDatabase;
+use App\Livewire\Admin\MasterData\RegistrantDemographic;
+use App\Livewire\Admin\MasterData\StudentDatabase;
+use App\Livewire\Admin\Setting\AdmissionDraft\AcademicYear;
+use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
+use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
-use App\Livewire\Admin\MasterData\MonitoringQuota;
-use App\Livewire\Admin\MasterData\StudentDatabase;
-use App\Livewire\Admin\MasterData\RegistrantDatabase;
-use App\Livewire\Admin\MasterData\RegistrantDemographic;
-use App\Livewire\Admin\Setting\AdmissionDraft\AcademicYear;
-use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
-use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
+use Illuminate\Support\Facades\Route;
+
 
 Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -19,7 +22,12 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
 
         //ANCHOR - Master Data Route
         Route::group(['prefix' => 'master-data', 'as' => 'master_data.'], function () {
-            Route::get('/registrant-database', RegistrantDatabase::class)->name('registrant_database');
+            //ANCHOR - Registrant Database Route
+            Route::group(['prefix' => 'registrant-database', 'as' => 'registrant_database.'], function () {
+                Route::get('/index', IndexRegistrantDatabase::class)->name('index');
+                Route::get('/detail', DetailRegistrantDatabase::class)->name('detail');
+            });
+
             Route::get('/student-database', StudentDatabase::class)->name('student_database');
             Route::get('/registrant-demographic', RegistrantDemographic::class)->name('registrant_demographic');
             Route::get('/monitoring-quota', MonitoringQuota::class)->name('monitoring_quota');

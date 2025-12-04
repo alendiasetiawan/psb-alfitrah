@@ -95,11 +95,15 @@ class StudentQuery
             admissionId: $selectedAdmissionId
         )
             ->joinBranchAndProgram()
+            ->joinRegistrationPayment()
             ->addSelect('students.name as student_name', 'students.gender', 'students.id', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date')
             ->with([
                 'parent' => function ($query) {
                     $query->join('users', 'parents.user_id', 'users.id')
                         ->addSelect('users.username', 'parents.id');
+                },
+                'studentAttachment' => function ($query) {
+                    $query->addSelect('student_id', 'photo as student_photo');
                 }
             ])
             ->orderBy('students.id', 'desc')

@@ -26,7 +26,7 @@ $classes = Flux::classes()
     ->add(match ($size) {
         'lg' => 'text-sm py-1.5 **:data-flux-badge-icon:me-2',
         default => 'text-sm py-1 **:data-flux-badge-icon:me-1.5',
-        'sm' => 'text-xs py-1 **:data-flux-badge-icon:size-3 **:data-flux-badge-icon:me-1',
+        'sm' => 'text-xs py-0.75 **:data-flux-badge-icon:size-3 **:data-flux-badge-icon:me-1',
     })
     ->add(match ($variant) {
         'pill' => 'rounded-full px-3',
@@ -59,13 +59,13 @@ $classes = Flux::classes()
         'gray' => 'text-white dark:text-white bg-gray-500 dark:bg-gray-600 [&:is(button)]:hover:bg-gray-600 dark:[button]:hover:bg-gray-500',
     } :  match ($color) {
         default => 'text-zinc-700 [&_button]:text-zinc-700! dark:text-zinc-200 dark:[&_button]:text-zinc-200! bg-zinc-400/15 dark:bg-zinc-400/40 [&:is(button)]:hover:bg-zinc-400/25 dark:[button]:hover:bg-zinc-400/50',
-        'primary' => 'text-primary-700 [&_button]:text-primary-700! dark:text-primary-200 dark:[&_button]:text-primary-200! bg-primary-400/25 dark:bg-primary-400/40 [&:is(button)]:hover:bg-primary-400/40 dark:[button]:hover:bg-primary-400/50',
-        'red' => 'text-red [&_button]:text-red! dark:text-red-200 dark:[&_button]:text-red-200! bg-red/20 dark:bg-red/40 [&:is(button)]:hover:bg-red/30 dark:[button]:hover:bg-red/50',
+        'primary' => 'text-white [&_button]:text-primary-700! dark:text-primary-200 dark:[&_button]:text-primary-200! bg-primary-400/70 dark:bg-primary-400/40 [&:is(button)]:hover:bg-primary-400/40 dark:[button]:hover:bg-primary-400/50',
+        'red' => 'text-white [&_button]:text-red! dark:text-red-200 dark:[&_button]:text-red-200! bg-red-500/70 dark:bg-red-500/40 [&:is(button)]:hover:bg-red-500/30 dark:[button]:hover:bg-red-500/50',
         'orange' => 'text-orange-700 [&_button]:text-orange-700! dark:text-orange-200 dark:[&_button]:text-orange-200! bg-orange-400/20 dark:bg-orange-400/40 [&:is(button)]:hover:bg-orange-400/30 dark:[button]:hover:bg-orange-400/50',
         'amber' => 'text-amber-700 [&_button]:text-amber-700! dark:text-amber-200 dark:[&_button]:text-amber-200! bg-amber-400/25 dark:bg-amber-400/40 [&:is(button)]:hover:bg-amber-400/40 dark:[button]:hover:bg-amber-400/50',
         'yellow' => 'text-yellow-800 [&_button]:text-yellow-800! dark:text-yellow-200 dark:[&_button]:text-yellow-200! bg-yellow-400/25 dark:bg-yellow-400/40 [&:is(button)]:hover:bg-yellow-400/40 dark:[button]:hover:bg-yellow-400/50',
         'lime' => 'text-lime-800 [&_button]:text-lime-800! dark:text-lime-200 dark:[&_button]:text-lime-200! bg-lime-400/25 dark:bg-lime-400/40 [&:is(button)]:hover:bg-lime-400/35 dark:[button]:hover:bg-lime-400/50',
-        'green' => 'text-green-800 [&_button]:text-green-800! dark:text-green-200 dark:[&_button]:text-green-200! bg-green-400/20 dark:bg-green-400/40 [&:is(button)]:hover:bg-green-400/30 dark:[button]:hover:bg-green-400/50',
+        'green' => 'text-white [&_button]:text-green-800! dark:text-green-200 dark:[&_button]:text-green-200! bg-green-400/70 dark:bg-green-400/40 [&:is(button)]:hover:bg-green-400/30 dark:[button]:hover:bg-green-400/50',
         'emerald' => 'text-emerald-800 [&_button]:text-emerald-800! dark:text-emerald-200 dark:[&_button]:text-emerald-200! bg-emerald-400/20 dark:bg-emerald-400/40 [&:is(button)]:hover:bg-emerald-400/30 dark:[button]:hover:bg-emerald-400/50',
         'teal' => 'text-teal-800 [&_button]:text-teal-800! dark:text-teal-200 dark:[&_button]:text-teal-200! bg-teal-400/20 dark:bg-teal-400/40 [&:is(button)]:hover:bg-teal-400/30 dark:[button]:hover:bg-teal-400/50',
         'cyan' => 'text-cyan-800 [&_button]:text-cyan-800! dark:text-cyan-200 dark:[&_button]:text-cyan-200! bg-cyan-400/20 dark:bg-cyan-400/40 [&:is(button)]:hover:bg-cyan-400/30 dark:[button]:hover:bg-cyan-400/50',
