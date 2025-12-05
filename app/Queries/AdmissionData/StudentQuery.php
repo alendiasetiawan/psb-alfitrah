@@ -4,6 +4,7 @@ namespace App\Queries\AdmissionData;
 
 use App\Enums\PlacementTestEnum;
 use App\Models\AdmissionData\Student;
+use App\Models\Core\Branch;
 use Illuminate\Support\Facades\DB;
 
 class StudentQuery
@@ -119,5 +120,22 @@ class StudentQuery
             ->joinUser()
             ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.created_at as registration_date')
             ->first();
+    }
+
+    public static function paginateOfficialStudent($searchStudent = null, $selectedAdmissionId, $limitData)
+    {
+        return Student::baseEloquent(
+            searchStudent: $searchStudent,
+            admissionId: $selectedAdmissionId
+        )
+            ->joinBranchAndProgram()
+            ->joinUser()
+            ->joinPlacementTestResult()
+            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.parent_id', 'students.is_scholarship', 'students.nisn')
+            ->orderBy('students.name', 'asc')
+            ->where('students.is_walkout', false)
+            ->where('final_result', PlacementTestEnum::RESULT_PASS)
+            ->where('publication_status', PlacementTestEnum::PUBLICATION_RELEASE)
+            ->paginate($limitData);
     }
 }

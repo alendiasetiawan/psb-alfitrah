@@ -59,8 +59,8 @@ $classes = Flux::classes()
         'gray' => 'text-white dark:text-white bg-gray-500 dark:bg-gray-600 [&:is(button)]:hover:bg-gray-600 dark:[button]:hover:bg-gray-500',
     } :  match ($color) {
         default => 'text-zinc-700 [&_button]:text-zinc-700! dark:text-zinc-200 dark:[&_button]:text-zinc-200! bg-zinc-400/15 dark:bg-zinc-400/40 [&:is(button)]:hover:bg-zinc-400/25 dark:[button]:hover:bg-zinc-400/50',
-        'primary' => 'text-white [&_button]:text-primary-700! dark:text-primary-200 dark:[&_button]:text-primary-200! bg-primary-400/70 dark:bg-primary-400/40 [&:is(button)]:hover:bg-primary-400/40 dark:[button]:hover:bg-primary-400/50',
-        'red' => 'text-white [&_button]:text-red! dark:text-red-200 dark:[&_button]:text-red-200! bg-red-500/70 dark:bg-red-500/40 [&:is(button)]:hover:bg-red-500/30 dark:[button]:hover:bg-red-500/50',
+        'primary' => 'text-white [&_button]:text-primary-700! dark:text-primary-200 dark:[&_button]:text-primary-200! bg-primary-400/60 dark:bg-primary-400/40 [&:is(button)]:hover:bg-primary-400/40 dark:[button]:hover:bg-primary-400/50',
+        'red' => 'text-white [&_button]:text-red! dark:text-red-200 dark:[&_button]:text-red-200! bg-red-400/60 dark:bg-red-500/60 [&:is(button)]:hover:bg-red-500/30 dark:[button]:hover:bg-red-500/50',
         'orange' => 'text-orange-700 [&_button]:text-orange-700! dark:text-orange-200 dark:[&_button]:text-orange-200! bg-orange-400/20 dark:bg-orange-400/40 [&:is(button)]:hover:bg-orange-400/30 dark:[button]:hover:bg-orange-400/50',
         'amber' => 'text-amber-700 [&_button]:text-amber-700! dark:text-amber-200 dark:[&_button]:text-amber-200! bg-amber-400/25 dark:bg-amber-400/40 [&:is(button)]:hover:bg-amber-400/40 dark:[button]:hover:bg-amber-400/50',
         'yellow' => 'text-yellow-800 [&_button]:text-yellow-800! dark:text-yellow-200 dark:[&_button]:text-yellow-200! bg-yellow-400/25 dark:bg-yellow-400/40 [&:is(button)]:hover:bg-yellow-400/40 dark:[button]:hover:bg-yellow-400/50',

@@ -14,7 +14,7 @@ class BranchObserver
      */
     public function created(Branch $branch): void
     {
-        $this->flushRegistrant();
+        $this->flushTotalStudentOfficialBranch();
     }
 
     /**
@@ -22,7 +22,7 @@ class BranchObserver
      */
     public function updated(Branch $branch): void
     {
-        $this->flushRegistrant();
+        $this->flushTotalStudentOfficialBranch();
     }
 
     /**
@@ -30,6 +30,6 @@ class BranchObserver
      */
     public function deleted(Branch $branch): void
     {
-        $this->flushRegistrant();
+        $this->flushTotalStudentOfficialBranch();
     }
 }

@@ -46,5 +46,3 @@
         {{ $slot }}
     </div>
 </div>
-
-{{-- KEYFRAMES --}}

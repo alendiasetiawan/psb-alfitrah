@@ -20,8 +20,9 @@ class StudentObserver
    {
       $this->flushBiodata($student->id);
       $this->flushAttachment($student->id);
-      $this->flushRegistrant();
       $this->flushTotalRegistrant();
+      $this->flushStudentOfficial();
+      $this->flushTotalStudentOfficialBranch();
    }
 
    /**
@@ -31,8 +32,9 @@ class StudentObserver
    {
       $this->flushBiodata($student->id);
       $this->flushAttachment($student->id);
-      $this->flushRegistrant();
       $this->flushTotalRegistrant();
+      $this->flushStudentOfficial();
+      $this->flushTotalStudentOfficialBranch();
    }
 
    /**
@@ -42,7 +44,8 @@ class StudentObserver
    {
       $this->flushBiodata($student->id);
       $this->flushAttachment($student->id);
-      $this->flushRegistrant();
       $this->flushTotalRegistrant();
+      $this->flushStudentOfficial();
+      $this->flushTotalStudentOfficialBranch();
    }
 }

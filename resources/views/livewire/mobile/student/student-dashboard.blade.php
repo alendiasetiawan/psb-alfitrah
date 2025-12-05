@@ -204,7 +204,6 @@
                 </div>
             </div>
         </div>
-
     </x-animations.fade-down>
     <!--#Swiper Card-->
 

@@ -14,24 +14,15 @@ class RegistrationPaymentObserver
     /**
      * Handle the RegistrationPayment "created" event.
      */
-    public function created(RegistrationPayment $registrationPayment): void
-    {
-        $this->flushRegistrant();
-    }
+    public function created(RegistrationPayment $registrationPayment): void {}
 
     /**
      * Handle the RegistrationPayment "updated" event.
      */
-    public function updated(RegistrationPayment $registrationPayment): void
-    {
-        $this->flushRegistrant();
-    }
+    public function updated(RegistrationPayment $registrationPayment): void {}
 
     /**
      * Handle the RegistrationPayment "deleted" event.
      */
-    public function deleted(RegistrationPayment $registrationPayment): void
-    {
-        $this->flushRegistrant();
-    }
+    public function deleted(RegistrationPayment $registrationPayment): void {}
 }

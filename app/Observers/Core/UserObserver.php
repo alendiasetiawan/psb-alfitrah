@@ -14,7 +14,6 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        $this->flushRegistrant();
         $this->flushTotalRegistrant();
     }
 
@@ -23,7 +22,6 @@ class UserObserver
      */
     public function updated(User $user): void
     {
-        $this->flushRegistrant();
         $this->flushTotalRegistrant();
     }
 
@@ -32,7 +30,6 @@ class UserObserver
      */
     public function deleted(User $user): void
     {
-        $this->flushRegistrant();
         $this->flushTotalRegistrant();
     }
 }

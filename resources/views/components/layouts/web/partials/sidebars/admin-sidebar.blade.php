@@ -25,7 +25,7 @@
             <!--Menu Database-->
             <flux:sidebar.group
             expandable
-            :expanded="Route::is('admin.master_data.registrant_database') || Route::is('admin.master_data.student_database') || Route::is('admin.master_data.registrant_demographic') || Route::is('admin.master_data.monitoring_quota')"
+            :expanded="Route::is('admin.master_data.registrant_database') || Route::is('admin.master_data.student_database.*')"
             icon="database"
             heading="{{ __('Database') }}"
             class="grid">
@@ -37,8 +37,8 @@
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('admin.master_data.student_database') }}"
-                :current="Route::is('admin.master_data.student_database')"
+                href="{{ route('admin.master_data.student_database.index') }}"
+                :current="Route::is('admin.master_data.student_database.*')"
                 wire:navigate>
                     {{ __('Siswa') }}
                 </flux:sidebar.item>

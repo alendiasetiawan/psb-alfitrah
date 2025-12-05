@@ -1,6 +1,7 @@
 @props([
     'modalName' => '',
     'isMobile' => false,
+    'buttonVariant' => 'danger'
 ])
 
 <flux:modal name="{{ $modalName }}" class="min-w-[22rem]" variant="{{ $isMobile ? 'flyout' : '' }}" position="{{ $isMobile ? 'bottom' : '' }}">
@@ -31,7 +32,7 @@
                 <flux:button
                 {{ $attributes->merge([
                     'type' => 'button',
-                    'variant' => 'danger',
+                    'variant' => $buttonVariant,
                 ]) }}>
                     {{ $deleteButton }}
                 </flux:button>

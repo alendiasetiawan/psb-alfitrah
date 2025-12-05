@@ -18,4 +18,16 @@ trait FlushAdminMasterDataTrait
         $key = AdminMasterDataKey::adminMasterTotalRegistrant();
         Cache::forget($key);
     }
+
+    public function flushStudentOfficial()
+    {
+        $key = AdminMasterDataKey::adminMasterStudentOfficial();
+        Cache::forget($key);
+    }
+
+    public function flushTotalStudentOfficialBranch()
+    {
+        $key = AdminMasterDataKey::adminTotalStudentOfficialBranch();
+        Cache::forget($key);
+    }
 }

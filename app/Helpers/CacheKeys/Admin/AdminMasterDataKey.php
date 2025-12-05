@@ -15,4 +15,16 @@ class AdminMasterDataKey
     {
         return "admin_master_total_registrant";
     }
+
+    //Related table: placement_test_results, students
+    public static function adminMasterStudentOfficial(): string
+    {
+        return "admin_master_student_official";
+    }
+
+    //Related table: placement_test_results, students, branches
+    public static function adminTotalStudentOfficialBranch(): string
+    {
+        return "admin_total_student_official_branch";
+    }
 }

@@ -2,23 +2,24 @@
 
 namespace App\Models\AdmissionData;
 
-use App\Models\User;
-use App\Models\Core\Branch;
-use App\Models\Core\Regency;
-use App\Models\Core\Village;
-use App\Models\Core\District;
-use App\Models\Core\Province;
 use App\Models\Core\Admission;
 use App\Models\Core\AdmissionBatch;
+use App\Models\Core\Branch;
+use App\Models\Core\District;
 use App\Models\Core\EducationProgram;
+use App\Models\Core\Province;
+use App\Models\Core\Regency;
+use App\Models\Core\Village;
+use App\Models\Core\WalkoutStudent;
 use App\Models\Payment\RegistrationInvoice;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\PlacementTest\TestQrCodes;
-use App\Models\PlacementTest\PlacementTestResult;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\PlacementTest\PlacementTestPresence;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\PlacementTest\PlacementTestResult;
+use App\Models\PlacementTest\TestQrCodes;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -139,6 +140,11 @@ class Student extends Model
         return $this->hasMany(RegistrationInvoice::class);
     }
 
+    public function walkoutStudents(): HasMany
+    {
+        return $this->hasMany(WalkoutStudent::class);
+    }
+
     //Scope for get branch_name and program_names
     public function scopeJoinBranchAndProgram($query)
     {
@@ -179,6 +185,13 @@ class Student extends Model
     {
         return $query->join('users', 'students.user_id', 'users.id')
             ->addSelect('users.username', 'users.photo as user_photo');
+    }
+
+    //Scope for get placement test result data
+    public function scopeJoinPlacementTestResult($query)
+    {
+        return $query->join('placement_test_results', 'students.id', 'placement_test_results.student_id')
+            ->addSelect('placement_test_results.final_result', 'placement_test_results.publication_status');
     }
 
     public static function baseEloquent($studentId = null, $branchId = null, $educationProgramId = null, $admissionId = null, $admissionBatchId = null, $searchStudent = null)

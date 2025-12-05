@@ -1,41 +1,46 @@
 <?php
 
-namespace App\Livewire\Admin\MasterData;
+namespace App\Livewire\Admin\MasterData\StudentDatabase;
 
 use App\Helpers\AdmissionHelper;
 use App\Models\AdmissionData\Student;
 use App\Models\User;
 use App\Queries\AdmissionData\StudentQuery;
+use App\Queries\Core\BranchQuery;
 use App\Services\StudentDataService;
 use Detection\MobileDetect;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Title('Database Pendaftar')]
-class RegistrantDatabase extends Component
+class IndexStudentDatabase extends Component
 {
     use WithPagination;
 
     public bool $isMobile = false;
-    public string $searchStudent = '';
-    public int $selectedAdmissionId, $limitData = 10, $totalStudent, $setCount = 1;
+    public string $searchStudent = '', $walkoutReason = '';
+    public ?int $selectedAdmissionId = null, $limitData = 10, $setCount = 1;
     public object $admissionYearLists;
 
     protected AdmissionHelper $admissionHelper;
     protected StudentDataService $studentDataService;
 
     #[Computed]
-    public function registrantLists()
+    public function officialStudentLists()
     {
-        return StudentQuery::paginateStudentRegistrant(
+        return StudentQuery::paginateOfficialStudent(
             searchStudent: $this->searchStudent,
             selectedAdmissionId: $this->selectedAdmissionId,
             limitData: $this->limitData
         );
+    }
+
+    #[Computed]
+    public function totalStudents()
+    {
+        return BranchQuery::counterStudentOfficial($this->selectedAdmissionId);
     }
 
     public function boot(MobileDetect $mobileDetect, AdmissionHelper $admissionHelper, StudentDataService $studentDataService)
@@ -50,16 +55,9 @@ class RegistrantDatabase extends Component
         $queryAdmission = $this->admissionHelper::activeAdmission();
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
-
-        $this->totalStudent = StudentQuery::countStudentRegistrant($this->selectedAdmissionId);
     }
 
-    public function updated()
-    {
-        $this->resetPage();
-    }
-
-    //HOOK - Execute when page number is updated
+    //ANCHOR - HANDLE NUMBER ON PAGE UPDATE
     public function updatedPage($page)
     {
         $setPage = $page - 1;
@@ -67,7 +65,7 @@ class RegistrantDatabase extends Component
         $this->setCount = $dataLoaded + 1;
     }
 
-    //ANCHOR - Action Delete Student
+    //ANCHOR - DELETE STUDENT
     public function deleteStudent($id)
     {
         try {
@@ -88,20 +86,55 @@ class RegistrantDatabase extends Component
             });
 
             $this->dispatch('toast', type: 'warning', message: 'Data berhasil dihapus!');
-            $this->redirect(route('admin.master_data.registrant_database'), navigate: true);
+            $this->officialStudentLists();
+            $this->totalStudents();
         } catch (\Throwable $th) {
             session()->flash('error-delete-student', 'Gagal menghapus data, silahkan coba lagi!');
+        }
+    }
+
+    //ANCHOR - SET WALKOUT STUDENT
+    public function walkoutStudent($id)
+    {
+        $this->validate([
+            'walkoutReason' => 'required',
+        ], [
+            'walkoutReason.required' => 'Alasan tidak boleh kosong!',
+        ]);
+
+        try {
+            $realId = Crypt::decrypt($id);
+
+            DB::transaction(function () use ($realId) {
+                //Update walkout status
+                DB::table('students')->where('id', $realId)->update([
+                    'is_walkout' => true,
+                ]);
+
+                //Fill walkout reason
+                DB::table('walkout_students')->insert([
+                    'student_id' => $realId,
+                    'reason' => $this->walkoutReason,
+                ]);
+            });
+
+            $this->dispatch('toast', type: 'success', message: 'Data berhasil disimpan!');
+            $this->officialStudentLists();
+            $this->totalStudents();
+        } catch (\Throwable $th) {
+            session()->flash('error-set-walkout-student', 'Gagal menyimpan data, silahkan coba lagi beberapa saat lagi!');
         }
     }
 
     public function render()
     {
         if ($this->isMobile) {
-            return view('livewire.mobile.admin.master-data.registrant-database')->layout('components.layouts.mobile.mobile-app', [
+            return view('livewire.mobile.admin.master-data.student-database.index-student-database')->layout('components.layouts.mobile.mobile-app', [
                 'isShowBottomNavbar' => true,
                 'isShowTitle' => true,
             ]);
         }
-        return view('livewire.web.admin.master-data.registrant-database')->layout('components.layouts.web.web-app');
+
+        return view('livewire.web.admin.master-data.student-database.index-student-database')->layout('components.layouts.web.web-app');
     }
 }

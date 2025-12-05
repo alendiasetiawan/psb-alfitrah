@@ -16,3 +16,4 @@ yarn-error.log
 composer.lock
 /_playground
 settings.json
+.devdbrc
