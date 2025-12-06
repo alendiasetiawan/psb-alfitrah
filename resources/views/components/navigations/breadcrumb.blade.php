@@ -1,5 +1,6 @@
 @props([
-    'firstLink' => "/login"
+    'firstLink' => "/login",
+    'secondLink' => null
 ])
 
 <div class="hidden lg:block">

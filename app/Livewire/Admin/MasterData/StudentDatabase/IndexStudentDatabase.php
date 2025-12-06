@@ -150,6 +150,12 @@ class IndexStudentDatabase extends Component
         $this->selectedAdmissionId = $this->filterAdmissionId;
     }
 
+    //ANCHOR - OPEN DETAIL STUDENT DATABASE PAGE
+    public function openDetailStudentDatabasePage($id)
+    {
+        $this->redirect(route('admin.master_data.student_database.detail', ['studentId' => $id]), navigate: true);
+    }
+
     public function render()
     {
         if ($this->isMobile) {

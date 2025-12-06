@@ -28,7 +28,7 @@
         </div>
     </x-animations.fade-down>
 
-    <!--ANCHOR - OFFICIAL STUDENT TABLE-->
+    <!--ANCHOR - TABLE OFFICIAL STUDENT-->
     <x-animations.fade-down showTiming="150">
         <div class="grid grid-cols-1 mt-4">
             <x-tables.basic-table :headers="['No', 'Nama Santri', 'NISN', 'Cabang', 'Program', 'Beasiswa', 'Opsi']">
@@ -130,9 +130,7 @@
                                         <flux:icon.ellipsis-vertical variant="micro" class="text-white" />
                                     </flux:button>
                                     <flux:menu>
-                                        <flux:modal.trigger name="add-edit-admission-modal" wire:click="#">
-                                            <flux:menu.item icon="eye">Detail</flux:menu.item>
-                                        </flux:modal.trigger>
+                                        <flux:menu.item icon="eye" wire:click="openDetailStudentDatabasePage('{{ Crypt::encrypt($student->id) }}')">Detail</flux:menu.item>
                                     
                                         <flux:modal.trigger name="walkout-student-modal({{ $student->id }})">
                                             <flux:menu.item icon="footprints">Mengundurkan Diri</flux:menu.item>

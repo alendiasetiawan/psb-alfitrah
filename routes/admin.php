@@ -28,7 +28,7 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
             //ANCHOR - Student Database Route
             Route::group(['prefix' => 'student-database', 'as' => 'student_database.'], function () {
                 Route::get('/index', IndexStudentDatabase::class)->name('index');
-                Route::get('/detail', DetailStudentDatabase::class)->name('detail');
+                Route::get('/detail/{studentId}', DetailStudentDatabase::class)->name('detail');
             });
 
             Route::get('/registrant-demographic', RegistrantDemographic::class)->name('registrant_demographic');
