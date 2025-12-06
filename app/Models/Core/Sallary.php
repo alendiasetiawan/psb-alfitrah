@@ -16,4 +16,19 @@ class Sallary extends Model
     {
         return $this->hasMany(ParentModel::class);
     }
+
+    public function fatherSallaries(): HasMany
+    {
+        return $this->hasMany(ParentModel::class, 'father_sallary_id', 'id');
+    }
+
+    public function motherSallaries(): HasMany
+    {
+        return $this->hasMany(ParentModel::class, 'mother_sallary_id', 'id');
+    }
+
+    public function guardianSallaries(): HasMany
+    {
+        return $this->hasMany(ParentModel::class, 'guardian_sallary_id', 'id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\MasterData\StudentDatabase;
 
+use App\Exports\OfficialStudentExport;
 use App\Helpers\AdmissionHelper;
 use App\Models\AdmissionData\Student;
 use App\Models\Core\Branch;
@@ -17,6 +18,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 #[Title('Database Siswa')]
 class IndexStudentDatabase extends Component
@@ -24,11 +26,10 @@ class IndexStudentDatabase extends Component
     use WithPagination;
 
     public bool $isMobile = false;
-    public string $searchStudent = '', $walkoutReason = '';
-    public ?int $selectedAdmissionId = null, $limitData = 10, $setCount = 1;
-    public object $admissionYearLists, $branchLists;
+    public string $searchStudent = '', $walkoutReason = '', $admissionName = '';
+    public ?int $selectedAdmissionId = null, $limitData = 10, $setCount = 1, $filterAdmissionId = null;
+    public object $admissionYearLists, $branchLists, $tesStudents;
 
-    protected AdmissionHelper $admissionHelper;
     protected StudentDataService $studentDataService;
 
     #[Computed]
@@ -53,17 +54,17 @@ class IndexStudentDatabase extends Component
         $this->limitData += $loadItem;
     }
 
-    public function boot(MobileDetect $mobileDetect, AdmissionHelper $admissionHelper, StudentDataService $studentDataService)
+    public function boot(MobileDetect $mobileDetect, StudentDataService $studentDataService)
     {
         $this->isMobile = $mobileDetect->isMobile();
-        $this->admissionHelper = $admissionHelper;
         $this->studentDataService = $studentDataService;
     }
 
     public function mount()
     {
-        $queryAdmission = $this->admissionHelper::activeAdmission();
+        $queryAdmission = AdmissionHelper::activeAdmission();
         $this->selectedAdmissionId = $queryAdmission->id;
+        $this->admissionName = $queryAdmission->name;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
         $this->branchLists = Branch::pluck('name', 'id');
     }
@@ -133,6 +134,20 @@ class IndexStudentDatabase extends Component
         } catch (\Throwable $th) {
             session()->flash('error-set-walkout-student', 'Gagal menyimpan data, silahkan coba lagi beberapa saat lagi!');
         }
+    }
+
+    //ANCHOR - DOWNLOAD EXCEL STUDENT DATA
+    public function exportExcel($branchId)
+    {
+        $branchName = Branch::find($branchId)->name;
+        $this->dispatch('loading-export-excel');
+        return Excel::download(new OfficialStudentExport($branchId, $this->selectedAdmissionId), "[$branchName] Data Induk Santri ($this->admissionName).xlsx");
+    }
+
+    //ANCHOR - SET ADMISSION_ID FROM MOBILE
+    public function setSelectedAdmissionId()
+    {
+        $this->selectedAdmissionId = $this->filterAdmissionId;
     }
 
     public function render()

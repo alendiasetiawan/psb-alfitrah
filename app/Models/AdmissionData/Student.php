@@ -194,22 +194,39 @@ class Student extends Model
             ->addSelect('placement_test_results.final_result', 'placement_test_results.publication_status');
     }
 
+    //Scope for get demografi data
+    public function scopeJoinDemografi($query)
+    {
+        return $query->join('provinces', 'students.province_id', 'provinces.id')
+            ->join('regencies', 'students.regency_id', 'regencies.id')
+            ->join('districts', 'students.district_id', 'districts.id')
+            ->join('villages', 'students.village_id', 'villages.id')
+            ->addSelect('provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name');
+    }
+
+    //Scope for get attachment data
+    public function scopeJoinStudentAttachment($query)
+    {
+        return $query->join('student_attachments', 'students.id', 'student_attachments.student_id')
+            ->addSelect('student_attachments.photo', 'student_attachments.born_card', 'student_attachments.family_card', 'student_attachments.parent_card');
+    }
+
     public static function baseEloquent($studentId = null, $branchId = null, $educationProgramId = null, $admissionId = null, $admissionBatchId = null, $searchStudent = null)
     {
         return self::when(!empty($studentId), function ($query) use ($studentId) {
             $query->where('students.id', $studentId);
         })
             ->when(!empty($branchId), function ($query) use ($branchId) {
-                $query->where('branch_id', $branchId);
+                $query->where('students.branch_id', $branchId);
             })
             ->when(!empty($educationProgramId), function ($query) use ($educationProgramId) {
-                $query->where('education_program_id', $educationProgramId);
+                $query->where('students.education_program_id', $educationProgramId);
             })
             ->when(!empty($admissionId), function ($query) use ($admissionId) {
-                $query->where('admission_id', $admissionId);
+                $query->where('students.admission_id', $admissionId);
             })
             ->when(!empty($admissionBatchId), function ($query) use ($admissionBatchId) {
-                $query->where('admission_batch_id', $admissionBatchId);
+                $query->where('students.admission_batch_id', $admissionBatchId);
             })
             ->when(!empty($searchStudent), function ($query) use ($searchStudent) {
                 $query->where('students.name', 'like', '%' . $searchStudent . '%')

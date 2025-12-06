@@ -138,4 +138,38 @@ class StudentQuery
             ->where('publication_status', PlacementTestEnum::PUBLICATION_RELEASE)
             ->paginate($limitData);
     }
+
+    public static function getDownloadStudentInBranch($branchId, $admissionId)
+    {
+        return Student::baseEloquent(
+            admissionId: $admissionId,
+            branchId: $branchId
+        )
+            ->joinBranchAndProgram()
+            ->joinPlacementTestResult()
+            ->joinAdmission()
+            ->joinDemografi()
+            ->joinStudentAttachment()
+            ->addSelect('students.*')
+            ->with([
+                'parent' => function ($query) {
+                    $query->with([
+                        'educationFather:id,name',
+                        'jobFather:id,name',
+                        'sallaryFather:id,name',
+                        'educationMother:id,name',
+                        'jobMother:id,name',
+                        'sallaryMother:id,name',
+                        'educationGuardian:id,name',
+                        'jobGuardian:id,name',
+                        'sallaryGuardian:id,name'
+                    ]);
+                }
+            ])
+            ->orderBy('students.name', 'asc')
+            ->where('students.is_walkout', false)
+            ->where('final_result', PlacementTestEnum::RESULT_PASS)
+            ->where('publication_status', PlacementTestEnum::PUBLICATION_RELEASE)
+            ->get();
+    }
 }

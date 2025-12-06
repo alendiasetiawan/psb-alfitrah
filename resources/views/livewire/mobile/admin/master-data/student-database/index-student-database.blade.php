@@ -3,10 +3,7 @@
     <x-animations.fade-down showTiming="50" wire:ignore>
         <x-swipers.creative-swiper>
             @foreach ($this->totalStudents as $total)
-                <x-cards.counter-card 
-                    subCounterColor="soft-white" 
-                    class="swiper-slide" 
-                    style="width: 85vw;">
+                <x-cards.counter-card subCounterColor="soft-white" class="swiper-slide" style="width: 85vw;">
                     <x-slot:heading>
                         {{ $total->branch_name }}
                     </x-slot:heading>
@@ -17,7 +14,7 @@
                         Santri
                     </x-slot:subCounter>
                     <x-slot:subIcon>
-                        <flux:icon.school class="size-15 text-primary-400"/>
+                        <flux:icon.school class="size-15 text-primary-400" />
                     </x-slot:subIcon>
                 </x-cards.counter-card>
             @endforeach
@@ -30,11 +27,13 @@
             <div class="grid grid-cols-1 mt-4">
                 <div class="flex gap-2 items-center">
                     <div class="w-11/12">
-                        <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent" icon="search"/>
+                        <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent"
+                            icon="search" />
                     </div>
+
                     <div class="w-1/12">
                         <flux:modal.trigger name="filter-student-modal">
-                            <flux:icon.sliders-horizontal class="hover:cursor-pointer text-primary-400"/>
+                            <flux:icon.sliders-horizontal class="hover:cursor-pointer text-primary-400" />
                         </flux:modal.trigger>
                     </div>
                 </div>
@@ -49,7 +48,7 @@
             <!--ANCHOR - Loading Skeleton-->
             <div class="col-span-1" wire:loading wire:target="searchStudent">
                 <div class="animate-pulse">
-                    <x-loading.profile-card-skeleton/>
+                    <x-loading.profile-card-skeleton />
                 </div>
             </div>
             <!--#Loading Skeleton-->
@@ -70,7 +69,8 @@
 
                         <x-slot:actionMenu>
                             <x-slot:menuItem>
-                                <flux:modal.trigger name="detail-registrant-modal" wire:click="$dispatch('open-detail-registrant-modal', { id: '{{ Crypt::encrypt($student->id) }}' })">
+                                <flux:modal.trigger name="detail-registrant-modal"
+                                    wire:click="$dispatch('open-detail-registrant-modal', { id: '{{ Crypt::encrypt($student->id) }}' })">
                                     <flux:menu.item icon="eye">Detail</flux:menu.item>
                                 </flux:modal.trigger>
 
@@ -91,7 +91,8 @@
                     </x-cards.profile-card>
 
                     <!--ANCHOR - MODAL DELETE STUDENT-->
-                    <x-modals.delete-modal modalName="delete-student-modal({{ $student->id }})" :isMobile="$isMobile" wire:click="deleteStudent('{{ Crypt::encrypt($student->id) }}')">
+                    <x-modals.delete-modal modalName="delete-student-modal({{ $student->id }})" :isMobile="$isMobile"
+                        wire:click="deleteStudent('{{ Crypt::encrypt($student->id) }}')">
                         <x-slot:heading>Konfirmasi Hapus Siswa</x-slot:heading>
                         <!--Feedback when delete is failed-->
                         @if (session('error-delete-student'))
@@ -104,11 +105,13 @@
                         <!--#Feedback when delete is failed-->
 
                         <x-slot:content>
-                            Apakah anda yakin ingin menghapus data siswa a/n <strong>{{ $student->student_name }}</strong>?
-                            <br/><br/>
+                            Apakah anda yakin ingin menghapus data siswa a/n
+                            <strong>{{ $student->student_name }}</strong>?
+                            <br /><br />
                             <div class="flex items-center text-amber-400 gap-2">
-                                <flux:icon.triangle-alert/>
-                                <flux:text class="text-amber-400">Data yang sudah dihapus, tidak bisa dikembalikan!</flux:text>
+                                <flux:icon.triangle-alert />
+                                <flux:text class="text-amber-400">Data yang sudah dihapus, tidak bisa dikembalikan!
+                                </flux:text>
                             </div>
                         </x-slot:content>
 
@@ -119,11 +122,12 @@
                     </x-modals.delete-modal>
                     <!--#MODAL DELETE STUDENT-->
 
-                     <!--ANCHOR - MODAL WALKOUT STUDENT-->
-                    <flux:modal name="walkout-student-modal({{ $student->id }})" class="md:w-100 lg:w-120" variant="flyout" position="bottom">
+                    <!--ANCHOR - MODAL WALKOUT STUDENT-->
+                    <flux:modal name="walkout-student-modal({{ $student->id }})" class="md:w-100 lg:w-120"
+                        variant="flyout" position="bottom">
                         <div class="space-y-3">
                             <flux:heading size="xl">Konfirmasi Mengundurkan Diri</flux:heading>
-                            
+
                             <!--Feedback when delete is failed-->
                             @if (session('error-set-walkout-student'))
                                 <div class="mt-2">
@@ -135,12 +139,14 @@
                             <!--#Feedback when delete is failed-->
 
                             <flux:text variant="bold">
-                                Apakah siswa a/n <strong class="text-primary-300">{{ $student->student_name }}</strong> ingin mengundurkan diri? Silahkan isi alasan nya di bawah ini:
+                                Apakah siswa a/n <strong class="text-primary-300">{{ $student->student_name }}</strong>
+                                ingin mengundurkan diri? Silahkan isi alasan nya di bawah ini:
                             </flux:text>
 
                             <flux:field>
                                 <flux:label>Alasan Mengundurkan Diri</flux:label>
-                                <flux:textarea wire:model="walkoutReason" placeholder="Tulis deskripsi alasan dengan jelas"/>
+                                <flux:textarea wire:model="walkoutReason"
+                                    placeholder="Tulis deskripsi alasan dengan jelas" />
                                 <flux:error name="walkoutReason" />
                             </flux:field>
 
@@ -148,22 +154,72 @@
                                 <flux:modal.close>
                                     <flux:button variant="filled">Batal</flux:button>
                                 </flux:modal.close>
-                                <flux:button variant="primary" wire:click="walkoutStudent('{{ Crypt::encrypt($student->id) }}')">Simpan</flux:button>
+                                <flux:button variant="primary"
+                                    wire:click="walkoutStudent('{{ Crypt::encrypt($student->id) }}')">Simpan
+                                </flux:button>
                             </div>
                         </div>
                     </flux:modal>
                     <!--#MODAL WALKOUT STUDENT-->
                 </div>
             @empty
-                <x-animations.not-found/>
+                <x-animations.not-found />
             @endforelse
 
             <!--ANCHOR - Load More Button-->
             @if ($this->officialStudentLists->hasMorePages())
-                <livewire:components.buttons.load-more loadItem="20"/>
+                <livewire:components.buttons.load-more loadItem="20" />
             @endif
             <!--#Load More Button-->
         </div>
     </x-animations.fade-down>
+
+    <!--ANCHOR - FLYOUT MODAL FILTER STUDENT-->
+    <flux:modal name="filter-student-modal" variant="flyout" class="w-11/12" closable="true">
+        <flux:heading size="xl">Filter Data</flux:heading>
+        <div class="space-y-4 mt-5">
+            <!--Filter Academic Year-->
+            <div class="grid grid-cols-1">
+                <flux:select wire:model="filterAdmissionId" label="Pilih Tahun Ajaran">
+                    @foreach ($admissionYearLists as $key => $value)
+                        <flux:select.option value="{{ $key }}">{{ $value }}
+                        </flux:select.option>
+                    @endforeach
+                </flux:select>
+            </div>
+            <!--#Filter Academic Year-->
+
+            <!--Button Download Excel-->
+            <div class="grid grid-cols-1">
+                <flux:dropdown>
+                    <flux:button 
+                        icon:trailing="download" 
+                        class="hover:cursor-pointer"
+                        size="sm"
+                        loading="loading-export-excel">
+                            Excel Data Induk
+                    </flux:button>
+
+                    <flux:menu>
+                        @foreach ($branchLists as $key => $branch)
+                            <flux:menu.item icon="school" wire:click="exportExcel({{ $key }})">
+                                {{ $branch }}
+                            </flux:menu.item>
+                        @endforeach
+                    </flux:menu>
+                </flux:dropdown>    
+            </div>
+            <!--#Button Download Excel-->
+
+            <!--Button Action-->
+            <div class="fixed bottom-0 left-0 right-0 p-6">
+                <flux:modal.close>
+                    <flux:button variant="primary" class="w-full" wire:click="setSelectedAdmissionId">Terapkan</flux:button>
+                </flux:modal.close>
+            </div>
+            <!--#Button Action-->
+        </div>
+    </flux:modal>
+    <!--#MODAL FILTER STUDENT-->
 
 </div>

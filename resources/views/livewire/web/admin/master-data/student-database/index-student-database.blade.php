@@ -37,7 +37,7 @@
                 </x-slot:heading>
 
                 <x-slot:action>
-                    <!-- Search and Filter -->
+                    <!-- ANCHOR - Search and Filter -->
                     <div class="grid grid-cols-2 justify-between items-center mt-4 gap-2">
                         <div class="flex gap-2">
                             <div class="w-4/6">
@@ -55,19 +55,27 @@
                             </div>
                         </div>
                         
+                        <!--DOWNLOAD EXCEL STUDENT DATA-->
                         <div class="flex justify-end">
                             <flux:dropdown>
-                                <flux:button icon:trailing="download" variant="primary">Excel Data Induk</flux:button>
+                                <flux:button 
+                                    icon:trailing="download" 
+                                    variant="primary" 
+                                    class="hover:cursor-pointer"
+                                    loading="loading-export-excel">
+                                        Excel Database Siswa
+                                </flux:button>
 
                                 <flux:menu>
                                     @foreach ($branchLists as $key => $branch)
-                                        <flux:menu.item icon="school" wire:click="exportExcel({{ $key }})">
+                                        <flux:menu.item icon="school" wire:click="exportExcel({{ $key }})" >
                                             {{ $branch }}
                                         </flux:menu.item>
                                     @endforeach
                                 </flux:menu>
                             </flux:dropdown>
                         </div>
+                        <!--#DOWNLOAD EXCEL STUDENT DATA-->
                     </div>
                 </x-slot:action>
 

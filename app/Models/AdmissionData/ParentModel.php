@@ -71,9 +71,31 @@ class ParentModel extends Model
         return $this->hasOne(MultiStudent::class);
     }
 
+    //Father Table Relationship
+    public function educationFather(): BelongsTo
+    {
+        return $this->belongsTo(LastEducation::class, 'father_last_education_id', 'id');
+    }
+
     public function jobFather(): BelongsTo
     {
         return $this->belongsTo(Job::class, 'father_job_id', 'id');
+    }
+
+    public function sallaryFather(): BelongsTo
+    {
+        return $this->belongsTo(Sallary::class, 'father_sallary_id', 'id');
+    }
+
+    //Mother Table Relationship
+    public function educationMother(): BelongsTo
+    {
+        return $this->belongsTo(LastEducation::class, 'mother_last_education_id', 'id');
+    }
+
+    public function sallaryMother(): BelongsTo
+    {
+        return $this->belongsTo(Sallary::class, 'mother_sallary_id', 'id');
     }
 
     public function jobMother(): BelongsTo
@@ -81,9 +103,19 @@ class ParentModel extends Model
         return $this->belongsTo(Job::class, 'mother_job_id', 'id');
     }
 
+    //Guardian Table Relationship
+    public function educationGuardian(): BelongsTo
+    {
+        return $this->belongsTo(LastEducation::class, 'guardian_last_education_id', 'id');
+    }
+
     public function jobGuardian(): BelongsTo
     {
         return $this->belongsTo(Job::class, 'guardian_job_id', 'id');
     }
 
+    public function sallaryGuardian(): BelongsTo
+    {
+        return $this->belongsTo(Sallary::class, 'guardian_sallary_id', 'id');
+    }
 }
