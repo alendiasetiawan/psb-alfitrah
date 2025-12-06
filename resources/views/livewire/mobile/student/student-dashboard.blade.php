@@ -37,7 +37,7 @@
         <div x-data="swiperContainer({
             effect: 'coverflow',
             loop: true,
-            grabCursor: false,
+            grabCursor: true,
             slidesPerView: 'auto',
             centeredSlides: true,
             spaceBetween: 5,
@@ -46,7 +46,7 @@
                 stretch: 20,
                 depth: 300,
                 modifier: 1.5,
-                slideShadows: false,
+                slideShadows: true,
             },
         })" x-init="init()" class="mt-4 relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
             <div class="swiper" x-ref="container">

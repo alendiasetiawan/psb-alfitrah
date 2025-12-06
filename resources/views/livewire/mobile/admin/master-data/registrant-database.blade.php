@@ -1,22 +1,22 @@
 <div class="mb-18">
     <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.fade-down showTiming="50">    
-        <x-animations.sticky>
-            <div class="grid grid-cols-1">
-                <flux:input placeholder="Cari nama/username pendaftar" wire:model.live.debounce.500ms="searchStudent" icon="search" />
-            </div>
+    <x-animations.sticky>
+        <x-animations.fade-down showTiming="50">    
+                <div class="grid grid-cols-1">
+                    <flux:input placeholder="Cari nama/username pendaftar" wire:model.live.debounce.500ms="searchStudent" icon="search" />
+                </div>
 
-            <div class="flex justify-between mt-3 gap-3">
-                <flux:select wire:model.live="selectedAdmissionId">
-                    @foreach ($admissionYearLists as $key => $value)
-                        <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
-                    @endforeach
-                </flux:select>
+                <div class="flex justify-between mt-3 gap-3">
+                    <flux:select wire:model.live="selectedAdmissionId">
+                        @foreach ($admissionYearLists as $key => $value)
+                            <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
+                        @endforeach
+                    </flux:select>
 
-                <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $totalStudent }}</flux:badge>
-            </div>
-        </x-animations.sticky>
-    </x-animations.fade-down>
+                    <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $totalStudent }}</flux:badge>
+                </div>
+        </x-animations.fade-down>
+    </x-animations.sticky>
 
     <!--ANCHOR - List of Students-->
     <x-animations.fade-down showTiming="150">    
@@ -85,10 +85,16 @@
             @empty
                 <x-animations.not-found/>
             @endforelse
+
+            <!--ANCHOR - Load More Button-->
+            <livewire:components.buttons.load-more loadItem="20"/>
+            <!--#Load More Button-->
         </div>
     </x-animations.fade-down>
 
     <!--ANCHOR - DETAIL REGISTRANT MODAL-->
-    <livewire:components.modals.master-data.detail-registrant-modal modalId="detail-registrant-modal" :$isMobile/>
+    @if ($this->registrantLists->hasMorePages())
+        <livewire:components.modals.master-data.detail-registrant-modal modalId="detail-registrant-modal" :$isMobile/>
+    @endif
     <!--#DETAIL REGISTRANT MODAL-->
 </div>

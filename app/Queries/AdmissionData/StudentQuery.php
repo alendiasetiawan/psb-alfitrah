@@ -98,7 +98,7 @@ class StudentQuery
             ->joinBranchAndProgram()
             ->joinRegistrationPayment()
             ->joinUser()
-            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date')
+            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.parent_id', 'students.created_at as registration_date', 'students.country_code', 'students.mobile_phone')
             ->orderBy('students.id', 'desc')
             ->paginate($limitData);
     }

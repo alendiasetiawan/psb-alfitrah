@@ -54,6 +54,20 @@
                                 </flux:select>
                             </div>
                         </div>
+                        
+                        <div class="flex justify-end">
+                            <flux:dropdown>
+                                <flux:button icon:trailing="download" variant="primary">Excel Data Induk</flux:button>
+
+                                <flux:menu>
+                                    @foreach ($branchLists as $key => $branch)
+                                        <flux:menu.item icon="school" wire:click="exportExcel({{ $key }})">
+                                            {{ $branch }}
+                                        </flux:menu.item>
+                                    @endforeach
+                                </flux:menu>
+                            </flux:dropdown>
+                        </div>
                     </div>
                 </x-slot:action>
 

@@ -7,7 +7,7 @@
     <!--ANCHOR - Registrant Table -->
     <div class="grid grid-cols-1 mt-4">
         <x-animations.fade-down showTiming="50">
-            <x-tables.basic-table :headers="['No', 'Username',  'Nama Santri', 'Cabang', 'Program', 'Tanggal Daftar', 'Opsi']">
+            <x-tables.basic-table :headers="['No', 'Nama Santri', 'Whatsapp', 'Cabang', 'Program', 'Tanggal Daftar', 'Opsi']">
                 <x-slot:heading>
                     Tabel Akun Siswa
                 </x-slot:heading>
@@ -40,9 +40,6 @@
                             <flux:text>{{ $setCount++ }}</flux:text>
                         </x-tables.cell>
                         <x-tables.cell>
-                            <flux:text>{{ $registrant->username }}</flux:text>
-                        </x-tables.cell>
-                        <x-tables.cell>
                             <flux:text>
                                 {{ $registrant->student_name }}
                             </flux:text>
@@ -56,6 +53,16 @@
                                     Belum Bayar
                                 </flux:badge>
                             @endif
+                        </x-tables.cell>
+                        <x-tables.cell>
+                            <div class="flex items-center gap-1">
+                                <flux:text>
+                                    0{{ $registrant->mobile_phone }}
+                                </flux:text>
+                                <a href="https://wa.me/{{ $registrant->country_code }}{{ $registrant->mobile_phone }}" target="_blank">
+                                    <flux:icon.message-circle-more variant="micro" class="text-green-400"/>
+                                </a>
+                            </div>
                         </x-tables.cell>
                         <x-tables.cell>
                             <flux:text>{{ $registrant->branch_name }}</flux:text>

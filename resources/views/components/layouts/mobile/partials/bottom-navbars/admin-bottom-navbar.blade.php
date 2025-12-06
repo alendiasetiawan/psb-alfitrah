@@ -47,7 +47,7 @@ default => null
         <div class="absolute bottom-0 w-full h-16 flex items-center justify-between z-20">
             <!--First Menu-->
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeOne ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
-                href="{{ route('student.student_dashboard') }}" wire:navigate>
+                href="{{ route('admin.dashboard') }}" wire:navigate>
                 <flux:icon icon="home" variant="solid" />
                 @if ($activeOne)
                 <span class="text-xs font-semibold">{{ __('Home') }}</span>
@@ -56,10 +56,10 @@ default => null
 
             <!--Second Menu-->
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeTwo ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
-                href="{{ route('student.payment.registration_payment') }}" wire:navigate>
+                href="{{ route('admin.master_data.student_database.index') }}" wire:navigate>
                 <flux:icon icon="banknotes" />
                 @if ($activeTwo)
-                <span class="text-xs font-semibold">{{ __('Pembayaran') }}</span>
+                <span class="text-xs font-semibold">{{ __('Data Induk') }}</span>
                 @endif
             </a>
 

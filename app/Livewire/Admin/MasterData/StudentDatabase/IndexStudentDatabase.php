@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\MasterData\StudentDatabase;
 
 use App\Helpers\AdmissionHelper;
 use App\Models\AdmissionData\Student;
+use App\Models\Core\Branch;
 use App\Models\User;
 use App\Queries\AdmissionData\StudentQuery;
 use App\Queries\Core\BranchQuery;
@@ -12,9 +13,12 @@ use Detection\MobileDetect;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Database Siswa')]
 class IndexStudentDatabase extends Component
 {
     use WithPagination;
@@ -22,7 +26,7 @@ class IndexStudentDatabase extends Component
     public bool $isMobile = false;
     public string $searchStudent = '', $walkoutReason = '';
     public ?int $selectedAdmissionId = null, $limitData = 10, $setCount = 1;
-    public object $admissionYearLists;
+    public object $admissionYearLists, $branchLists;
 
     protected AdmissionHelper $admissionHelper;
     protected StudentDataService $studentDataService;
@@ -43,6 +47,12 @@ class IndexStudentDatabase extends Component
         return BranchQuery::counterStudentOfficial($this->selectedAdmissionId);
     }
 
+    #[On('load-more')]
+    public function loadMore($loadItem)
+    {
+        $this->limitData += $loadItem;
+    }
+
     public function boot(MobileDetect $mobileDetect, AdmissionHelper $admissionHelper, StudentDataService $studentDataService)
     {
         $this->isMobile = $mobileDetect->isMobile();
@@ -55,6 +65,7 @@ class IndexStudentDatabase extends Component
         $queryAdmission = $this->admissionHelper::activeAdmission();
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
+        $this->branchLists = Branch::pluck('name', 'id');
     }
 
     //ANCHOR - HANDLE NUMBER ON PAGE UPDATE
@@ -86,8 +97,7 @@ class IndexStudentDatabase extends Component
             });
 
             $this->dispatch('toast', type: 'warning', message: 'Data berhasil dihapus!');
-            $this->officialStudentLists();
-            $this->totalStudents();
+            $this->redirect(route('admin.master_data.student_database.index'), navigate: true);
         } catch (\Throwable $th) {
             session()->flash('error-delete-student', 'Gagal menghapus data, silahkan coba lagi!');
         }
@@ -119,8 +129,7 @@ class IndexStudentDatabase extends Component
             });
 
             $this->dispatch('toast', type: 'success', message: 'Data berhasil disimpan!');
-            $this->officialStudentLists();
-            $this->totalStudents();
+            $this->redirect(route('admin.master_data.student_database.index'), navigate: true);
         } catch (\Throwable $th) {
             session()->flash('error-set-walkout-student', 'Gagal menyimpan data, silahkan coba lagi beberapa saat lagi!');
         }
