@@ -32,6 +32,7 @@ class DetailStudentDatabase extends Component
             return view('livewire.mobile.admin.master-data.student-database.detail-student-database')->layout('components.layouts.mobile.mobile-app', [
                 'isShowBackButton' => true,
                 'isShowTitle' => true,
+                'isRollOver' => true
             ]);
         }
         return view('livewire.web.admin.master-data.student-database.detail-student-database')->layout('components.layouts.web.web-app');

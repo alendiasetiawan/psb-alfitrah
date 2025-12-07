@@ -2,7 +2,8 @@
 'isShowBackButton' => false,
 'isShowBottomNavbar' => false,
 'isShowTitle' => false,
-'link' => null
+'link' => null,
+'isRollOver' => false
 ])
 
 <!DOCTYPE html>
@@ -16,11 +17,11 @@
 
     <!--Header-->
     @if ($isShowBackButton)
-    <x-layouts.mobile.partials.headers.mobile-header :title="$title" :link="$link" />
+        <x-layouts.mobile.partials.headers.mobile-header :title="$title" :link="$link" :isRollOver="$isRollOver" />
     @endif
     <!--#Header-->
 
-    <div class="px-3 py-3">
+    <div class="{{ !$isRollOver ? 'px-3 py-3' : '' }}">
         @if (!$isShowBackButton && $isShowTitle)
         <!--Header Title When Back Button is Off-->
         <div class="mb-4">

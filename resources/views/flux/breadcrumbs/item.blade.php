@@ -21,11 +21,11 @@ $linkClasses = Flux::classes()
     ->add('hover:underline decoration-white/20 underline-offset-4');
 
 $staticTextClasses = Flux::classes()
-    ->add('text-white dark:text-white/80')
+    ->add('text-white/75 dark:text-white/80')
     ;
 
 $separatorClasses = Flux::classes()
-    ->add('mx-1 text-zinc-300 dark:text-white/80')
+    ->add('mx-1 text-white dark:text-white/80')
     ->add('group-last/breadcrumb:hidden')
     ;
 

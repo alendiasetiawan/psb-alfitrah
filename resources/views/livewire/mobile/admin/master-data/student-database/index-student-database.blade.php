@@ -69,10 +69,7 @@
 
                         <x-slot:actionMenu>
                             <x-slot:menuItem>
-                                <flux:modal.trigger name="detail-registrant-modal"
-                                    wire:click="$dispatch('open-detail-registrant-modal', { id: '{{ Crypt::encrypt($student->id) }}' })">
-                                    <flux:menu.item icon="eye">Detail</flux:menu.item>
-                                </flux:modal.trigger>
+                                <flux:menu.item icon="eye" wire:click="openDetailStudentDatabasePage('{{ Crypt::encrypt($student->id) }}')">Detail</flux:menu.item>
 
                                 <flux:modal.trigger name="walkout-student-modal({{ $student->id }})">
                                     <flux:menu.item icon="footprints">Mengundurkan Diri</flux:menu.item>

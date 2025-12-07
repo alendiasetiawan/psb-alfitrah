@@ -71,9 +71,9 @@ $classes = Flux::classes()
                 // If we have an icon, we want to reduce the padding on the side that has the icon...
                 : ($iconLeading && $iconLeading !== '' ? 'ps-3' : 'ps-4') . ' ' . ($iconTrailing && $iconTrailing !== '' ? 'pe-3' : 'pe-4')
         ),
-        'sm' => 'h-8 text-sm rounded-md' . ' ' . ($square ? 'w-8' : 'px-3'),
+        'sm' => 'h-7 text-sm rounded-md' . ' ' . ($square ? 'w-8' : 'px-3'),
         'xs' => 'h-6 text-xs rounded-md' . ' ' . ($square ? 'w-6' : 'px-2'),
-        'sm-circle' => 'h-8 text-sm rounded-full' . ' ' . ($square ? 'w-8' : 'px-3'),
+        'sm-circle' => 'h-7 text-sm rounded-full' . ' ' . ($square ? 'w-8' : 'px-3'),
         'xs-circle' => 'h-6 text-xs rounded-full' . ' ' . ($square ? 'w-6' : 'px-2'),
         'base-circle' => 'h-10 text-sm rounded-full' . ' ' . ($square ? 'w-8' : 'px-3'),
     })
@@ -91,7 +91,7 @@ $classes = Flux::classes()
     } : '')
     ->add(match ($variant) { // Background color...
         'primary' => 'bg-[var(--color-accent)] shadow-[inset_1px_2px_5px_rgba(255,255,255,0.7)] backdrop-blur-sm hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_20%)]',
-        'filled' => 'bg-white/30 hover:bg-zinc-800/10 dark:bg-white/10 dark:hover:bg-white/20',
+        'filled' => 'bg-dark/40 hover:bg-zinc-800/20 dark:bg-white/10 dark:hover:bg-white/20',
         'outline' => 'bg-white hover:bg-zinc-50 dark:bg-zinc-700 dark:hover:bg-zinc-600/75',
         'danger' => 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500',
         'ghost' => 'bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15',
@@ -99,7 +99,7 @@ $classes = Flux::classes()
     })
     ->add(match ($variant) { // Text color...
         'primary' => 'text-[var(--color-accent-foreground)]',
-        'filled' => 'text-dark dark:text-white',
+        'filled' => 'text-white dark:text-white',
         'outline' => 'text-zinc-800 dark:text-white',
         'danger' => 'text-white',
         'ghost' => 'text-white dark:text-white',
