@@ -1,24 +1,26 @@
 <div class="mb-18">
     <!--ANCHOR - COUNTER STUDENT STATISTIC-->
-    <x-animations.fade-down showTiming="50" wire:ignore>
-        <x-swipers.creative-swiper>
-            @foreach ($this->totalStudents as $total)
-                <x-cards.counter-card subCounterColor="soft-white" class="swiper-slide" style="width: 85vw;">
-                    <x-slot:heading>
-                        {{ $total->branch_name }}
-                    </x-slot:heading>
-                    <x-slot:mainCounter>
-                        {{ $total->total_student }}
-                    </x-slot:mainCounter>
-                    <x-slot:subCounter>
-                        Santri
-                    </x-slot:subCounter>
-                    <x-slot:subIcon>
-                        <flux:icon.school class="size-15 text-primary-400" />
-                    </x-slot:subIcon>
-                </x-cards.counter-card>
-            @endforeach
-        </x-swipers.creative-swiper>
+    <x-animations.fade-down showTiming="50">
+        <div wire:replace>
+            <x-swipers.creative-swiper>
+                @foreach ($this->totalStudents as $total)
+                    <x-cards.counter-card subCounterColor="soft-white" class="swiper-slide" style="width: 85vw;">
+                        <x-slot:heading>
+                            {{ $total->branch_name }}
+                        </x-slot:heading>
+                        <x-slot:mainCounter>
+                            {{ $total->total_student }}
+                        </x-slot:mainCounter>
+                        <x-slot:subCounter>
+                            Santri
+                        </x-slot:subCounter>
+                        <x-slot:subIcon>
+                            <flux:icon.school class="size-15 text-primary-400" />
+                        </x-slot:subIcon>
+                    </x-cards.counter-card>
+                @endforeach
+            </x-swipers.creative-swiper>
+        </div>
     </x-animations.fade-down>
 
     <!--ANCHOR - SEARCH AND FILTERS-->

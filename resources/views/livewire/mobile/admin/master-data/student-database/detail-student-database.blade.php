@@ -23,7 +23,7 @@
                 size="sm" 
                 color="green" 
                 variant="primary" 
-                href="https://wa.me/{{ config('services.whatsapp.phone') }}" 
+                href="https://wa.me/{{ $studentQuery->country_code }}{{ $studentQuery->mobile_phone }}" 
                 target="_blank">
                     Chat
             </flux:button>
@@ -323,7 +323,11 @@
                     <div class="col-span-1">
                         <div class="flex flex-col items-start gap-1">
                             <flux:text size="lg">Photo Siswa</flux:text>
-                            <x-cards.photo-frame width="w-full">
+                            <x-cards.photo-frame 
+                            width="w-full"
+                            fancyBoxName="student-attachment"
+                            fancyBoxCaption="Photo Siswa"
+                            href="{{ asset($studentQuery->photo) }}">
                                 <img src="{{ asset($studentQuery->photo) }}" class="w-full h-full object-cover" />
                             </x-cards.photo-frame>
                         </div>
@@ -332,7 +336,11 @@
                     <div class="col-span-1">
                         <div class="flex flex-col items-start gap-1">
                             <flux:text size="lg">Akte Kelahiran</flux:text>
-                            <x-cards.photo-frame width="w-full">
+                            <x-cards.photo-frame 
+                            width="w-full"
+                            fancyBoxName="student-attachment"
+                            fancyBoxCaption="Akte Kelahiran"
+                            href="{{ asset($studentQuery->born_card) }}">
                                 <img src="{{ asset($studentQuery->born_card) }}" class="w-full h-full object-cover" />
                             </x-cards.photo-frame>
                         </div>
@@ -341,7 +349,11 @@
                     <div class="col-span-1">
                         <div class="flex flex-col items-start gap-1">
                             <flux:text size="lg">KTP Orang Tua</flux:text>
-                            <x-cards.photo-frame width="w-full">
+                            <x-cards.photo-frame 
+                            width="w-full"
+                            fancyBoxName="student-attachment"
+                            fancyBoxCaption="KTP Orang Tua"
+                            href="{{ asset($studentQuery->parent_card) }}">
                                 <img src="{{ asset($studentQuery->parent_card) }}" class="w-full h-full object-cover" />
                             </x-cards.photo-frame>
                         </div>
@@ -350,7 +362,12 @@
                     <div class="col-span-1">
                         <div class="flex flex-col items-start gap-1">
                             <flux:text size="lg">Kartu Keluarga</flux:text>
-                            <x-cards.photo-frame width="w-full">
+                            <x-cards.photo-frame 
+                                width="w-full"
+                                fancyBoxName="student-attachment"
+                                fancyBoxCaption="Kartu Keluarga"
+                                href="{{ asset($studentQuery->family_card) }}"
+                            >
                                 <img src="{{ asset($studentQuery->family_card) }}" class="w-full h-full object-cover" />
                             </x-cards.photo-frame>
                         </div>

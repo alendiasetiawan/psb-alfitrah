@@ -1,8 +1,7 @@
 @props([
     'bgImage' => "images/background/learning_class.webp",
     'titleHeight' => 'pt-[25vh]',
-    'coverHeight' => 'h-[37vh]',
-    
+    'coverHeight' => 'h-[37vh]',  
 ])
 
 <div>
