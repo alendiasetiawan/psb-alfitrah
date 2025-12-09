@@ -18,7 +18,7 @@ class DateFormatHelper
 
     public static function indoDateTime($date)
     {
-        return Carbon::parse($date)->locale('id')->isoFormat('D MMM Y, HH:mm');
+        return Carbon::parse($date)->locale('id')->isoFormat('D MMM Y HH:mm');
     }
 
     public static function longIndoDate($date)

@@ -67,32 +67,32 @@
         </flux:navlist.group>
         <!--#Menu Data Induk-->
 
-        <!--Menu Verifikasi Data-->
+        <!--ANCHOR - Menu Verifikasi Data-->
         <flux:navlist.group :heading="__('Verifikasi Data')" class="grid">
             <!--Menu Biaya Pendaftaran-->
             <flux:sidebar.group
             expandable
-            :expanded="Route::is('admin.master_data.monitoring_quota')"
+            :expanded="Route::is('admin.data_verification.registration_payment.*')"
             icon="banknotes"
             heading="{{ __('Biaya Pendaftaran') }}"
             class="grid">
                 <flux:sidebar.item
-                href="#"
-                :current="Route::is('owner.warehouse.product.category')"
+                href="{{ route('admin.data_verification.registration_payment.payment_unpaid') }}"
+                :current="Route::is('admin.data_verification.registration_payment.payment_unpaid')"
                 wire:navigate>
                     {{ __('Belum') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="#"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
+                href="{{ route('admin.data_verification.registration_payment.payment_process') }}"
+                :current="Route::is('admin.data_verification.registration_payment.payment_process')"
                 wire:navigate>
                     {{ __('Proses') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="#"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
+                href="{{ route('admin.data_verification.registration_payment.payment_paid') }}"
+                :current="Route::is('admin.data_verification.registration_payment.payment_paid')"
                 wire:navigate>
                     {{ __('Selesai') }}
                 </flux:sidebar.item>

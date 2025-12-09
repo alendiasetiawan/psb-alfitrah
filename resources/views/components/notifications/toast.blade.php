@@ -5,21 +5,21 @@
         setTimeout(() => toasts.shift(), 3000);
         $flux.modals().close();
     "
-    class="fixed top-5 right-5 z-50 space-y-3"
+    class="fixed z-50 space-y-3 bottom-22 left-1/2 -translate-x-1/2 md:top-5 md:right-5 md:bottom-auto md:left-auto md:translate-x-0"
 >
     <template x-for="toast in toasts" :key="toast.id">
         <div
             x-transition:enter="transform ease-out duration-300 transition"
-            x-transition:enter-start="translate-x-20 opacity-0"
-            x-transition:enter-end="translate-x-0 opacity-100"
+            x-transition:enter-start="translate-y-8 opacity-0 md:translate-y-0 md:translate-x-20"
+            x-transition:enter-end="translate-y-0 opacity-100 md:translate-x-0"
             x-transition:leave="transform ease-in duration-300 transition"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0 translate-x-20"
+            x-transition:leave-start="opacity-100 translate-y-0 md:translate-x-0"
+            x-transition:leave-end="opacity-0 translate-y-8 md:translate-y-0 md:translate-x-20"
             class="flex items-center w-72 max-w-sm p-4 bg-white rounded-lg shadow-lg border"
             :class="{
-                'border-green-300 text-green-700': toast.type === 'success',
-                'border-red-300 text-red-700': toast.type === 'error',
-                'border-yellow-300 text-yellow-700': toast.type === 'warning',
+                'border-green-300 text-green-500': toast.type === 'success',
+                'border-red-300 text-red-500': toast.type === 'error',
+                'border-yellow-300 text-yellow-500': toast.type === 'warning',
             }"
         >
             <!-- Icon -->

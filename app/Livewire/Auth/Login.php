@@ -147,9 +147,8 @@ class Login extends Component
 
             //Resend OTP to student
             $resendOtpMessage = MessageHelper::waResendOtp($otp);
-            $send = WhaCenterHelper::sendText($waNumber, $resendOtpMessage);
+            WhaCenterHelper::sendText($waNumber, $resendOtpMessage);
 
-            // dd($send);
 
             session()->flash('resend-otp-success', 'Kode telah dikirim, silahkan cek aplikasi Whatsapp anda!');
             $this->redirect(route('login'));

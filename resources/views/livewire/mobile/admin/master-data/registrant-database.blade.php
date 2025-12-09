@@ -48,8 +48,8 @@
                         </x-slot:actionMenu>
 
                         <x-slot:label>
-                            <flux:badge color="primary" icon="school" size="sm">Alfitrah 1 Jonggol</flux:badge>
-                            <flux:badge color="primary" icon="graduation-cap" size="sm">SMP Tahfidz</flux:badge>
+                            <flux:badge color="primary" icon="school" size="sm">{{ $registrant->branch_name }}</flux:badge>
+                            <flux:badge color="primary" icon="graduation-cap" size="sm">{{ $registrant->program_name }}</flux:badge>
                         </x-slot:label>
                     </x-cards.profile-card>
 

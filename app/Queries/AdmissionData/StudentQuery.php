@@ -118,7 +118,8 @@ class StudentQuery
             ->joinBranchAndProgram()
             ->joinRegistrationPayment()
             ->joinUser()
-            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.created_at as registration_date')
+            ->joinAdmission()
+            ->addSelect('students.id', 'students.name as student_name', 'students.gender', 'students.reg_number', 'students.created_at as registration_date', 'students.country_code', 'students.mobile_phone')
             ->first();
     }
 

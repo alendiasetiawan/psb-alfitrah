@@ -162,7 +162,7 @@ class Student extends Model
     {
         return $query
             ->join('admission_verifications', 'students.id', 'admission_verifications.student_id')
-            ->addSelect('admission_verifications.*');
+            ->addSelect('admission_verifications.registration_payment', 'admission_verifications.biodata', 'admission_verifications.attachment', 'admission_verifications.placement_test', 'admission_verifications.fu_payment', 'admission_verifications.fu_biodata', 'admission_verifications.fu_attachment', 'admission_verifications.fu_placement_test', 'admission_verifications.payment_error_msg', 'admission_verifications.biodata_error_msg', 'admission_verifications.attachment_error_msg');
     }
 
     //Scope for get academic year
@@ -229,8 +229,10 @@ class Student extends Model
                 $query->where('students.admission_batch_id', $admissionBatchId);
             })
             ->when(!empty($searchStudent), function ($query) use ($searchStudent) {
-                $query->where('students.name', 'like', '%' . $searchStudent . '%')
-                    ->orWhere('users.username', 'like', '%' . $searchStudent . '%');
+                $query->where(function ($query) use ($searchStudent) {
+                    $query->where('students.name', 'like', '%' . $searchStudent . '%')
+                        ->orWhere('students.mobile_phone', 'like', '%' . $searchStudent . '%');
+                });
             });
     }
 }

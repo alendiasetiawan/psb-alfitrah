@@ -32,7 +32,7 @@
 
             @if ($isCloseable)
                 <x-slot name="controls">
-                    <flux:button icon="x-mark" variant="ghost" x-on:click="visible = false" />
+                    <flux:button icon="x-mark" variant="filled" x-on:click="visible = false" />
                 </x-slot>
             @endif
         </flux:callout>

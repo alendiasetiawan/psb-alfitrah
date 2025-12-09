@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\PaymentGateway;
 
+use App\Enums\PaymentStatusEnum;
 use App\Enums\VerificationStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AdmissionData\AdmissionVerification;
@@ -35,7 +36,7 @@ class XenditWebhookController extends Controller
             switch ($request->status) {
                 case 'PAID':
                     $trx->update([
-                        'status'       => 'PAID',
+                        'status'       => PaymentStatusEnum::PAID,
                         'paid_at'      => now(),
                         'raw_callback' => json_encode($request->all()),
                         'payment_method' => $request->payment_channel,
@@ -52,12 +53,18 @@ class XenditWebhookController extends Controller
 
                 case 'EXPIRED':
                     $trx->update([
-                        'status' => 'EXPIRED'
+                        'status' => PaymentStatusEnum::EXPIRED
+                    ]);
+
+                    $payment->update([
+                        'payment_status' => PaymentStatusEnum::EXPIRED,
                     ]);
                     break;
 
                 case 'FAILED':
-                    $trx->update(['status' => 'FAILED']);
+                    $trx->update([
+                        'status' => PaymentStatusEnum::FAILED
+                    ]);
 
                     $payment->update([
                         'payment_status' => VerificationStatusEnum::INVALID,

@@ -45,18 +45,38 @@ class MessageHelper
       return $message;
    }
 
-   public static function waProcessFinalRegistraion($studentName, $branchName, $programName, $admissionYear) {
-      $message = 
-      "_*KONFIRMASI DAFTAR ULANG*_\n\n".
+   public static function waProcessFinalRegistraion($studentName, $branchName, $programName, $admissionYear)
+   {
+      $message =
+         "_*KONFIRMASI DAFTAR ULANG*_\n\n" .
 
-      "Halo admin, saya orang tua/wali dari siswa di bawah ini : \n\n".
+         "Halo admin, saya orang tua/wali dari siswa di bawah ini : \n\n" .
 
-      "Nama Siswa : *$studentName*\n".
-      "Cabang : *$branchName*\n".
-      "Program : *$programName*\n".
-      "Tahun Ajaran : *$admissionYear*\n\n".
+         "Nama Siswa : *$studentName*\n" .
+         "Cabang : *$branchName*\n" .
+         "Program : *$programName*\n" .
+         "Tahun Ajaran : *$admissionYear*\n\n" .
 
-      "bermaksud untuk melakukan pembayaran biaya Daftar Ulang. Mohon bantuan dan arahannya, terima kasih.";
+         "bermaksud untuk melakukan pembayaran biaya Daftar Ulang. Mohon bantuan dan arahannya, terima kasih.";
+
+      return $message;
+   }
+
+   public static function waFollowUpPayment($studentName, $branchName, $programName, $academicYear, $amount)
+   {
+      $message =
+         "_*PENGINGAT BIAYA PENDAFTARAN*_\n\n" .
+
+         "Kepada ananda *$studentName* dengan data sebagai berikut : \n\n" .
+
+         "Cabang : *$branchName*\n" .
+         "Program : *$programName*\n" .
+         "Tahun Ajaran : *$academicYear*\n\n" .
+
+         "proses pendaftaran anda masih tertunda. Harap segera melakukan pembayaran sebesar *Rp $amount* agar bisa melanjutkan tahapan proses penerimaan siswa baru. Terima Kasih.\n\n" .
+
+         "_Panitia PSB_\n" .
+         "_Al Fitrah Islamic School_";
 
       return $message;
    }

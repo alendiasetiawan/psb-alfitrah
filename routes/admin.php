@@ -2,6 +2,9 @@
 
 use App\Enums\RoleEnum;
 use App\Livewire\Admin\AdminDashboard;
+use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentPaid;
+use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentProcess;
+use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentUnpaid;
 use App\Livewire\Admin\MasterData\MonitoringQuota;
 use App\Livewire\Admin\MasterData\RegistrantDatabase;
 use App\Livewire\Admin\MasterData\RegistrantDemographic;
@@ -15,17 +18,15 @@ use App\Livewire\Admin\Setting\School\Program;
 use Illuminate\Support\Facades\Route;
 
 
-
-
 Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
 
-        //ANCHOR - Master Data Route
+        //ANCHOR - MASTER DATA ROUTE
         Route::group(['prefix' => 'master-data', 'as' => 'master_data.'], function () {
             Route::get('/registrant-database', RegistrantDatabase::class)->name('registrant_database');
 
-            //ANCHOR - Student Database Route
+            //NOTE - Student Database Route
             Route::group(['prefix' => 'student-database', 'as' => 'student_database.'], function () {
                 Route::get('/index', IndexStudentDatabase::class)->name('index');
                 Route::get('/detail/{studentId}', DetailStudentDatabase::class)->name('detail');
@@ -33,6 +34,16 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
 
             Route::get('/registrant-demographic', RegistrantDemographic::class)->name('registrant_demographic');
             Route::get('/monitoring-quota', MonitoringQuota::class)->name('monitoring_quota');
+        });
+
+        //ANCHOR - DATA VERIFICATION ROUTE
+        Route::group(['prefix' => 'data-verification', 'as' => 'data_verification.'], function () {
+            //NOTE - Registration Payment Route
+            Route::group(['prefix' => 'registration-payment', 'as' => 'registration_payment.'], function () {
+                Route::get('/payment-paid', PaymentPaid::class)->name('payment_paid');
+                Route::get('/payment-process', PaymentProcess::class)->name('payment_process');
+                Route::get('/payment-unpaid', PaymentUnpaid::class)->name('payment_unpaid');
+            });
         });
 
         //ANCHOR - Setting Page Route

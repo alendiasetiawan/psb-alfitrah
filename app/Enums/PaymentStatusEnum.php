@@ -4,8 +4,8 @@ namespace App\Enums;
 
 class PaymentStatusEnum
 {
-    public const PAID = 'PAID';
-    public const PENDING = 'PENDING';
-    public const EXPIRED = 'EXPIRED';
-    public const FAILED = 'FAILED';
+    public const PAID = 'Paid';
+    public const PENDING = 'Pending';
+    public const EXPIRED = 'Expired';
+    public const FAILED = 'Failed';
 }
