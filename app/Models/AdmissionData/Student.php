@@ -47,7 +47,8 @@ class Student extends Model
         'old_school_address',
         'npsn',
         'is_scholarship',
-        'is_walkout'
+        'is_walkout',
+        'modified_at'
     ];
 
     public function province(): BelongsTo

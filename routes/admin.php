@@ -2,6 +2,11 @@
 
 use App\Enums\RoleEnum;
 use App\Livewire\Admin\AdminDashboard;
+use App\Livewire\Admin\DataVerification\Biodata\Pending\PendingBiodataAdmin;
+use App\Livewire\Admin\DataVerification\Biodata\Process\Detail\DetailProcessBiodataAdmin;
+use App\Livewire\Admin\DataVerification\Biodata\Process\ProcessBiodataAdmin;
+use App\Livewire\Admin\DataVerification\Biodata\Verified\Detail\DetailVerifiedBiodataAdmin;
+use App\Livewire\Admin\DataVerification\Biodata\Verified\VerifiedBiodataAdmin;
 use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentPaid;
 use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentProcess;
 use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentUnpaid;
@@ -16,6 +21,11 @@ use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
 use Illuminate\Support\Facades\Route;
+
+
+
+
+
 
 
 Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
@@ -43,6 +53,21 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
                 Route::get('/payment-paid', PaymentPaid::class)->name('payment_paid');
                 Route::get('/payment-process', PaymentProcess::class)->name('payment_process');
                 Route::get('/payment-unpaid', PaymentUnpaid::class)->name('payment_unpaid');
+            });
+
+            //NOTE - Biodata Verification Route
+            Route::group(['prefix' => 'biodata', 'as' => 'biodata.'], function () {
+                Route::get('/pending', PendingBiodataAdmin::class)->name('pending');
+
+                Route::get('/process', ProcessBiodataAdmin::class)->name('process');
+                Route::group(['prefix' => 'process', 'as' => 'process.'], function () {
+                    Route::get('/detail/{studentId}', DetailProcessBiodataAdmin::class)->name('detail');
+                });
+
+                Route::get('/verified', VerifiedBiodataAdmin::class)->name('verified');
+                Route::group(['prefix' => 'verified', 'as' => 'verified.'], function () {
+                    Route::get('/detail/{studentId}', DetailVerifiedBiodataAdmin::class)->name('detail');
+                });
             });
         });
 

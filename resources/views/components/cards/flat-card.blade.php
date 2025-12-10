@@ -35,7 +35,7 @@
     </div>
 
     @isset($subContent)
-        <div class="mt-2 flex items-center justify-between">
+        <div class="mt-3 flex items-center justify-between">
             {{ $subContent }}
         </div>
     @endisset

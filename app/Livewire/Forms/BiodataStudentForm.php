@@ -187,6 +187,7 @@ class BiodataStudentForm extends Form
                 'old_school_name' => $this->inputs['oldSchoolName'],
                 'old_school_address' => $this->inputs['oldSchoolAddress'],
                 'npsn' => $this->inputs['oldSchoolNpsn'],
+                'modified_at' => now(),
             ]);
 
             //Update admission verification data

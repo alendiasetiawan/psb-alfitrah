@@ -201,4 +201,16 @@ class StudentQuery
             ])
             ->first();
     }
+
+    public static function queryBiodataVerification($admissionId, $searchStudent = null)
+    {
+        return Student::baseEloquent(
+            admissionId: $admissionId,
+            searchStudent: $searchStudent
+        )
+            ->joinBranchAndProgram()
+            ->joinAdmissionVerification()
+            ->joinUser()
+            ->addSelect('students.name as student_name', 'students.gender', 'students.id', 'students.created_at as registration_date', 'students.country_code', 'students.mobile_phone');
+    }
 }

@@ -8,6 +8,7 @@ use App\Helpers\AdmissionHelper;
 use App\Queries\Payment\RegistrationPaymentQuery;
 use Detection\MobileDetect;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -17,6 +18,13 @@ class PaymentProcess extends Component
     public bool $isMobile = false;
     public string $searchStudent = '';
     public ?int $selectedAdmissionId = null, $limitData = 9;
+
+    //ANCHOR: ACTION LOAD MORE
+    #[On('load-more')]
+    public function loadMore($loadItem)
+    {
+        $this->limitData += $loadItem;
+    }
 
     #[Computed]
     public function processStudentLists()

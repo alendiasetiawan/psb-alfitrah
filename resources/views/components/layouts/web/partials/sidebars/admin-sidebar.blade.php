@@ -101,31 +101,31 @@
 
             <!--Menu Biodata-->
             <flux:sidebar.group
-            expandable
-            :expanded="Route::is('owner.warehouse.product.*')"
-            icon="contact"
-            heading="{{ __('Biodata') }}"
-            class="grid">
-                <flux:sidebar.item
-                href="#"
-                :current="Route::is('owner.warehouse.product.category')"
-                wire:navigate>
-                    {{ __('Belum') }}
-                </flux:sidebar.item>
+                expandable
+                :expanded="Route::is('admin.data_verification.biodata.*')"
+                icon="contact"
+                heading="{{ __('Biodata') }}"
+                class="grid">
+                    <flux:sidebar.item
+                    href="{{ route('admin.data_verification.biodata.pending') }}"
+                    :current="Route::is('admin.data_verification.biodata.pending')"
+                    wire:navigate>
+                        {{ __('Belum') }}
+                    </flux:sidebar.item>
 
-                <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
-                wire:navigate>
-                    {{ __('Proses') }}
-                </flux:sidebar.item>
+                    <flux:sidebar.item
+                    href="{{ route('admin.data_verification.biodata.process') }}"
+                    :current="Route::is('admin.data_verification.biodata.process.*')"
+                    wire:navigate>
+                        {{ __('Proses') }}
+                    </flux:sidebar.item>
 
-                <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
-                wire:navigate>
-                    {{ __('Selesai') }}
-                </flux:sidebar.item>
+                    <flux:sidebar.item
+                    href="{{ route('admin.data_verification.biodata.verified') }}"
+                    :current="Route::is('admin.data_verification.biodata.verified')"
+                    wire:navigate>
+                        {{ __('Selesai') }}
+                    </flux:sidebar.item>
             </flux:sidebar.group>
             <!--#Menu Biodata-->
 

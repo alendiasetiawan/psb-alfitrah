@@ -8,6 +8,7 @@ use App\Queries\Payment\RegistrationPaymentQuery;
 use Detection\MobileDetect;
 use Illuminate\Support\Facades\Crypt;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,6 +22,13 @@ class PaymentPaid extends Component
     public object $admissionYearLists;
     public string $searchStudent = '';
     public ?int $selectedAdmissionId = null, $limitData = 10, $setCount = 1, $filterAdmissionId;
+
+    //ANCHOR: ACTION LOAD MORE
+    #[On('load-more')]
+    public function loadMore($loadItem)
+    {
+        $this->limitData += $loadItem;
+    }
 
     #[Computed]
     public function paidStudentLists()

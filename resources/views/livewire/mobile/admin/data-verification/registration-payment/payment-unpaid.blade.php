@@ -32,7 +32,7 @@
 
         <!--NOTE: Loading Indicator When Filter Apply-->
         <div class="flex items-center justify-center">
-            <div wire:loading wire:target.except="fuPayment">
+            <div wire:loading wire:target="fuPaymsearchStudent, selectedAdmissionIdent">
                 <x-loading.horizontal-dot/>
             </div>
         </div>

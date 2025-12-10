@@ -193,7 +193,8 @@ class AdmissionAttachment extends Component
             'photo_status' => VerificationStatusEnum::PROCESS,
             'parent_card_status' => VerificationStatusEnum::PROCESS,
             'born_card_status' => VerificationStatusEnum::PROCESS,
-            'family_card_status' => VerificationStatusEnum::PROCESS
+            'family_card_status' => VerificationStatusEnum::PROCESS,
+            'modified_at' => now(),
          ]);
 
          //Update photo for user's avatar

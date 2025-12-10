@@ -2,6 +2,7 @@
 
 namespace App\Models\AdmissionData;
 
+use App\Enums\VerificationStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -25,5 +26,10 @@ class AdmissionVerification extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function scopeBiodataPending($query)
+    {
+        return $query->where('biodata', VerificationStatusEnum::NOT_STARTED);
     }
 }

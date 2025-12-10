@@ -80,4 +80,23 @@ class MessageHelper
 
       return $message;
    }
+
+   public static function waFollowUpBiodata($studentName, $branchName, $programName, $academicYear)
+   {
+      $message =
+         "_*PENGINGAT PENGISIAN BIODATA*_\n\n" .
+
+         "Kepada ananda *$studentName* dengan data sebagai berikut : \n\n" .
+
+         "Cabang : *$branchName*\n" .
+         "Program : *$programName*\n" .
+         "Tahun Ajaran : *$academicYear*\n\n" .
+
+         "harap segera mengisi *Biodata* anda sebagai syarat untuk bisa mengikuti Tes Seleksi Masuk Al Fitrah. Terima Kasih.\n\n" .
+
+         "_Panitia PSB_\n" .
+         "_Al Fitrah Islamic School_";
+
+      return $message;
+   }
 }
