@@ -37,7 +37,7 @@ class PaymentUnpaid extends Component
     public function notPaidStudentLists()
     {
         return RegistrationPaymentQuery::queryPaymentVerification($this->selectedAdmissionId, $this->searchStudent)
-            ->where('registration_payment', VerificationStatusEnum::NOT_STARTED)
+            ->where('registration_payments.payment_status', VerificationStatusEnum::NOT_STARTED)
             ->paginate($this->limitData);
     }
 
@@ -57,7 +57,6 @@ class PaymentUnpaid extends Component
         $queryAdmission = AdmissionHelper::activeAdmission();
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
-        // dd($this->notPaidStudentLists);
     }
 
     public function updated($property, $value)
@@ -77,9 +76,9 @@ class PaymentUnpaid extends Component
         try {
             DB::transaction(function () use ($studentId, $studentQuery, $waNumber, $amount) {
                 //Send WA Message
-                // $message = MessageHelper::waFollowUpPayment($studentQuery->student_name, $studentQuery->branch_name, $studentQuery->program_name, $studentQuery->academic_year, $amount);
+                $message = MessageHelper::waFollowUpPayment($studentQuery->student_name, $studentQuery->branch_name, $studentQuery->program_name, $studentQuery->academic_year, $amount);
 
-                // WhaCenterHelper::sendText($waNumber, $message);
+                WhaCenterHelper::sendText($waNumber, $message);
 
                 //Update fu status
                 AdmissionVerification::where('student_id', $studentId)->update([

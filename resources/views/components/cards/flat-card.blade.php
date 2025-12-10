@@ -17,7 +17,7 @@
                 />
             </div>
             <div class="flex flex-col items-start">
-                <flux:text size="lg">{{ $heading }}</flux:text>
+                <flux:text size="lg" class="truncate max-w-[200px]">{{ $heading }}</flux:text>
                 <flux:text variant="soft" size="sm">{{ $subHeading }}</flux:text>
             </div>
         </div>
@@ -41,7 +41,7 @@
     @endisset
 
     @isset($highlight)
-        <div class="bg-white/20 shadow-[inset_0px_2px_3px_rgba(255,255,255,0.5)] backdrop-blur-sm backdrop-filter rounded-xl mt-2 mb-2 p-2">
+        <div class="bg-white/10 shadow-[inset_3px_3px_5px_rgba(255,255,255,0.5)] rounded-xl mt-3 p-2">
             <flux:heading variant="bold" class="font-bold" size="xl">{{ $highlight }}</flux:heading>
         </div>
     @endisset

@@ -25,7 +25,7 @@
 
     <!--ANCHOR - SEARCH AND FILTERS-->
     <x-animations.sticky scrollHeight="160">
-        <x-animations.fade-down showTiming="100">
+        <x-animations.fade-down showTiming="150">
             <div class="grid grid-cols-1 mt-4">
                 <div class="flex gap-2 items-center">
                     <div class="w-11/12">

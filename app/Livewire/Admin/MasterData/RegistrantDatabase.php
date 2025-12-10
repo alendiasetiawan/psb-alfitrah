@@ -22,7 +22,7 @@ class RegistrantDatabase extends Component
 
     public bool $isMobile = false;
     public string $searchStudent = '';
-    public int $selectedAdmissionId, $limitData = 10, $totalStudent, $setCount = 1;
+    public int $selectedAdmissionId, $limitData = 10, $setCount = 1;
     public object $admissionYearLists;
 
     protected AdmissionHelper $admissionHelper;
@@ -38,6 +38,12 @@ class RegistrantDatabase extends Component
         );
     }
 
+    #[Computed]
+    public function totalRegistrant()
+    {
+        return StudentQuery::countStudentRegistrant($this->selectedAdmissionId);
+    }
+
     public function boot(MobileDetect $mobileDetect, AdmissionHelper $admissionHelper, StudentDataService $studentDataService)
     {
         $this->isMobile = $mobileDetect->isMobile();
@@ -50,8 +56,6 @@ class RegistrantDatabase extends Component
         $queryAdmission = $this->admissionHelper::activeAdmission();
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
-
-        $this->totalStudent = StudentQuery::countStudentRegistrant($this->selectedAdmissionId);
     }
 
     public function updated()

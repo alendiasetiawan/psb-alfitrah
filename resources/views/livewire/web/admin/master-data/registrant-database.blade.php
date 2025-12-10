@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="flex justify-end">
-                            <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $totalStudent }}</flux:badge>
+                            <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalRegistrant }}</flux:badge>
                         </div>
                     </div>
                 </x-slot:action>

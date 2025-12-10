@@ -68,7 +68,7 @@
 
         <!-- Icon lingkaran abu-abu di pojok kanan bawah -->
         @isset($subIcon)
-            <div class="absolute bottom-[-10px] right-[-5px] opacity-50">
+            <div class="absolute bottom-[-15px] right-[-5px] opacity-40">
                 {{ $subIcon }}
             </div>
         @endisset

@@ -13,7 +13,7 @@
                         @endforeach
                     </flux:select>
 
-                    <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $totalStudent }}</flux:badge>
+                    <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalRegistrant }}</flux:badge>
                 </div>
         </x-animations.fade-down>
     </x-animations.sticky>

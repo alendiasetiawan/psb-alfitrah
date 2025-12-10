@@ -1,5 +1,5 @@
 <div>
-    <x-navigations.breadcrumb secondLink="{{ route('admin.master_data.student_database.index') }}">
+    <x-navigations.breadcrumb>
         <x-slot:title>{{ __('Belum Bayar Pendaftaran') }}</x-slot:title>
         <x-slot:activePage>{{ __('Verifikasi Belum Bayar Biaya Pendaftaran') }}</x-slot:activePage>
     </x-navigations.breadcrumb>
@@ -55,14 +55,14 @@
         </div>
         <!--#Loading Indicator When Filter Apply-->
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             @forelse ($this->notPaidStudentLists as $student)
                 <div class="col-span-1">
                     <x-cards.flat-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
                     >
                         <x-slot:heading>{{ $student->student_name }}</x-slot:heading>
-                        <x-slot:subHeading>{{ $student->username }}</x-slot:subHeading>
+                        <x-slot:subHeading>{{ $student->username }} | {{ $student->gender }}</x-slot:subHeading>
                         <x-slot:label>
                             <div wire:loading wire:target="fuPayment({{ $student->id }})">
                                 <flux:icon.loading variant="mini" class="text-amber-400"/>
