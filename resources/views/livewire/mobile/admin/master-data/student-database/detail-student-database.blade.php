@@ -17,9 +17,8 @@
             </div>
         </x-slot:subHeading>
 
-        <x-slot:action>
+        {{-- <x-slot:action>
             <flux:button 
-                icon="message-circle-more" 
                 size="sm" 
                 color="green" 
                 variant="primary" 
@@ -27,7 +26,7 @@
                 target="_blank">
                     Chat
             </flux:button>
-        </x-slot:action>
+        </x-slot:action> --}}
 
         <x-cards.soft-glass-card rounded="rounded-t-2xl">
             {{-- Divider --}}

@@ -56,10 +56,10 @@
             <!--#Loading Skeleton-->
 
             @forelse ($this->officialStudentLists as $student)
-                <div class="col-span-1" wire:loading.remove wire:target="searchStudent">
+                <div class="col-span-1" wire:loading.remove wire:target="searchStudent" wire:key="student-{{ $student->id }}">
                     <x-cards.profile-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
-                        avatarImage="{{ !empty($student->user_photo) ? asset('storage/' . $student->user_photo) : '' }}"
+                        avatarImage="{{ !empty($student->user_photo) ? asset($student->user_photo) : '' }}"
                         wire:key="registrant-{{ $student->id }}">
                         <x-slot:title>{{ $student->student_name }}</x-slot:title>
 

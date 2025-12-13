@@ -57,7 +57,7 @@
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             @forelse ($this->notPaidStudentLists as $student)
-                <div class="col-span-1">
+                <div class="col-span-1" wire:key="student-{{ $student->id }}">
                     <x-cards.flat-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
                     >

@@ -67,7 +67,7 @@
             <!--#Loading Skeleton-->
 
             @forelse ($this->paidStudentLists as $student)
-                <div class="col-span-1" wire:loading.remove>
+                <div class="col-span-1" wire:loading.remove wire:key="{{ $student->id }}">
                     <x-cards.flat-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}">
 

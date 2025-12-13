@@ -22,11 +22,10 @@
     <x-animations.fade-down showTiming="150">    
         <div class="grid md:grid-cols-2 grid-cols-1 gap-3 mt-2">
             @forelse ($this->registrantLists as $registrant)
-                <div class="col-span-1">
+                <div class="col-span-1" wire:key="registrant-{{ $registrant->id }}">
                     <x-cards.profile-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($registrant->student_name) }}"
-                        avatarImage="{{ !empty($registrant->user_photo) ? asset('storage/' . $registrant->user_photo) : '' }}"
-                        wire:key="registrant-{{ $registrant->id }}">
+                        avatarImage="{{ !empty($registrant->user_photo) ? asset('storage/' . $registrant->user_photo) : '' }}">
                         <x-slot:title>{{ $registrant->student_name }}</x-slot:title>
 
                         <x-slot:subTitle>

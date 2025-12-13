@@ -1,11 +1,11 @@
 @props([
     'bgImage' => "images/background/learning_class.webp",
-    'titleHeight' => 'pt-[25vh]',
+    'titleHeight' => 'pt-[24vh]',
     'coverHeight' => 'h-[37vh]',  
 ])
 
 <div>
-    <div class="fixed inset-0 top-0 left-0 right-0 transition-opacity duration-200"
+    <div class="fixed inset-0 top-0 left-0 right-0 transition-opacity duration-200 -z-10"
         x-data="{ scrollY: 0 }"
         x-init="window.addEventListener('scroll', () => { scrollY = window.scrollY; })"
     >
@@ -20,7 +20,7 @@
                             {{ $label }}
                         </flux:badge>
                     @endisset
-                    <flux:heading size="xl">{{ $heading }}</flux:heading>
+                    <flux:heading size="xl" class="truncate max-w-[350px]">{{ $heading }}</flux:heading>
                     {{ $subHeading }}
                     {{-- <div class="flex items-center gap-1">
                         <flux:icon.school variant="micro" class="text-white/75"/>

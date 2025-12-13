@@ -1,10 +1,11 @@
 @props([
     'rounded' => 'rounded-2xl',
     'padding' => 'px-5 py-4',
+    'clickable' => false,
 ])
 
 <div {{ $attributes->merge([
-    'class' => "relative overflow-hidden $rounded",
+    'class' => "relative overflow-hidden $rounded " . ($clickable ? "transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary hover:-translate-y-1 cursor-pointer" : ''),
 ]) }}>
 
     {{-- MASKED GRADIENT BORDER (Tailwind v4) --}}

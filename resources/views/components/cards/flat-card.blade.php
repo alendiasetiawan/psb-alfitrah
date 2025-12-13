@@ -3,9 +3,10 @@
     'avatarImage' => "",
     'isLink' => false,
     'labelColor' => 'primary',
+    'clickable' => false,
 ])
 
-<x-cards.soft-glass-card {{ $attributes->merge() }} rounded="rounded-lg" padding="p-4">
+<x-cards.soft-glass-card {{ $attributes->merge() }} rounded="rounded-lg" padding="p-4" clickable="{{ $clickable }}">
     <!--Header-->
     <div class="flex items-center justify-between">
         <!-- Avatar and Heading -->

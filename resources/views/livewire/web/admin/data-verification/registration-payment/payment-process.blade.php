@@ -4,7 +4,7 @@
         <x-slot:activePage>{{ __('Verifikasi Proses Bayar Pendaftaran') }}</x-slot:activePage>
     </x-navigations.breadcrumb>
 
-        <!--ANCHOR: SEARCH AND FILTER-->
+    <!--ANCHOR: SEARCH AND FILTER-->
     <x-animations.fade-down>
         <div class="grid grid-cols-2 mt-4 justify-between items-center gap-2">
             <div class="flex gap-2">
@@ -30,7 +30,7 @@
     <x-animations.fade-down showTiming="150">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             @forelse ($this->processStudentLists as $student)
-                <div class="col-span-1">
+                <div class="col-span-1" wire:key="student-{{ $student->id }}">
                     <x-cards.flat-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
                     >

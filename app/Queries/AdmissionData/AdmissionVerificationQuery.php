@@ -24,4 +24,12 @@ class AdmissionVerificationQuery
             ->where('students.admission_id', $admissionId)
             ->count();
     }
+
+    public static function countStudentProcessBiodata($admissionId)
+    {
+        return AdmissionVerification::biodataProcess()
+            ->join('students', 'admission_verifications.student_id', 'students.id')
+            ->where('students.admission_id', $admissionId)
+            ->count();
+    }
 }

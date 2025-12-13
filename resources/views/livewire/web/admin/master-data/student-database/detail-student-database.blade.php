@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="ml-44">
-                            <flux:heading size="3xl" class="font-semibold">
+                            <flux:heading size="3xl" class="font-semibold truncate max-w-[600px]">
                                 {{ $studentQuery->name }}
                             </flux:heading>
 

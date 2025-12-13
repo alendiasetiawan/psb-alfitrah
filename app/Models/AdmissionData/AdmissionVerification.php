@@ -21,6 +21,8 @@ class AdmissionVerification extends Model
         'fu_biodata', //enum('Belum','Sudah')
         'fu_attachment', //enum('Belum','Sudah')
         'fu_placement_test', //enum('Belum','Sudah')
+        'biodata_verified_at',
+        'attachment_verified_at',
     ];
 
     public function student(): BelongsTo
@@ -31,5 +33,15 @@ class AdmissionVerification extends Model
     public function scopeBiodataPending($query)
     {
         return $query->where('biodata', VerificationStatusEnum::NOT_STARTED);
+    }
+
+    public function scopeBiodataProcess($query)
+    {
+        return $query->whereIn('biodata', [VerificationStatusEnum::PROCESS, VerificationStatusEnum::INVALID]);
+    }
+
+    public function scopeBiodataVerified($query)
+    {
+        return $query->where('biodata', VerificationStatusEnum::VALID);
     }
 }

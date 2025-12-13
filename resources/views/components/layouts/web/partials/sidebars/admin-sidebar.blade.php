@@ -115,7 +115,7 @@
 
                     <flux:sidebar.item
                     href="{{ route('admin.data_verification.biodata.process') }}"
-                    :current="Route::is('admin.data_verification.biodata.process.*')"
+                    :current="Route::is('admin.data_verification.biodata.process') || Route::is('admin.data_verification.biodata.process.*')"
                     wire:navigate>
                         {{ __('Proses') }}
                     </flux:sidebar.item>

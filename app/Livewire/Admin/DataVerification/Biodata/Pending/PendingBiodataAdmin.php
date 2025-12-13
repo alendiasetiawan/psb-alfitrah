@@ -22,8 +22,6 @@ use Livewire\WithPagination;
 #[Title('Belum Mengisi Biodata')]
 class PendingBiodataAdmin extends Component
 {
-    use WithPagination;
-
     public bool $isMobile = false;
     public object $admissionYearLists;
     public string $searchStudent = '';
