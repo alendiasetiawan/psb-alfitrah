@@ -17,17 +17,6 @@
             </div>
         </x-slot:subHeading>
 
-        {{-- <x-slot:action>
-            <flux:button 
-                size="sm" 
-                color="green" 
-                variant="primary" 
-                href="https://wa.me/{{ $studentQuery->country_code }}{{ $studentQuery->mobile_phone }}" 
-                target="_blank">
-                    Chat
-            </flux:button>
-        </x-slot:action> --}}
-
         <x-cards.soft-glass-card rounded="rounded-t-2xl">
             {{-- Divider --}}
             <div class="flex justify-center w-full pb-4 cursor-pointer rounded">
@@ -103,7 +92,7 @@
                 <!--ANCHOR: BIODATA PARENT-->
                 <flux:heading size="xl" class="mb-3 mt-5">Biodata Orang Tua</flux:heading>
 
-                @if ($studentQuery->parent->is_parent)
+                @if ($studentQuery->parent->is_parent == TRUE)
                     <!--NOTE: Father Data-->
                     <div class="mb-3">
                         <flux:separator text="Data Ayah"/>
@@ -133,21 +122,21 @@
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Pendidikan Ayah</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->educationFather->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->educationFather->name ?? '-' }}</flux:text>
                             </div>
                         </div>
 
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Pekerjaan Ayah</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->jobFather->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->jobFather->name ?? '-' }}</flux:text>
                             </div>
                         </div>
 
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Penghasilan Ayah</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->sallaryFather->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->sallaryFather->name ?? '-' }}</flux:text>
                             </div>
                         </div>
                     </div>
@@ -202,21 +191,21 @@
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Pendidikan Ibu</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->educationMother->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->educationMother->name ??  '-' }}</flux:text>
                             </div>
                         </div>
 
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Pekerjaan Ibu</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->jobMother->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->jobMother->name ?? '-' }}</flux:text>
                             </div>
                         </div>
 
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Penghasilan Ibu</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->sallaryMother->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->sallaryMother->name ?? '-' }}</flux:text>
                             </div>
                         </div>
                     </div>
@@ -271,21 +260,21 @@
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Pendidikan Wali</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->educationGuardian->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->educationGuardian->name ?? '-' }}</flux:text>
                             </div>
                         </div>
 
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Pekerjaan Wali</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->jobGuardian->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->jobGuardian->name ?? '-' }}</flux:text>
                             </div>
                         </div>
 
                         <div class="col-span-1">
                             <div class="flex flex-col items-start">
                                 <flux:text variant="soft">Penghasilan Wali</flux:text>    
-                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->sallaryGuardian->name }}</flux:text>
+                                <flux:text variant="dark" class="font-semibold">{{ $studentQuery->parent->sallaryGuardian->name ?? '-' }}</flux:text>
                             </div>
                         </div>
                     </div>

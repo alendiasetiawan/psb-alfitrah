@@ -187,6 +187,7 @@
                                                 placeholder="85775745484" :isValidateGroup="true"
                                                 oninput="this.value = this.value.replace(/^0+/, '').replace(/[^0-9]/g, '')" />
                                         </flux:input.group>
+                                        
                                         <template x-if="errors.mobilePhone">
                                             <flux:error name="mobilePhone">
                                                 <x-slot:message>
@@ -194,6 +195,7 @@
                                                 </x-slot:message>
                                             </flux:error>
                                         </template>
+
                                         @error('inputs.mobilePhone')
                                         <flux:error name="inputs.mobilePhone" />
                                         <div class="flex flex-row items-center">

@@ -56,6 +56,7 @@
         <!--#Loading Indicator When Filter Apply-->
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <!--ANCHOR: Looping student biodata-->
             @forelse ($this->pendingBiodataStudents as $student)
                 <div class="col-span-1" wire:key="student-{{ $student->id }}">
                     <x-cards.flat-card
@@ -108,6 +109,7 @@
                     <x-animations.not-found />
                 </div>
             @endforelse
+            <!--#Looping student biodata-->
         </div>
 
         <div class="grid grid-cols-1 mt-3">

@@ -31,9 +31,17 @@ class StudentQuery
                 'parent' => function ($query) {
                     $query->join('users', 'parents.user_id', 'users.id')
                         ->select('parents.*', 'users.username', 'users.photo as user_photo')
-                        ->with('jobFather')
-                        ->with('jobMother')
-                        ->with('jobGuardian');
+                        ->with([
+                            'educationFather:id,name',
+                            'jobFather:id,name',
+                            'sallaryFather:id,name',
+                            'educationMother:id,name',
+                            'jobMother:id,name',
+                            'sallaryMother:id,name',
+                            'educationGuardian:id,name',
+                            'jobGuardian:id,name',
+                            'sallaryGuardian:id,name'
+                        ]);;
                 }
             ])
             ->where('students.id', $studentId)

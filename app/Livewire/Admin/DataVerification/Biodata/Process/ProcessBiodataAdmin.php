@@ -54,9 +54,9 @@ class ProcessBiodataAdmin extends Component
     }
 
     //ANCHOR: Action
-    public function verifyStudent(int $studentId)
+    public function verifyStudent($studentId)
     {
-        dd($studentId);
+        $this->redirectRoute('admin.data_verification.biodata.process.detail', ['studentId' => $studentId], navigate: true);
     }
 
     public function render()

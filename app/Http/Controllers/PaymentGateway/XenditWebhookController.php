@@ -26,7 +26,10 @@ class XenditWebhookController extends Controller
         $trx = RegistrationInvoice::where('external_id', $request->external_id)->first();
 
         if (!$trx) {
-            return response()->json(['error' => 'Transaction not found'], 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Transaction not found'
+            ], 404);
         } else {
             $studentId = $trx->student_id;
             $payment = RegistrationPayment::where('student_id', $studentId)->first();

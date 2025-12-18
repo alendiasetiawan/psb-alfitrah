@@ -26,7 +26,7 @@
             @forelse ($this->processBiodataStudents as $student)
                 <div class="col-span-1" wire:key="student-{{ $student->id }}">
                     <x-cards.flat-card
-                        wire:click="verifyStudent({{ $student->id }})"
+                        wire:click="verifyStudent('{{ Crypt::encrypt($student->id) }}')"
                         clickable="true"
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
                         avatarImage="{{ !empty($student->user_photo) ? asset($student->user_photo) : '' }}"
