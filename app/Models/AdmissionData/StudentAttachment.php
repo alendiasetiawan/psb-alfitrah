@@ -17,6 +17,7 @@ class StudentAttachment extends Model
       'parent_card_status',
       'born_card_status',
       'family_card_status',
+      'modified_at'
    ];
 
    public function student(): BelongsTo

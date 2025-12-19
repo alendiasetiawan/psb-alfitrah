@@ -10,6 +10,11 @@ use App\Livewire\Admin\DataVerification\Biodata\Verified\VerifiedBiodataAdmin;
 use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentPaid;
 use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentProcess;
 use App\Livewire\Admin\DataVerification\RegistrationPayment\PaymentUnpaid;
+use App\Livewire\Admin\DataVerification\StudentAttachment\Pending\PendingStudentAttachmentAdmin;
+use App\Livewire\Admin\DataVerification\StudentAttachment\Process\Detail\DetailProcessStudentAttachmentAdmin;
+use App\Livewire\Admin\DataVerification\StudentAttachment\Process\ProcessStudentAttachmentAdmin;
+use App\Livewire\Admin\DataVerification\StudentAttachment\Verified\Detail\DetailVerifiedStudentAttachmentAdmin;
+use App\Livewire\Admin\DataVerification\StudentAttachment\Verified\VerifiedStudentAttachmentAdmin;
 use App\Livewire\Admin\MasterData\MonitoringQuota;
 use App\Livewire\Admin\MasterData\RegistrantDatabase;
 use App\Livewire\Admin\MasterData\RegistrantDemographic;
@@ -21,6 +26,11 @@ use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
 use Illuminate\Support\Facades\Route;
+
+
+
+
+
 
 
 
@@ -67,6 +77,21 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
                 Route::get('/verified', VerifiedBiodataAdmin::class)->name('verified');
                 Route::group(['prefix' => 'verified', 'as' => 'verified.'], function () {
                     Route::get('/detail/{studentId}', DetailVerifiedBiodataAdmin::class)->name('detail');
+                });
+            });
+
+            //NOTE: Student Attachment Verification Route
+            Route::group(['prefix' => 'student-attachment', 'as' => 'student_attachment.'], function () {
+                Route::get('/pending', PendingStudentAttachmentAdmin::class)->name('pending');
+
+                Route::get('/process', ProcessStudentAttachmentAdmin::class)->name('process');
+                Route::group(['prefix' => 'process', 'as' => 'process.'], function () {
+                    Route::get('/detail/{studentId}', DetailProcessStudentAttachmentAdmin::class)->name('detail');
+                });
+
+                Route::get('/verified', VerifiedStudentAttachmentAdmin::class)->name('verified');
+                Route::group(['prefix' => 'verified', 'as' => 'verified.'], function () {
+                    Route::get('/detail/{studentId}', DetailVerifiedStudentAttachmentAdmin::class)->name('detail');
                 });
             });
         });

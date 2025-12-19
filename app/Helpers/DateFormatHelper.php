@@ -25,4 +25,9 @@ class DateFormatHelper
     {
         return Carbon::parse($date)->locale('id')->isoFormat('D MMMM YYYY');
     }
+
+    public static function humanReadIndo($date)
+    {
+        return Carbon::parse($date)->locale('id')->diffForHumans();
+    }
 }

@@ -158,14 +158,6 @@ class Student extends Model
             );
     }
 
-    //Scope for get admission verification status
-    public function scopeJoinAdmissionVerification($query)
-    {
-        return $query
-            ->join('admission_verifications', 'students.id', 'admission_verifications.student_id')
-            ->addSelect('admission_verifications.registration_payment', 'admission_verifications.biodata', 'admission_verifications.attachment', 'admission_verifications.placement_test', 'admission_verifications.fu_payment', 'admission_verifications.fu_biodata', 'admission_verifications.fu_attachment', 'admission_verifications.fu_placement_test', 'admission_verifications.payment_error_msg', 'admission_verifications.biodata_error_msg', 'admission_verifications.attachment_error_msg');
-    }
-
     //Scope for get academic year
     public function scopeJoinAdmission($query)
     {
@@ -209,7 +201,15 @@ class Student extends Model
     public function scopeJoinStudentAttachment($query)
     {
         return $query->join('student_attachments', 'students.id', 'student_attachments.student_id')
-            ->addSelect('student_attachments.photo', 'student_attachments.born_card', 'student_attachments.family_card', 'student_attachments.parent_card');
+            ->addSelect('student_attachments.photo', 'student_attachments.born_card', 'student_attachments.family_card', 'student_attachments.parent_card', 'student_attachments.modified_at as attachment_modified_at');
+    }
+
+    //Scope for get admission verification status
+    public function scopeJoinAdmissionVerification($query)
+    {
+        return $query
+            ->join('admission_verifications', 'students.id', 'admission_verifications.student_id')
+            ->addSelect('admission_verifications.registration_payment', 'admission_verifications.biodata', 'admission_verifications.attachment', 'admission_verifications.placement_test', 'admission_verifications.fu_payment', 'admission_verifications.fu_biodata', 'admission_verifications.fu_attachment', 'admission_verifications.fu_placement_test', 'admission_verifications.payment_error_msg', 'admission_verifications.biodata_error_msg', 'admission_verifications.attachment_error_msg');
     }
 
     public static function baseEloquent($studentId = null, $branchId = null, $educationProgramId = null, $admissionId = null, $admissionBatchId = null, $searchStudent = null)

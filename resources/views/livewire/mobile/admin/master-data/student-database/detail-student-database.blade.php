@@ -307,60 +307,62 @@
                 <!--ANCHOR: STUDENT ATTACHMENT-->
                 <flux:heading size="xl" class="mb-3 mt-5">Berkas Santri</flux:heading>
                 
-                <div class="grid grid-cols-1 space-y-3">
-                    <div class="col-span-1">
-                        <div class="flex flex-col items-start gap-1">
-                            <flux:text size="lg">Photo Siswa</flux:text>
-                            <x-cards.photo-frame 
-                            width="w-full"
-                            fancyBoxName="student-attachment"
-                            fancyBoxCaption="Photo Siswa"
-                            href="{{ asset($studentQuery->photo) }}">
-                                <img src="{{ asset($studentQuery->photo) }}" class="w-full h-full object-cover" />
-                            </x-cards.photo-frame>
-                        </div>
-                    </div>
-
-                    <div class="col-span-1">
-                        <div class="flex flex-col items-start gap-1">
-                            <flux:text size="lg">Akte Kelahiran</flux:text>
-                            <x-cards.photo-frame 
-                            width="w-full"
-                            fancyBoxName="student-attachment"
-                            fancyBoxCaption="Akte Kelahiran"
-                            href="{{ asset($studentQuery->born_card) }}">
-                                <img src="{{ asset($studentQuery->born_card) }}" class="w-full h-full object-cover" />
-                            </x-cards.photo-frame>
-                        </div>
-                    </div>
-
-                    <div class="col-span-1">
-                        <div class="flex flex-col items-start gap-1">
-                            <flux:text size="lg">KTP Orang Tua</flux:text>
-                            <x-cards.photo-frame 
-                            width="w-full"
-                            fancyBoxName="student-attachment"
-                            fancyBoxCaption="KTP Orang Tua"
-                            href="{{ asset($studentQuery->parent_card) }}">
-                                <img src="{{ asset($studentQuery->parent_card) }}" class="w-full h-full object-cover" />
-                            </x-cards.photo-frame>
-                        </div>
-                    </div>
-
-                    <div class="col-span-1">
-                        <div class="flex flex-col items-start gap-1">
-                            <flux:text size="lg">Kartu Keluarga</flux:text>
-                            <x-cards.photo-frame 
+                <x-animations.fancybox>
+                    <div class="grid grid-cols-1 space-y-3">
+                        <div class="col-span-1">
+                            <div class="flex flex-col items-start gap-1">
+                                <flux:text size="lg">Photo Siswa</flux:text>
+                                <x-cards.photo-frame 
                                 width="w-full"
                                 fancyBoxName="student-attachment"
-                                fancyBoxCaption="Kartu Keluarga"
-                                href="{{ asset($studentQuery->family_card) }}"
-                            >
-                                <img src="{{ asset($studentQuery->family_card) }}" class="w-full h-full object-cover" />
-                            </x-cards.photo-frame>
+                                fancyBoxCaption="Photo Siswa"
+                                href="{{ asset($studentQuery->photo) }}">
+                                    <img src="{{ asset($studentQuery->photo) }}" class="w-full h-full object-cover" />
+                                </x-cards.photo-frame>
+                            </div>
+                        </div>
+
+                        <div class="col-span-1">
+                            <div class="flex flex-col items-start gap-1">
+                                <flux:text size="lg">Akte Kelahiran</flux:text>
+                                <x-cards.photo-frame 
+                                width="w-full"
+                                fancyBoxName="student-attachment"
+                                fancyBoxCaption="Akte Kelahiran"
+                                href="{{ asset($studentQuery->born_card) }}">
+                                    <img src="{{ asset($studentQuery->born_card) }}" class="w-full h-full object-cover" />
+                                </x-cards.photo-frame>
+                            </div>
+                        </div>
+
+                        <div class="col-span-1">
+                            <div class="flex flex-col items-start gap-1">
+                                <flux:text size="lg">KTP Orang Tua</flux:text>
+                                <x-cards.photo-frame 
+                                width="w-full"
+                                fancyBoxName="student-attachment"
+                                fancyBoxCaption="KTP Orang Tua"
+                                href="{{ asset($studentQuery->parent_card) }}">
+                                    <img src="{{ asset($studentQuery->parent_card) }}" class="w-full h-full object-cover" />
+                                </x-cards.photo-frame>
+                            </div>
+                        </div>
+
+                        <div class="col-span-1">
+                            <div class="flex flex-col items-start gap-1">
+                                <flux:text size="lg">Kartu Keluarga</flux:text>
+                                <x-cards.photo-frame 
+                                    width="w-full"
+                                    fancyBoxName="student-attachment"
+                                    fancyBoxCaption="Kartu Keluarga"
+                                    href="{{ asset($studentQuery->family_card) }}"
+                                >
+                                    <img src="{{ asset($studentQuery->family_card) }}" class="w-full h-full object-cover" />
+                                </x-cards.photo-frame>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </x-animations.fancybox>
                 <!--#STUDENT ATTACHMENT-->
             </x-animations.fade-down>
 

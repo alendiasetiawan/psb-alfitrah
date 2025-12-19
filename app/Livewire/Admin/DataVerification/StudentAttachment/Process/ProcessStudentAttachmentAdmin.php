@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\DataVerification\Biodata\Process;
+namespace App\Livewire\Admin\DataVerification\StudentAttachment\Process;
 
 use App\Helpers\AdmissionHelper;
 use App\Queries\AdmissionData\AdmissionVerificationQuery;
@@ -12,8 +12,8 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Proses Verifikasi Biodata')]
-class ProcessBiodataAdmin extends Component
+#[Title('Proses Validasi Berkas')]
+class ProcessStudentAttachmentAdmin extends Component
 {
     public bool $isMobile = false;
     public object $admissionYearLists;
@@ -30,15 +30,15 @@ class ProcessBiodataAdmin extends Component
     }
 
     #[Computed]
-    public function processBiodataStudents()
+    public function processAttachmentStudents()
     {
-        return $this->studentDataService->paginateStudentProcessBiodata($this->selectedAdmissionId, $this->searchStudent, $this->limitData);
+        return $this->studentDataService->paginateStudentProcessAttachment($this->selectedAdmissionId, $this->searchStudent, $this->limitData);
     }
 
     #[Computed]
-    public function totalProcessBiodataStudent()
+    public function totalProcessAttachmentStudent()
     {
-        return AdmissionVerificationQuery::countStudentProcessBiodata($this->selectedAdmissionId);
+        return AdmissionVerificationQuery::countStudentProcessAttachment($this->selectedAdmissionId);
     }
 
     public function boot(MobileDetect $mobileDetect, StudentDataService $studentDataService)
@@ -56,19 +56,20 @@ class ProcessBiodataAdmin extends Component
     }
 
     //ANCHOR: Action
-    public function verifyStudent($studentId)
+    public function verifyAttachment($studentId)
     {
-        $this->redirectRoute('admin.data_verification.biodata.process.detail', ['studentId' => $studentId], navigate: true);
+        $this->redirectRoute('admin.data_verification.student_attachment.process.detail', ['studentId' => $studentId], navigate: true);
     }
 
     public function render()
     {
         if ($this->isMobile) {
-            return view('livewire.mobile.admin.data-verification.biodata.process.process-biodata-admin')->layout('components.layouts.mobile.mobile-app', [
+            return view('livewire.mobile.admin.data-verification.student-attachment.process.process-student-attachment-admin')->layout('components.layouts.mobile.mobile-app', [
                 'isShowBottomNavbar' => true,
                 'isShowTitle' => true,
             ]);
         }
-        return view('livewire.web.admin.data-verification.biodata.process.process-biodata-admin')->layout('components.layouts.web.web-app');
+
+        return view('livewire.web.admin.data-verification.student-attachment.process.process-student-attachment-admin')->layout('components.layouts.web.web-app');
     }
 }

@@ -44,4 +44,19 @@ class AdmissionVerification extends Model
     {
         return $query->where('biodata', VerificationStatusEnum::VALID);
     }
+
+    public function scopeAttachmentPending($query)
+    {
+        return $query->where('attachment', VerificationStatusEnum::NOT_STARTED);
+    }
+
+    public function scopeAttachmentProcess($query)
+    {
+        return $query->whereIn('attachment', [VerificationStatusEnum::PROCESS, VerificationStatusEnum::INVALID]);
+    }
+
+    public function scopeAttachmentVerified($query)
+    {
+        return $query->where('attachment', VerificationStatusEnum::VALID);
+    }
 }

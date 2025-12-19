@@ -132,27 +132,27 @@
             <!--Menu Berkas-->
             <flux:sidebar.group
             expandable
-            :expanded="Route::is('owner.warehouse.product.*')"
+            :expanded="Route::is('admin.data_verification.student_attachment.*')"
             icon="file-text"
             heading="{{ __('Berkas') }}"
             class="grid">
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.category') }}"
-                :current="Route::is('owner.warehouse.product.category')"
+                href="{{ route('admin.data_verification.student_attachment.pending') }}"
+                :current="Route::is('admin.data_verification.student_attachment.pending')"
                 wire:navigate>
                     {{ __('Belum') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
+                href="{{ route('admin.data_verification.student_attachment.process') }}"
+                :current="Route::is('admin.data_verification.student_attachment.process') || Route::is('admin.data_verification.student_attachment.process.*')"
                 wire:navigate>
                     {{ __('Proses') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
+                href="{{ route('admin.data_verification.student_attachment.verified') }}"
+                :current="Route::is('admin.data_verification.student_attachment.verified') || Route::is('admin.data_verification.student_attachment.verified.*')"
                 wire:navigate>
                     {{ __('Selesai') }}
                 </flux:sidebar.item>

@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="flex justify-between mt-2">
-                    <flux:badge variant="solid" color="primary" icon="user-check">{{ $this->totalProcessBiodataStudent }} Santri</flux:badge>
+                    <flux:badge variant="solid" color="primary" icon="user-check">{{ $this->totalProcessAttachmentStudent }} Santri</flux:badge>
 
                     <flux:badge variant="solid" color="primary" icon="graduation-cap">{{ $admissionYear }}</flux:badge>
                 </div>
@@ -25,10 +25,10 @@
     <!--ANCHOR: STUDENT CARD-->
     <x-animations.fade-down showTiming="150">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            @forelse ($this->processBiodataStudents as $student)
+            @forelse ($this->processAttachmentStudents as $student)
                 <div class="col-span-1" wire:key="student-{{ $student->id }}">
                     <x-cards.flat-card
-                        wire:click="verifyStudent('{{ Crypt::encrypt($student->id) }}')"
+                        wire:click="verifyAttachment('{{ Crypt::encrypt($student->id) }}')"
                         clickable="true"
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
                         avatarImage="{{ !empty($student->user_photo) ? asset($student->user_photo) : '' }}"
@@ -37,7 +37,7 @@
                         <x-slot:subHeading>{{ $student->username }} | {{ $student->gender }}</x-slot:subHeading>
                         
                         <x-slot:label>
-                            @if ($student->biodata == \App\Enums\VerificationStatusEnum::PROCESS)
+                            @if ($student->attachment == \App\Enums\VerificationStatusEnum::PROCESS)
                                 <flux:badge color="orange" size="sm" variant="solid">Proses</flux:badge>
                             @else
                                 <flux:badge color="red" size="sm" variant="solid">Invalid</flux:badge>
@@ -64,7 +64,7 @@
 
         <div class="grid grid-cols-1 mt-3">
             <!--NOTE: Load More Button-->
-            @if ($this->processBiodataStudents->hasMorePages())
+            @if ($this->processAttachmentStudents->hasMorePages())
                 <livewire:components.buttons.load-more loadItem="18" />
             @endif
             <!--#Load More Button-->

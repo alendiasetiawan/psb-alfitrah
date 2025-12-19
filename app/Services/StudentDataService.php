@@ -29,7 +29,7 @@ class StudentDataService
     {
         return StudentQuery::queryBiodataVerification($admissionId, $searchStudent)
             ->where('admission_verifications.biodata', VerificationStatusEnum::NOT_STARTED)
-            ->orderBy('students.id', 'desc')
+            ->orderBy('students.id', 'asc')
             ->paginate($limitData);
     }
 
@@ -37,7 +37,7 @@ class StudentDataService
     {
         return StudentQuery::queryBiodataVerification($admissionId, $searchStudent)
             ->whereIn('admission_verifications.biodata', [VerificationStatusEnum::PROCESS, VerificationStatusEnum::INVALID])
-            ->orderBy('students.id', 'desc')
+            ->orderBy('students.id', 'asc')
             ->paginate($limitData);
     }
 
@@ -45,7 +45,23 @@ class StudentDataService
     {
         return StudentQuery::queryBiodataVerification($admissionId, $searchStudent)
             ->where('admission_verifications.biodata', VerificationStatusEnum::VALID)
-            ->orderBy('students.id', 'desc')
+            ->orderBy('students.id', 'asc')
+            ->paginate($limitData);
+    }
+
+    public function paginateStudentPendingAttachment($admissionId, $searchStudent = null, $limitData)
+    {
+        return StudentQuery::queryBiodataVerification($admissionId, $searchStudent)
+            ->where('admission_verifications.attachment', VerificationStatusEnum::NOT_STARTED)
+            ->orderBy('students.id', 'asc')
+            ->paginate($limitData);
+    }
+
+    public function paginateStudentProcessAttachment($admissionId, $searchStudent = null, $limitData)
+    {
+        return StudentQuery::queryAttachmentVerification($admissionId, $searchStudent)
+            ->whereIn('admission_verifications.attachment', [VerificationStatusEnum::PROCESS, VerificationStatusEnum::INVALID])
+            ->orderBy('students.id', 'asc')
             ->paginate($limitData);
     }
 }

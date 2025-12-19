@@ -123,7 +123,8 @@
                             selectedRegencyId: ['required'],
                             selectedDistrictId: ['required'],
                             selectedVillageId: ['required'],
-                        })" x-init="$watch('$wire.form.inputs.address', value => {
+                        })" 
+                        x-init="$watch('$wire.form.inputs.address', value => {
                             if (sameAddressAsStudent) $wire.form.inputs.fatherAddress = value,
                             $wire.form.inputs.motherAddress = value,
                             $wire.form.inputs.guardianAddress = value

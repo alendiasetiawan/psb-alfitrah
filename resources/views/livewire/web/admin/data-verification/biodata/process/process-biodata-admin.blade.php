@@ -17,9 +17,12 @@
                 </div>
             </div>
 
-            <div class="flex justify-end">
+            <div class="flex justify-end gap-2">
+                <flux:badge variant="solid" color="primary" icon="graduation-cap">
+                    {{ $admissionYear }}
+                </flux:badge>
                 <flux:badge variant="solid" color="primary" icon="user">
-                    Jumlah: {{ $this->totalProcessBiodataStudent }}
+                    {{ $this->totalProcessBiodataStudent }} Santri
                 </flux:badge>
             </div>
         </div>

@@ -13,7 +13,7 @@
                         @endforeach
                     </flux:select>
 
-                    <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalPendingBiodata }}</flux:badge>
+                    <flux:badge variant="solid" color="primary" icon="user-check">{{ $this->totalPendingAttachment }} Santri</flux:badge>
                 </div>
         </x-animations.fade-down>
     </x-animations.sticky>
@@ -21,7 +21,7 @@
         <!--ANCHOR: STUDENT CARD-->
     <x-animations.fade-down showTiming="150">
         <!--NOTE: Alert When Send Message Follow Up Failed-->
-        @if (session('error-fu-biodata'))
+        @if (session('error-fu-attachment'))
             <div class="grid grid-cols-1 mt-4">
                 <x-notifications.basic-alert isCloseable="true">
                     <x-slot:title>{{ session('error-fu-biodata') }}</x-slot:title>
@@ -40,7 +40,7 @@
 
         <!--ANCHOR: Looping student biodata-->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            @forelse ($this->pendingBiodataStudents as $student)
+            @forelse ($this->pendingAttachmentStudents as $student)
                 <div class="col-span-1" wire:key="student-{{ $student->id }}">
                     <x-cards.flat-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
@@ -65,7 +65,7 @@
 
                         <div class="flex justify-between items-center">
                             <flux:text variant="soft">Follow Up: 
-                                @if ($student->fu_biodata == \App\Enums\FollowUpStatusEnum::NOT_YET)
+                                @if ($student->fu_attachment == \App\Enums\FollowUpStatusEnum::NOT_YET)
                                     <strong class="text-amber-400">Belum</strong>
                                 @else
                                     <strong class="text-green-400">Sudah</strong>
@@ -100,7 +100,7 @@
 
         <div class="grid grid-cols-1 mt-3">
             <!--NOTE: Load More Button-->
-            @if ($this->pendingBiodataStudents->hasMorePages())
+            @if ($this->pendingAttachmentStudents->hasMorePages())
                 <livewire:components.buttons.load-more loadItem="18" />
             @endif
             <!--#Load More Button-->

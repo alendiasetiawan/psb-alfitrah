@@ -73,8 +73,11 @@
                             </div>
                         </x-slot:label>
 
-                        <flux:text variant="soft">Tanggal Daftar: 
-                            <strong class="text-white">{{ \App\Helpers\DateFormatHelper::indoDateTime($student->registration_date) }}</strong>
+                        <flux:text variant="soft">Daftar: 
+                            <strong class="text-white">
+                                {{ \App\Helpers\DateFormatHelper::indoDateTime($student->registration_date) }}
+                                ({{ \App\Helpers\DateFormatHelper::humanReadIndo($student->registration_date) }})
+                            </strong>
                         </flux:text>
 
                         <div class="flex justify-between items-center">

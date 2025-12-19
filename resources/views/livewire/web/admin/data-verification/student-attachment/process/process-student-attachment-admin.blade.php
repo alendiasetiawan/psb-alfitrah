@@ -1,18 +1,33 @@
-<div class="mb-18">
-    <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.sticky>
-        <x-animations.fade-down showTiming="50">    
-                <div class="grid grid-cols-1">
-                    <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
-                </div>
+<div>
+    <x-navigations.breadcrumb>
+        <x-slot:title>Proses Verifikasi Berkas</x-slot:title>
+        <x-slot:activePage>Manajemen Proses Verifikasi Berkas</x-slot:activePage>
+    </x-navigations.breadcrumb> 
 
-                <div class="flex justify-between mt-2">
-                    <flux:badge variant="solid" color="primary" icon="user-check">{{ $this->totalProcessBiodataStudent }} Santri</flux:badge>
-
-                    <flux:badge variant="solid" color="primary" icon="graduation-cap">{{ $admissionYear }}</flux:badge>
+    <!--ANCHOR: SEARCH AND FILTER-->
+    <x-animations.fade-down>
+        <div class="grid grid-cols-2 mt-4 justify-between items-center gap-2">
+            <div class="flex gap-2">
+                <div class="w-4/6">
+                    <flux:input
+                        icon="search"
+                        placeholder="Cari nama santri"
+                        wire:model.live.debounce.500ms="searchStudent"
+                    />
                 </div>
-        </x-animations.fade-down>
-    </x-animations.sticky>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <flux:badge variant="solid" color="primary" icon="graduation-cap">
+                    {{ $admissionYear }}
+                </flux:badge>
+                <flux:badge variant="solid" color="primary" icon="user">
+                    {{ $this->totalProcessAttachmentStudent }} Santri
+                </flux:badge>
+            </div>
+        </div>
+    </x-animations.fade-down>
+    <!--#SEARCH AND FILTER-->
 
     <!--NOTE: Loading Indicator When Filter Apply-->
     <div class="flex items-center justify-center">
@@ -25,10 +40,10 @@
     <!--ANCHOR: STUDENT CARD-->
     <x-animations.fade-down showTiming="150">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            @forelse ($this->processBiodataStudents as $student)
+            @forelse ($this->processAttachmentStudents as $student)
                 <div class="col-span-1" wire:key="student-{{ $student->id }}">
                     <x-cards.flat-card
-                        wire:click="verifyStudent('{{ Crypt::encrypt($student->id) }}')"
+                        wire:click="verifyAttachment('{{ Crypt::encrypt($student->id) }}')"
                         clickable="true"
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}"
                         avatarImage="{{ !empty($student->user_photo) ? asset($student->user_photo) : '' }}"
@@ -37,7 +52,7 @@
                         <x-slot:subHeading>{{ $student->username }} | {{ $student->gender }}</x-slot:subHeading>
                         
                         <x-slot:label>
-                            @if ($student->biodata == \App\Enums\VerificationStatusEnum::PROCESS)
+                            @if ($student->attachment == \App\Enums\VerificationStatusEnum::PROCESS)
                                 <flux:badge color="orange" size="sm" variant="solid">Proses</flux:badge>
                             @else
                                 <flux:badge color="red" size="sm" variant="solid">Invalid</flux:badge>
@@ -45,7 +60,7 @@
                         </x-slot:label>
 
                         <flux:text variant="soft">
-                            Tanggal Update: <strong class="text-white">{{ \App\Helpers\DateFormatHelper::indoDateTime($student->modified_at) }}</strong>
+                            Tanggal Upload: <strong class="text-white">{{ \App\Helpers\DateFormatHelper::indoDateTime($student->attachment_modified_at) }}</strong>
                         </flux:text>
 
                         <x-slot:subContent>
@@ -64,7 +79,7 @@
 
         <div class="grid grid-cols-1 mt-3">
             <!--NOTE: Load More Button-->
-            @if ($this->processBiodataStudents->hasMorePages())
+            @if ($this->processAttachmentStudents->hasMorePages())
                 <livewire:components.buttons.load-more loadItem="18" />
             @endif
             <!--#Load More Button-->

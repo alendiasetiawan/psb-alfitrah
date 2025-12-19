@@ -50,11 +50,12 @@ class StudentQuery
 
     public static function fetchStudentAttachmentWithStatus($studentId)
     {
-        return Student::join('admission_verifications', 'students.id', 'admission_verifications.student_id')
+        return Student::baseEloquent($studentId)
+            ->join('admission_verifications', 'students.id', 'admission_verifications.student_id')
             ->join('admissions', 'students.admission_id', 'admissions.id')
-            ->select('students.id', 'students.name as student_name', 'registration_payment', 'attachment', 'attachment_error_msg', 'admissions.name as academic_year')
+            ->joinBranchAndProgram()
+            ->addSelect('students.id', 'students.name as student_name', 'registration_payment', 'attachment', 'attachment_error_msg', 'admissions.name as academic_year', 'students.reg_number')
             ->with('studentAttachment')
-            ->where('students.id', $studentId)
             ->first();
     }
 
@@ -219,6 +220,19 @@ class StudentQuery
             ->joinBranchAndProgram()
             ->joinAdmissionVerification()
             ->joinUser()
+            ->addSelect('students.name as student_name', 'students.gender', 'students.id', 'students.created_at as registration_date', 'students.country_code', 'students.mobile_phone', 'students.modified_at', 'students.old_school_name', 'students.nisn');
+    }
+
+    public static function queryAttachmentVerification($admissionId, $searchStudent = null)
+    {
+        return Student::baseEloquent(
+            admissionId: $admissionId,
+            searchStudent: $searchStudent
+        )
+            ->joinBranchAndProgram()
+            ->joinAdmissionVerification()
+            ->joinUser()
+            ->joinStudentAttachment()
             ->addSelect('students.name as student_name', 'students.gender', 'students.id', 'students.created_at as registration_date', 'students.country_code', 'students.mobile_phone', 'students.modified_at', 'students.old_school_name', 'students.nisn');
     }
 }

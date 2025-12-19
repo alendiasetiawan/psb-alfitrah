@@ -40,4 +40,20 @@ class AdmissionVerificationQuery
             ->where('students.admission_id', $admissionId)
             ->count();
     }
+
+    public static function countStudentPendingAttachment($admissionId)
+    {
+        return AdmissionVerification::attachmentPending()
+            ->join('students', 'admission_verifications.student_id', 'students.id')
+            ->where('students.admission_id', $admissionId)
+            ->count();
+    }
+
+    public static function countStudentProcessAttachment($admissionId)
+    {
+        return AdmissionVerification::attachmentProcess()
+            ->join('students', 'admission_verifications.student_id', 'students.id')
+            ->where('students.admission_id', $admissionId)
+            ->count();
+    }
 }

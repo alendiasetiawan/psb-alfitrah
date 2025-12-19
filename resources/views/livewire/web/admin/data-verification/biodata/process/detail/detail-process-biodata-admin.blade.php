@@ -1,7 +1,8 @@
 <div>
-    <x-navigations.breadcrumb>
-        <x-slot:title>Detail Biodata Santri</x-slot:title>
-        <x-slot:activePage>Informasi Detail Biodata Santri</x-slot:activePage>
+    <x-navigations.breadcrumb secondLink="{{ route('admin.data_verification.biodata.process') }}">
+        <x-slot:title>{{ __('Detail Biodata Siswa') }}</x-slot:title>
+        <x-slot:secondPage>{{ __('Biodata Proses') }}</x-slot:secondPage>
+        <x-slot:activePage>{{ __('Informasi Biodata Siswa') }}</x-slot:activePage>
     </x-navigations.breadcrumb>
 
     <div class="grid grid-cols-1 mt-4">
@@ -577,6 +578,7 @@
                         @endif
                         <!--#Show invalid message if it is revision before-->
 
+                        <!--NOTE: Invalid Message Box-->
                         <template x-if="$wire.inputs.biodataStatus == 'Tidak Valid'">
                             <div class="col-span-1">
                                 <flux:textarea
@@ -595,6 +597,7 @@
                                 </template>
                             </div>
                         </template>
+                        <!--#Invalid Message Box-->
                     </div>
 
                     <!--NOTE: Alert when save is error or failed-->
