@@ -40,7 +40,7 @@
             <div class="grid grid-cols-1 mt-4">
                 <div class="flex gap-2 items-center">
                     <div class="w-11/12">
-                        <flux:input placeholder="Cari nama/nomor HP santri" wire:model.live.debounce.500ms="searchStudent"
+                        <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent"
                             icon="search" />
                     </div>
 

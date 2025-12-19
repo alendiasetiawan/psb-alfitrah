@@ -6,6 +6,7 @@ use App\Enums\VerificationStatusEnum;
 use App\Models\AdmissionData\AdmissionVerification;
 use App\Queries\AdmissionData\StudentQuery;
 use App\Traits\FlushStudentAdmissionDataTrait;
+use Carbon\Carbon;
 use Detection\MobileDetect;
 use Illuminate\Support\Facades\Crypt;
 use Livewire\Attributes\Locked;
@@ -63,7 +64,8 @@ class DetailProcessBiodataAdmin extends Component
             $admission = AdmissionVerification::where('student_id', $this->decryptedStudentId)->first();
             $admission->update([
                 'biodata' => $this->inputs['biodataStatus'],
-                'biodata_error_msg' => $this->inputs['invalidReason']
+                'biodata_error_msg' => $this->inputs['invalidReason'],
+                'biodata_verified_at' => Carbon::now()
             ]);
 
             $this->flushBiodata($this->decryptedStudentId);

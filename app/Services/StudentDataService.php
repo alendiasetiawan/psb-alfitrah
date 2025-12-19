@@ -40,4 +40,12 @@ class StudentDataService
             ->orderBy('students.id', 'desc')
             ->paginate($limitData);
     }
+
+    public function paginateStudentVerifiedBiodata($admissionId, $searchStudent = null, $limitData)
+    {
+        return StudentQuery::queryBiodataVerification($admissionId, $searchStudent)
+            ->where('admission_verifications.biodata', VerificationStatusEnum::VALID)
+            ->orderBy('students.id', 'desc')
+            ->paginate($limitData);
+    }
 }

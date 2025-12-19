@@ -122,7 +122,7 @@
 
                     <flux:sidebar.item
                     href="{{ route('admin.data_verification.biodata.verified') }}"
-                    :current="Route::is('admin.data_verification.biodata.verified')"
+                    :current="Route::is('admin.data_verification.biodata.verified') || Route::is('admin.data_verification.biodata.verified.*')"
                     wire:navigate>
                         {{ __('Selesai') }}
                     </flux:sidebar.item>

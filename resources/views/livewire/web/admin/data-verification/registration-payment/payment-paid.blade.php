@@ -53,7 +53,7 @@
                     <div class="grid grid-cols-2 justify-between items-center mt-4 gap-2">
                         <div class="flex gap-2">
                             <div class="w-4/6">
-                                <flux:input placeholder="Cari nama/nomor HP santri" wire:model.live.debounce.500ms="searchStudent" icon="search" />
+                                <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent" icon="search" />
                             </div>
 
                             <div class="w-2/6">
