@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name', 50)->nullable();
             $table->date('open_date')->nullable();
             $table->date('close_date')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
             $table->softDeletes();
         });
 
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->integer('education_program_id')->nullable()->index('admission_fees_index_24');
             $table->double('registration_fee')->nullable();
             $table->double('internal_registration_fee')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->index(['admission_id', 'education_program_id'], 'admission_fees_index_25');
             $table->primary(['id']);
@@ -42,8 +42,8 @@ return new class extends Migration
             $table->integer('education_program_id')->nullable()->index('admission_quota_index_20');
             $table->integer('amount')->nullable();
             $table->enum('status', ['Buka', 'Tutup'])->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->index(['admission_id', 'education_program_id'], 'admission_quota_index_21');
             $table->primary(['id']);
@@ -63,8 +63,10 @@ return new class extends Migration
             $table->enum('fu_biodata', ['Belum', 'Sudah'])->nullable()->default('Belum');
             $table->enum('fu_attachment', ['Belum', 'Sudah'])->nullable()->default('Belum');
             $table->enum('fu_placement_test', ['Belum', 'Sudah'])->nullable()->default('Belum');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('biodata_verified_at')->nullable();
+            $table->timestamp('attachment_verified_at')->nullable();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->primary(['id']);
         });
@@ -73,8 +75,8 @@ return new class extends Migration
             $table->integer('id', true)->unique('admissions_index_17');
             $table->string('name', 15)->nullable();
             $table->enum('status', ['Buka', 'Tutup'])->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
             $table->softDeletes();
 
             $table->primary(['id']);
@@ -87,8 +89,8 @@ return new class extends Migration
             $table->string('mobile_phone', 20)->nullable();
             $table->string('map_link')->nullable();
             $table->string('photo')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
             $table->softDeletes();
 
             $table->primary(['id']);
@@ -125,16 +127,25 @@ return new class extends Migration
             $table->integer('branch_id')->nullable()->index('branch_id');
             $table->string('name', 50)->nullable();
             $table->string('description')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
             $table->softDeletes();
+        });
+
+        Schema::create('invoice_logs', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->string('external_id', 100)->nullable();
+            $table->longText('payload')->nullable();
+            $table->string('payment_method', 100)->nullable();
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent();
         });
 
         Schema::create('jobs', function (Blueprint $table) {
             $table->integer('id', true)->unique('jobs_index_13');
             $table->string('name', 50)->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->primary(['id']);
         });
@@ -142,14 +153,15 @@ return new class extends Migration
         Schema::create('last_educations', function (Blueprint $table) {
             $table->integer('id', true)->unique('last_educations_index_14');
             $table->string('name', 50)->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->primary(['id']);
         });
 
         Schema::create('multi_students', function (Blueprint $table) {
             $table->bigInteger('id', true);
+            $table->bigInteger('user_id')->nullable()->index('user_id');
             $table->bigInteger('parent_id')->nullable();
             $table->bigInteger('student_id')->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
@@ -177,8 +189,8 @@ return new class extends Migration
             $table->string('mother_mobile_phone', 15)->nullable();
             $table->integer('mother_last_education_id')->nullable()->index('mother_last_education_id');
             $table->integer('mother_job_id')->nullable()->index('mother_job_id');
-            $table->string('guardian_name', 100)->nullable();
             $table->integer('mother_sallary_id')->nullable()->index('mother_sallary_id');
+            $table->string('guardian_name', 100)->nullable();
             $table->string('guardian_birth_place', 50)->nullable();
             $table->date('guardian_birth_date')->nullable();
             $table->string('guardian_address', 500)->nullable();
@@ -187,18 +199,18 @@ return new class extends Migration
             $table->integer('guardian_last_education_id')->nullable();
             $table->integer('guardian_job_id')->nullable();
             $table->integer('guardian_sallary_id')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->primary(['id']);
         });
 
         Schema::create('placement_test_presences', function (Blueprint $table) {
             $table->bigInteger('id', true)->unique('placement_test_presences_index_52');
-            $table->bigInteger('test_qr_code_id')->nullable()->index('placement_test_presences_index_53');
+            $table->bigInteger('student_id')->nullable()->index('placement_test_presences_index_53');
             $table->dateTime('check_in_time')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->primary(['id']);
         });
@@ -207,6 +219,7 @@ return new class extends Migration
             $table->bigInteger('id', true)->unique('placement_test_results_index_54');
             $table->bigInteger('student_id')->nullable()->index('placement_test_results_index_55');
             $table->double('psikotest_score')->nullable();
+            $table->string('psikotest_note', 500)->nullable();
             $table->double('read_quran_score')->nullable();
             $table->integer('read_quran_tester')->nullable()->index('read_quran_tester');
             $table->string('read_quran_note', 500)->nullable();
@@ -221,8 +234,8 @@ return new class extends Migration
             $table->string('final_note', 500)->nullable();
             $table->enum('publication_status', ['Hold', 'Release'])->nullable()->default('Hold')->index('placement_test_results_index_56');
             $table->dateTime('publication_date')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->primary(['id']);
         });
@@ -240,18 +253,20 @@ return new class extends Migration
 
         Schema::create('registration_invoices', function (Blueprint $table) {
             $table->bigInteger('id', true);
+            $table->string('username', 50)->nullable();
             $table->bigInteger('student_id')->nullable()->index('registration_invoices_index_47');
-            $table->string('order_id')->nullable()->index('registration_invoices_index_48')->comment('Kode unik transaksi midtrans');
+            $table->string('invoice_id')->nullable()->index('registration_invoices_index_48')->comment('Kode unik transaksi xendit');
+            $table->string('external_id', 100)->nullable();
             $table->double('amount')->nullable();
-            $table->string('payment_type', 50)->nullable();
-            $table->string('acquirer', 50)->nullable();
-            $table->string('transaction_status', 50)->nullable()->default('Pending');
-            $table->json('midtrans_response')->nullable();
-            $table->timestamp('settlement_time')->nullable();
-            $table->timestamp('expired_at')->nullable();
-            $table->boolean('is_expired')->nullable()->default(false);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->text('description')->nullable();
+            $table->dateTime('expiry_date')->nullable();
+            $table->text('payment_url')->nullable();
+            $table->timestamp('paid_at')->nullable();
+            $table->longText('raw_callback')->nullable();
+            $table->string('payment_method', 100)->nullable();
+            $table->enum('status', ['Pending', 'Paid', 'Expired', 'Failed'])->nullable()->default('Pending');
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->unique(['id'], 'registration_invoices_index_46');
         });
@@ -262,8 +277,8 @@ return new class extends Migration
             $table->double('amount')->nullable();
             $table->string('evidence')->nullable();
             $table->enum('payment_status', ['Proses', 'Belum', 'Valid', 'Tidak Valid', 'Expired'])->nullable()->default('Belum')->index('registration_payments_index_44');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->unique(['id'], 'registration_payments_index_42');
             $table->index(['student_id', 'payment_status'], 'registration_payments_index_45');
@@ -288,8 +303,8 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('name', 50)->nullable();
             $table->string('description')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
             $table->softDeletes();
 
             $table->unique(['id'], 'roles_index_11');
@@ -298,8 +313,8 @@ return new class extends Migration
         Schema::create('sallaries', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('name', 100)->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->unique(['id'], 'sallaries_index_16');
         });
@@ -321,17 +336,19 @@ return new class extends Migration
             $table->string('family_card')->nullable();
             $table->string('born_card')->nullable();
             $table->enum('photo_status', ['Valid', 'Tidak Valid', 'Proses', 'Belum'])->nullable();
-            $table->enum('parent_card_stsatus', ['Valid', 'Tidak Valid', 'Proses', 'Belum'])->nullable();
+            $table->enum('parent_card_status', ['Valid', 'Tidak Valid', 'Proses', 'Belum'])->nullable();
             $table->enum('family_card_status', ['Valid', 'Tidak Valid', 'Proses', 'Belum'])->nullable();
             $table->enum('born_card_status', ['Valid', 'Tidak Valid', 'Proses', 'Belum'])->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
+            $table->timestamp('modified_at')->nullable();
 
             $table->unique(['id'], 'student_attachments_index_34');
         });
 
         Schema::create('students', function (Blueprint $table) {
             $table->bigInteger('id', true);
+            $table->bigInteger('user_id')->nullable()->index('user_id');
             $table->bigInteger('parent_id')->nullable()->index('parent_id');
             $table->integer('branch_id')->nullable()->index('students_index_28');
             $table->integer('education_program_id')->nullable()->index('education_program_id');
@@ -355,8 +372,9 @@ return new class extends Migration
             $table->string('npsn', 30)->nullable();
             $table->boolean('is_scholarship')->nullable()->default(false);
             $table->boolean('is_walkout')->nullable()->default(false);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
+            $table->timestamp('modified_at')->nullable();
 
             $table->unique(['id'], 'students_index_26');
             $table->index(['branch_id', 'education_program_id'], 'students_index_30');
@@ -369,26 +387,25 @@ return new class extends Migration
             $table->double('min_final_score')->nullable()->comment('Batas Minimal Nilai Untuk LULUS');
             $table->integer('psikotest_weight')->nullable()->comment('Persentase');
             $table->integer('read_quran_weight')->nullable()->comment('Persentase');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
         });
 
         Schema::create('test_qr_codes', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->bigInteger('student_id')->nullable()->index('test_qr_codes_index_50');
             $table->string('qr')->nullable()->unique('test_qr_codes_index_51');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
-
-            $table->unique(['id'], 'test_qr_codes_index_49');
+            $table->timestamp('expired_at')->nullable();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
         });
 
         Schema::create('testers', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('name', 50)->nullable();
             $table->enum('gender', ['Laki-Laki', 'Perempuan'])->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
             $table->softDeletes();
         });
 
@@ -404,9 +421,8 @@ return new class extends Migration
             $table->timestamp('otp_expired_at')->nullable();
             $table->boolean('is_verified')->nullable()->default(false);
             $table->timestamp('verified_at')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
-            $table->softDeletes();
+            $table->timestamp('created_at')->nullable()->default('now()');
+            $table->timestamp('updated_at')->nullable()->default('now()');
 
             $table->unique(['id'], 'users_index_0');
             $table->index(['username', 'password'], 'users_index_2');
@@ -417,6 +433,14 @@ return new class extends Migration
             $table->char('id', 10)->nullable()->unique('villages_index_9');
             $table->char('district_id', 7)->nullable()->index('villages_index_10');
             $table->string('name', 50)->nullable();
+        });
+
+        Schema::create('walkout_students', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->bigInteger('student_id')->nullable()->index('student_id');
+            $table->text('reason')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
 
         Schema::table('admission_batches', function (Blueprint $table) {
@@ -445,6 +469,10 @@ return new class extends Migration
             $table->foreign(['branch_id'], 'education_programs_ibfk_1')->references(['id'])->on('branches')->onUpdate('no action')->onDelete('no action');
         });
 
+        Schema::table('multi_students', function (Blueprint $table) {
+            $table->foreign(['user_id'], 'multi_students_ibfk_1')->references(['id'])->on('users')->onUpdate('cascade')->onDelete('cascade');
+        });
+
         Schema::table('parents', function (Blueprint $table) {
             $table->foreign(['father_last_education_id'], 'parents_ibfk_1')->references(['id'])->on('last_educations')->onUpdate('no action')->onDelete('no action');
             $table->foreign(['father_job_id'], 'parents_ibfk_2')->references(['id'])->on('jobs')->onUpdate('no action')->onDelete('no action');
@@ -456,7 +484,7 @@ return new class extends Migration
         });
 
         Schema::table('placement_test_presences', function (Blueprint $table) {
-            $table->foreign(['test_qr_code_id'], 'placement_test_presences_ibfk_1')->references(['id'])->on('test_qr_codes')->onUpdate('no action')->onDelete('no action');
+            $table->foreign(['student_id'], 'placement_test_presences_ibfk_1')->references(['id'])->on('students')->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::table('placement_test_results', function (Blueprint $table) {
@@ -488,6 +516,7 @@ return new class extends Migration
 
         Schema::table('students', function (Blueprint $table) {
             $table->foreign(['parent_id'], 'students_ibfk_10')->references(['id'])->on('parents')->onUpdate('no action')->onDelete('cascade');
+            $table->foreign(['user_id'], 'students_ibfk_11')->references(['id'])->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign(['branch_id'], 'students_ibfk_2')->references(['id'])->on('branches')->onUpdate('no action')->onDelete('no action');
             $table->foreign(['education_program_id'], 'students_ibfk_3')->references(['id'])->on('education_programs')->onUpdate('no action')->onDelete('no action');
             $table->foreign(['admission_id'], 'students_ibfk_4')->references(['id'])->on('admissions')->onUpdate('no action')->onDelete('no action');
@@ -509,6 +538,10 @@ return new class extends Migration
         Schema::table('villages', function (Blueprint $table) {
             $table->foreign(['district_id'], 'villages_ibfk_1')->references(['id'])->on('districts')->onUpdate('no action')->onDelete('no action');
         });
+
+        Schema::table('walkout_students', function (Blueprint $table) {
+            $table->foreign(['student_id'], 'walkout_students_ibfk_1')->references(['id'])->on('students')->onUpdate('no action')->onDelete('cascade');
+        });
     }
 
     /**
@@ -516,6 +549,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('walkout_students', function (Blueprint $table) {
+            $table->dropForeign('walkout_students_ibfk_1');
+        });
+
         Schema::table('villages', function (Blueprint $table) {
             $table->dropForeign('villages_ibfk_1');
         });
@@ -530,6 +567,7 @@ return new class extends Migration
 
         Schema::table('students', function (Blueprint $table) {
             $table->dropForeign('students_ibfk_10');
+            $table->dropForeign('students_ibfk_11');
             $table->dropForeign('students_ibfk_2');
             $table->dropForeign('students_ibfk_3');
             $table->dropForeign('students_ibfk_4');
@@ -581,6 +619,10 @@ return new class extends Migration
             $table->dropForeign('parents_ibfk_7');
         });
 
+        Schema::table('multi_students', function (Blueprint $table) {
+            $table->dropForeign('multi_students_ibfk_1');
+        });
+
         Schema::table('education_programs', function (Blueprint $table) {
             $table->dropForeign('education_programs_ibfk_1');
         });
@@ -606,6 +648,8 @@ return new class extends Migration
         Schema::table('admission_batches', function (Blueprint $table) {
             $table->dropForeign('admission_batches_ibfk_1');
         });
+
+        Schema::dropIfExists('walkout_students');
 
         Schema::dropIfExists('villages');
 
@@ -648,6 +692,8 @@ return new class extends Migration
         Schema::dropIfExists('last_educations');
 
         Schema::dropIfExists('jobs');
+
+        Schema::dropIfExists('invoice_logs');
 
         Schema::dropIfExists('education_programs');
 
