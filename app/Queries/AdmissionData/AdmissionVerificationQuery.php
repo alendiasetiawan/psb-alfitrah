@@ -56,4 +56,12 @@ class AdmissionVerificationQuery
             ->where('students.admission_id', $admissionId)
             ->count();
     }
+
+    public static function countStudentVerifiedAttachment($admissionId)
+    {
+        return AdmissionVerification::attachmentVerified()
+            ->join('students', 'admission_verifications.student_id', 'students.id')
+            ->where('students.admission_id', $admissionId)
+            ->count();
+    }
 }

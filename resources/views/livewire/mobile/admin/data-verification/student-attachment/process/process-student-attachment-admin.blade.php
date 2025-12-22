@@ -14,6 +14,18 @@
         </x-animations.fade-down>
     </x-animations.sticky>
 
+    @if (session('notification-failed'))
+        <div class="grid grid-cols-1 mt-4">
+            <div class="col-span-1">
+                <x-notifications.basic-alert :isCloseable="true">
+                    <x-slot:title>
+                        {{ session('notification-failed') }}
+                    </x-slot:title>
+                </x-notifications.basic-alert>
+            </div>
+        </div>
+    @endif
+
     <!--NOTE: Loading Indicator When Filter Apply-->
     <div class="flex items-center justify-center">
         <div wire:loading wire:target="searchStudent">

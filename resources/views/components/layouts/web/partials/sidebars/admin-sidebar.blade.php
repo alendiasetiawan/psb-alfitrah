@@ -173,29 +173,26 @@
             heading="{{ __('Hasil Tes') }}"
             class="grid">
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.category') }}"
-                :current="Route::is('owner.warehouse.product.category')"
                 wire:navigate>
                     {{ __('Psikotes') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
                 wire:navigate>
                     {{ __('Bacaan Al Quran') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
                 wire:navigate>
                     {{ __('Wawancara') }}
                 </flux:sidebar.item>
 
                 <flux:sidebar.item
-                href="{{ route('owner.warehouse.product.list_product') }}"
-                :current="Route::is('owner.warehouse.product.list_product') || Route::is('owner.warehouse.product.add_product')"
+                wire:navigate>
+                    {{ __('Wawancara') }}
+                </flux:sidebar.item>
+
+                <flux:sidebar.item
                 wire:navigate>
                     {{ __('Semua Tes') }}
                 </flux:sidebar.item>

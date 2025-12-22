@@ -64,4 +64,12 @@ class StudentDataService
             ->orderBy('students.id', 'asc')
             ->paginate($limitData);
     }
+
+    public function paginateStudentVerifiedAttachment($admissionId, $searchStudent = null, $limitData)
+    {
+        return StudentQuery::queryAttachmentVerification($admissionId, $searchStudent)
+            ->where('admission_verifications.attachment', VerificationStatusEnum::VALID)
+            ->orderBy('students.id', 'asc')
+            ->paginate($limitData);
+    }
 }

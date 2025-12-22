@@ -54,7 +54,7 @@ class StudentQuery
             ->join('admission_verifications', 'students.id', 'admission_verifications.student_id')
             ->join('admissions', 'students.admission_id', 'admissions.id')
             ->joinBranchAndProgram()
-            ->addSelect('students.id', 'students.name as student_name', 'registration_payment', 'attachment', 'attachment_error_msg', 'admissions.name as academic_year', 'students.reg_number')
+            ->addSelect('students.id', 'students.name as student_name', 'students.country_code', 'students.mobile_phone', 'registration_payment', 'attachment', 'attachment_error_msg', 'admissions.name as academic_year', 'students.reg_number')
             ->with('studentAttachment')
             ->first();
     }

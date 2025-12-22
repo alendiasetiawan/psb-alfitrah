@@ -3,6 +3,8 @@
 namespace App\Livewire\Admin\DataVerification\Biodata\Process\Detail;
 
 use App\Enums\VerificationStatusEnum;
+use App\Helpers\MessageHelper;
+use App\Helpers\WhaCenterHelper;
 use App\Models\AdmissionData\AdmissionVerification;
 use App\Queries\AdmissionData\StudentQuery;
 use App\Traits\FlushStudentAdmissionDataTrait;
@@ -23,6 +25,7 @@ class DetailProcessBiodataAdmin extends Component
     public bool $isMobile = false;
     public string $studentId = '';
     public object $studentDetail;
+    public string $studentName = '', $branchName = '', $programName = '', $academicYear = '';
     public array $inputs = [
         'biodataStatus' => '',
         'invalidReason' => ''
@@ -44,6 +47,11 @@ class DetailProcessBiodataAdmin extends Component
         //Set predefine value
         $this->inputs['biodataStatus'] = $this->studentDetail->biodata != VerificationStatusEnum::PROCESS ? $this->studentDetail->biodata : '';
         $this->inputs['invalidReason'] = $this->studentDetail->biodata_error_msg;
+
+        $this->studentName = $this->studentDetail->student_name;
+        $this->branchName = $this->studentDetail->branch_name;
+        $this->programName = $this->studentDetail->program_name;
+        $this->academicYear = $this->studentDetail->academic_year;
     }
 
 
@@ -74,6 +82,19 @@ class DetailProcessBiodataAdmin extends Component
         } catch (\Throwable $th) {
             logger($th);
             session()->flash('error-update-biodata', 'Ups.. terjadi kesalahan, silahkan coba lagi nanti!');
+        }
+
+        //Send message when biodata is Invalid
+        if ($this->inputs['biodataStatus'] == VerificationStatusEnum::INVALID) {
+            $studentPhone = $this->studentDetail->country_code . $this->studentDetail->mobile_phone;
+
+            try {
+                $message = MessageHelper::waInvalidBiodata($this->studentName, $this->branchName, $this->programName, $this->academicYear, $this->inputs['invalidReason']);
+                WhaCenterHelper::sendText($studentPhone, $message);
+            } catch (\Throwable $th) {
+                logger($th);
+                session()->flash('notification-failed', 'Notifikasi WA gagal dikirim, silahkan follow up secara manual');
+            }
         }
     }
 

@@ -3,6 +3,8 @@
 namespace App\Livewire\Admin\DataVerification\StudentAttachment\Process\Detail;
 
 use App\Enums\VerificationStatusEnum;
+use App\Helpers\MessageHelper;
+use App\Helpers\WhaCenterHelper;
 use App\Models\AdmissionData\AdmissionVerification;
 use App\Models\AdmissionData\StudentAttachment;
 use App\Queries\AdmissionData\StudentQuery;
@@ -23,7 +25,7 @@ class DetailProcessStudentAttachmentAdmin extends Component
     #[Locked]
     public $decryptedStudentId;
     public bool $isMobile = false;
-    public string $studentId = '', $attachmentStatus = '';
+    public string $studentId = '', $attachmentStatus = '', $studentName = '', $branchName = '', $programName = '', $academicYear = '';
     public object $attachmentDetail;
     public array $inputs = [
         'photoStatus' => '',
@@ -53,6 +55,11 @@ class DetailProcessStudentAttachmentAdmin extends Component
             $this->inputs['familyCardStatus'] = $this->attachmentDetail->studentAttachment->family_card_status != VerificationStatusEnum::PROCESS ? $this->attachmentDetail->studentAttachment->family_card_status : '';
             $this->inputs['parentCardStatus'] = $this->attachmentDetail->studentAttachment->parent_card_status != VerificationStatusEnum::PROCESS ? $this->attachmentDetail->studentAttachment->parent_card_status : '';
             $this->inputs['invalidReason'] = $this->attachmentDetail->attachment_error_msg;
+
+            $this->studentName = $this->attachmentDetail->student_name;
+            $this->branchName = $this->attachmentDetail->branch_name;
+            $this->programName = $this->attachmentDetail->program_name;
+            $this->academicYear = $this->attachmentDetail->academic_year;
         } catch (\Throwable $th) {
             logger($th);
             session()->flash('error-fetch-student-detail', 'Ups.. terjadi kesalahan, silahkan coba lagi nanti!');
@@ -104,6 +111,19 @@ class DetailProcessStudentAttachmentAdmin extends Component
         } catch (\Throwable $th) {
             logger($th);
             session()->flash('error-update-attachment', 'Ups.. terjadi kesalahan, silahkan coba lagi nanti!');
+        }
+
+        //Send message when attachment is Invalid
+        if ($this->attachmentStatus == VerificationStatusEnum::INVALID) {
+            $studentPhone = $this->attachmentDetail->country_code . $this->attachmentDetail->mobile_phone;
+
+            try {
+                $message = MessageHelper::waInvalidAttachment($this->studentName, $this->branchName, $this->programName, $this->academicYear, $this->inputs['invalidReason']);
+                WhaCenterHelper::sendText($studentPhone, $message);
+            } catch (\Throwable $th) {
+                logger($th);
+                session()->flash('notification-failed', 'Notifikasi WA gagal dikirim, silahkan follow up secara manual');
+            }
         }
     }
 
