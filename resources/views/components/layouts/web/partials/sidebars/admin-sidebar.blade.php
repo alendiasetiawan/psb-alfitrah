@@ -163,7 +163,28 @@
 
         <!--Menu Tes & Kelulusan-->
         <flux:navlist.group :heading="__('Tes & Kelulusan')" class="grid">
-            <flux:sidebar.item icon="user-check" href="#">{{ __('Absensi Tes') }}</flux:sidebar.item>
+
+            <!--Menu Absensi Tes-->
+            <flux:sidebar.group
+            expandable
+            :expanded="Route::is('admin.placement_test.absence_test.*')"
+            icon="fingerprint-pattern"
+            heading="{{ __('Absensi Tes') }}"
+            class="grid">
+                <flux:sidebar.item
+                href="{{ route('admin.placement_test.absence_test.tapping') }}"
+                :current="Route::is('admin.placement_test.absence_test.tapping')"
+                wire:navigate>
+                    {{ __('Tapping QR') }}
+                </flux:sidebar.item>
+
+                <flux:sidebar.item
+                href="{{ route('admin.placement_test.absence_test.report') }}"
+                :current="Route::is('admin.placement_test.absence_test.report')"
+                wire:navigate>
+                    {{ __('Rekap Kehadiran') }}
+                </flux:sidebar.item>
+            </flux:sidebar.group>
 
             <!--Menu Hasil Tes-->
             <flux:sidebar.group

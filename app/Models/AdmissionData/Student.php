@@ -14,7 +14,7 @@ use App\Models\Core\WalkoutStudent;
 use App\Models\Payment\RegistrationInvoice;
 use App\Models\PlacementTest\PlacementTestPresence;
 use App\Models\PlacementTest\PlacementTestResult;
-use App\Models\PlacementTest\TestQrCodes;
+use App\Models\PlacementTest\TestQrCode;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -128,7 +128,7 @@ class Student extends Model
 
     public function testQrCode(): HasOne
     {
-        return $this->hasOne(TestQrCodes::class);
+        return $this->hasOne(TestQrCode::class);
     }
 
     public function placementTestPresence(): HasOne

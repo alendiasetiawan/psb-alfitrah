@@ -1,6 +1,8 @@
 <?php
 
 use App\Enums\RoleEnum;
+use App\Livewire\Admin\AbsenceTest\Report\ReportAbsenceTestAdmin;
+use App\Livewire\Admin\AbsenceTest\Tapping\TappingAbsenceTestAdmin;
 use App\Livewire\Admin\AdminDashboard;
 use App\Livewire\Admin\DataVerification\Biodata\Pending\PendingBiodataAdmin;
 use App\Livewire\Admin\DataVerification\Biodata\Process\Detail\DetailProcessBiodataAdmin;
@@ -26,16 +28,6 @@ use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
 use Illuminate\Support\Facades\Route;
-
-
-
-
-
-
-
-
-
-
 
 
 Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
@@ -93,6 +85,15 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
                 Route::group(['prefix' => 'verified', 'as' => 'verified.'], function () {
                     Route::get('/detail/{studentId}', DetailVerifiedStudentAttachmentAdmin::class)->name('detail');
                 });
+            });
+        });
+
+        //ANCHOR: PLACEMENT TEST ROUTE
+        Route::group(['prefix' => 'placement-test', 'as' => 'placement_test.'], function () {
+            //NOTE: Absence Test Route
+            Route::group(['prefix' => 'absence-test', 'as' => 'absence_test.'], function () {
+                Route::get('/tapping', TappingAbsenceTestAdmin::class)->name('tapping');
+                Route::get('/report', ReportAbsenceTestAdmin::class)->name('report');
             });
         });
 

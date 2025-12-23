@@ -6,7 +6,7 @@ use App\Models\AdmissionData\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TestQrCodes extends Model
+class TestQrCode extends Model
 {
     protected $fillable = [
         'student_id',

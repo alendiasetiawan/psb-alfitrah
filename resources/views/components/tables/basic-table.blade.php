@@ -4,30 +4,36 @@
 ])
 
 <div class="bg-white/10 shadow-[inset_2px_3px_5px_rgba(255,255,255,0.7)] backdrop-blur-md rounded-xl overflow-hidden">
-    <!-- Table Header -->
-    <div class="p-5 border-b border-gray-200">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-            <flux:heading variant="bold" size="xxl">{{ $heading }}</flux:heading>
-        </div>
+    @isset($heading)
+        <!-- Table Header -->
+        <div class="p-5 border-b border-gray-200">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <flux:heading variant="bold" size="xxl">{{ $heading }}</flux:heading>
+            </div>
 
-        @isset($action)
-            <!-- Search and Filter -->
-            {{-- <div class="flex justify-between items-center mt-4 gap-2">
-                <div class="w-2/6">
-                    <flux:input placeholder="Cari nama pendaftar" wire:model.live.debounce.500ms="searchRegistrant"
-                        icon="search" />
-                </div>
-                <div class="w-1/6">
-                    <flux:select wire:model.live="selectedAcademicYear" placeholder="Tahun Ajaran">
-                        <flux:select.option value="">Semua</flux:select.option>
-                        <flux:select.option value="1">Aktif</flux:select.option>
-                        <flux:select.option value="0">Tidak Aktif</flux:select.option>
-                    </flux:select>
-                </div>
-            </div> --}}
-            {{ $action }}
-        @endisset
-    </div>
+            @isset($action)
+                <!-- Search and Filter -->
+                {{-- <div class="flex justify-between items-center mt-4 gap-2">
+                    <div class="w-2/6">
+                        <flux:input placeholder="Cari nama pendaftar" wire:model.live.debounce.500ms="searchRegistrant"
+                            icon="search" />
+                    </div>
+                    <div class="w-1/6">
+                        <flux:select wire:model.live="selectedAcademicYear" placeholder="Tahun Ajaran">
+                            <flux:select.option value="">Semua</flux:select.option>
+                            <flux:select.option value="1">Aktif</flux:select.option>
+                            <flux:select.option value="0">Tidak Aktif</flux:select.option>
+                        </flux:select>
+                    </div>
+                </div> --}}
+                {{ $action }}
+            @endisset
+        </div>
+    @endisset
+
+    @isset($content)
+        {{ $content }}
+    @endisset
 
     <!-- Table -->
     <div class="overflow-x-auto">

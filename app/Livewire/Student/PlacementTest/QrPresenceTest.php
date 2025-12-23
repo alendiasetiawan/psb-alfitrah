@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Student\PlacementTest;
 
-use App\Models\PlacementTest\TestQrCodes;
+use App\Models\PlacementTest\TestQrCode;
 use Livewire\Component;
 use Detection\MobileDetect;
 use Livewire\Attributes\Title;
@@ -45,7 +45,7 @@ class QrPresenceTest extends Component
             $this->dispatch('hide-qr-code');
             $this->redirect(route('student.placement_test.qr_presence_test'), navigate: true);
         } else {
-            TestQrCodes::updateOrCreate([
+            TestQrCode::updateOrCreate([
                 'student_id' => $this->studentId
             ], [
                 'qr' => substr(md5(time()), 0, 10),
