@@ -166,6 +166,14 @@ class Student extends Model
             ->addSelect('admissions.name as academic_year');
     }
 
+    //Scope for get batch name
+    public function scopeJoinAdmissionBatch($query)
+    {
+        return $query
+            ->join('admission_batches', 'students.admission_batch_id', 'admission_batches.id')
+            ->addSelect('admission_batches.name as batch_name');
+    }
+
     //Scope for get registration payment status
     public function scopeJoinRegistrationPayment($query)
     {

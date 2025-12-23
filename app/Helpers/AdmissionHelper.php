@@ -53,4 +53,9 @@ class AdmissionHelper
     {
         return Admission::orderBy('id', 'desc')->limit(4)->pluck('name', 'id');
     }
+
+    public static function getAdmissionBatchLists($admissionId = null)
+    {   
+        return AdmissionBatch::where('admission_id', $admissionId)->pluck('name', 'id');
+    }
 }

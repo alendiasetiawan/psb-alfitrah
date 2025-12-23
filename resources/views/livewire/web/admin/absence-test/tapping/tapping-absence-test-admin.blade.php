@@ -1,7 +1,7 @@
 <div>
-    <x-navigations.breadcrumb secondLink="{{ route('admin.data_verification.student_attachment.verified') }}">
+    <x-navigations.breadcrumb>
         <x-slot:title>{{ __('Tapping QR') }}</x-slot:title>
-        <x-slot:activePage>{{ __('Tapping QR Absensi Tess') }}</x-slot:activePage>
+        <x-slot:activePage>{{ __('Tapping QR Absensi Tes') }}</x-slot:activePage>
     </x-navigations.breadcrumb>
 
     <div class="grid grid-cols-1 mt-4">

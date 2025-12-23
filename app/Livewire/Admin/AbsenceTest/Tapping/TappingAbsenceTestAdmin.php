@@ -19,7 +19,6 @@ use Livewire\WithPagination;
 #[Title('Tapping QR')]
 class TappingAbsenceTestAdmin extends Component
 {
-    use WithPagination;
 
     public bool $isMobile = false;
     public ?int $limitData = 10, $setCount = 1, $admissionId = null;

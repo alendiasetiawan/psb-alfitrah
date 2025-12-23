@@ -24,7 +24,7 @@
     <div class="{{ !$isRollOver ? 'px-3 py-3' : '' }}">
         @if (!$isShowBackButton && $isShowTitle)
         <!--Header Title When Back Button is Off-->
-        <div class="mb-4">
+        <div class="mb-4 fixed">
             <flux:heading size="xxl">{{ $title }}</flux:heading>
         </div>
         <!--#Header Title When Back Button is Off-->
