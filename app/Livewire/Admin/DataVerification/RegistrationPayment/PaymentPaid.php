@@ -62,6 +62,13 @@ class PaymentPaid extends Component
         $this->setCount = $dataLoaded + 1;
     }
 
+    public function updated($property) 
+    {
+        if ($property == 'searchStudent') {
+            $this->setCount = 1;
+        }
+    }
+
     //ANCHOR: SET Value Filter
     public function setSelectedAdmissionId()
     {

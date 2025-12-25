@@ -160,4 +160,25 @@ class MessageHelper
 
       return $message;
    }
+
+   public static function waReleaseTestResult($studentName, $branchName, $programName, $academicYear, $finalResult, $finalScore)
+   {
+      $message =
+         "_*PENGUMUMAN KELULUSAN*_\n\n" .
+
+         "Kepada ananda *$studentName* dengan data sebagai berikut : \n\n" .
+
+         "Cabang : *$branchName*\n" .
+         "Program : *$programName*\n" .
+         "Tahun Ajaran : *$academicYear*\n\n" .
+
+         "setelah mengikuti rangkaian tes seleksi masuk, maka anda dinyatakan *$finalResult* dengan nilai *$finalScore*\n" .
+
+         "Untuk informasi lebih lanjut, silahkan hubungi panitia PSB Al Fitrah Islamic School. Terima Kasih\n\n" .
+
+         "_Panitia PSB_\n" .
+         "_Al Fitrah Islamic School_";
+
+      return $message;
+   }
 }

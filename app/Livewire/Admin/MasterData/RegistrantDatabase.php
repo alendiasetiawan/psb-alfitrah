@@ -58,9 +58,13 @@ class RegistrantDatabase extends Component
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
     }
 
-    public function updated()
+    public function updated($property)
     {
         $this->resetPage();
+
+        if ($property == 'searchStudent') {
+            $this->setCount = 1;
+        }
     }
 
     //HOOK - Execute when page number is updated

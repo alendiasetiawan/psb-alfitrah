@@ -11,10 +11,17 @@
     'inset' => null,
     'size' => null,
     'icon' => null,
+    'shadowVariant' => null,
 ])
 
 @php
 $insetClasses = Flux::applyInset($inset, top: '-mt-1', right: '-me-2', bottom: '-mb-1', left: '-ms-2');
+
+$shadowClasses = match ($shadowVariant) {
+    'soft-shadow' => 'shadow-md shadow-dark/70',
+    'bold-shadow' => 'shadow-md shadow-dark',
+    default => '',
+};
 
 // When using the outline icon variant, we need to size it down to match the default icon sizes...
 $iconClasses = Flux::classes()->add($iconVariant === 'outline' ? 'size-4' : '');
@@ -22,6 +29,7 @@ $iconClasses = Flux::classes()->add($iconVariant === 'outline' ? 'size-4' : '');
 $classes = Flux::classes()
     ->add('inline-flex items-center font-medium whitespace-nowrap')
     ->add($insetClasses)
+    ->add($shadowClasses)
     ->add('[print-color-adjust:exact]')
     ->add(match ($size) {
         'lg' => 'text-sm py-1.5 **:data-flux-badge-icon:me-2',
@@ -38,13 +46,13 @@ $classes = Flux::classes()
      */
     ->add($variant === 'solid' ? match ($color) {
         default => 'text-white dark:text-white bg-zinc-600 dark:bg-zinc-600 [&:is(button)]:hover:bg-zinc-700 dark:[button]:hover:bg-zinc-500',
-        'red' => 'text-white dark:text-white bg-red-500 dark:bg-red-500 [&:is(button)]:hover:bg-red-600 dark:[button]:hover:bg-red-400',
+        'red' => 'text-white dark:text-white bg-red-600 dark:bg-red-500 [&:is(button)]:hover:bg-red-600 dark:[button]:hover:bg-red-400',
         'orange' => 'text-white dark:text-white bg-orange-500 dark:bg-orange-600 [&:is(button)]:hover:bg-orange-600 dark:[button]:hover:bg-orange-500',
         'primary' => 'text-white dark:text-zinc-950 bg-primary-500 dark:bg-primary-500 [&:is(button)]:hover:bg-primary-600 dark:[button]:hover:bg-primary-400',
         'amber' => 'text-white dark:text-zinc-950 bg-amber-500 dark:bg-amber-500 [&:is(button)]:hover:bg-amber-600 dark:[button]:hover:bg-amber-400',
         'yellow' => 'text-white dark:text-zinc-950 bg-yellow-500 dark:bg-yellow-400 [&:is(button)]:hover:bg-yellow-600 dark:[button]:hover:bg-yellow-300',
         'lime' => 'text-white dark:text-white bg-lime-500 dark:bg-lime-600 [&:is(button)]:hover:bg-lime-600 dark:[button]:hover:bg-lime-500',
-        'green' => 'text-white dark:text-white bg-green-500 dark:bg-green-600 [&:is(button)]:hover:bg-green-600 dark:[button]:hover:bg-green-500',
+        'green' => 'text-white dark:text-white bg-green-600 dark:bg-green-600 [&:is(button)]:hover:bg-green-600 dark:[button]:hover:bg-green-500',
         'emerald' => 'text-white dark:text-white bg-emerald-500 dark:bg-emerald-600 [&:is(button)]:hover:bg-emerald-600 dark:[button]:hover:bg-emerald-500',
         'teal' => 'text-white dark:text-white bg-teal-500 dark:bg-teal-600 [&:is(button)]:hover:bg-teal-600 dark:[button]:hover:bg-teal-500',
         'cyan' => 'text-white dark:text-white bg-cyan-500 dark:bg-cyan-600 [&:is(button)]:hover:bg-cyan-600 dark:[button]:hover:bg-cyan-500',

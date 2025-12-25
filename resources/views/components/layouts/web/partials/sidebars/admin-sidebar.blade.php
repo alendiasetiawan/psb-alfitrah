@@ -186,39 +186,15 @@
                 </flux:sidebar.item>
             </flux:sidebar.group>
 
-            <!--Menu Hasil Tes-->
-            <flux:sidebar.group
-            expandable
-            :expanded="Route::is('owner.warehouse.product.*')"
-            icon="file-check"
-            heading="{{ __('Hasil Tes') }}"
-            class="grid">
-                <flux:sidebar.item
+            <!--Hasil Tes-->
+            <flux:sidebar.item
+                :current="Route::is('admin.placement_test.test_result.*') || Route::is('admin.placement_test.test_result')"
+                icon="file-check"
+                href="{{ route('admin.placement_test.test_result') }}"
                 wire:navigate>
-                    {{ __('Psikotes') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item
-                wire:navigate>
-                    {{ __('Bacaan Al Quran') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item
-                wire:navigate>
-                    {{ __('Wawancara') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item
-                wire:navigate>
-                    {{ __('Wawancara') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item
-                wire:navigate>
-                    {{ __('Semua Tes') }}
-                </flux:sidebar.item>
-            </flux:sidebar.group>
-            <!--#Menu Hasil Tes-->
+            {{ __('Hasil Tes') }}
+            </flux:sidebar.item>
+            <!--#Hasil Tes-->
         </flux:navlist.group>
         <!--#Menu Tes & Kelulusan-->
 

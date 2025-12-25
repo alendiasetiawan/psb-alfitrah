@@ -83,4 +83,9 @@ class BranchQuery
 
         return $branch;
     }
+
+    public static function pluckAllBranch()
+    {
+        return Branch::pluck('name', 'id');
+    }
 }

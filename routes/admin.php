@@ -27,7 +27,11 @@ use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
 use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
+use App\Livewire\Admin\TestResult\Detail\DetailTestResultAdmin;
+use App\Livewire\Admin\TestResult\TestResultAdmin;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
@@ -94,6 +98,13 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
             Route::group(['prefix' => 'absence-test', 'as' => 'absence_test.'], function () {
                 Route::get('/tapping', TappingAbsenceTestAdmin::class)->name('tapping');
                 Route::get('/report', ReportAbsenceTestAdmin::class)->name('report');
+            });
+
+
+            //NOTE: Test Result Route
+            Route::get('/test-result', TestResultAdmin::class)->name('test_result');
+            Route::group(['prefix' => 'test-result', 'as' => 'test_result.'], function () {
+                Route::get('/detail/{studentId}', DetailTestResultAdmin::class)->name('detail');
             });
         });
 

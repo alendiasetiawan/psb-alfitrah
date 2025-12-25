@@ -62,6 +62,11 @@ class ReportAbsenceTestAdmin extends Component
     public function updated($property)
     {
         $this->resetPage();
+        
+        if ($property == 'searchStudent') {
+            $this->setCount = 1;
+        }
+
         if ($property == 'selectedAdmissionId') {
             $this->setAdmissionBatchLists();
         }
@@ -69,6 +74,14 @@ class ReportAbsenceTestAdmin extends Component
         if (in_array($property, ['selectedAdmissionId', 'selectedAdmissionBatchId'])) {
             $this->isFilterActive = true;
         }
+    }
+
+    //ANCHOR - HANDLE NUMBER ON PAGE UPDATE
+    public function updatedPage($page)
+    {
+        $setPage = $page - 1;
+        $dataLoaded = $setPage * $this->limitData;
+        $this->setCount = $dataLoaded + 1;
     }
 
     //ANCHOR: SET Value Filter

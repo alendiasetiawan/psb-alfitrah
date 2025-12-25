@@ -60,6 +60,13 @@ class VerifiedBiodataAdmin extends Component
         $this->setAdmissionYear();
     }
 
+    public function updated($property) 
+    {
+        if ($property == 'searchStudent') {
+            $this->setCount = 1;
+        }
+    }
+
     //ANCHOR: Execute when page number is updated
     public function updatedPage($page)
     {

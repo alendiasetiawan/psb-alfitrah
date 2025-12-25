@@ -7,8 +7,12 @@
     @isset($heading)
         <!-- Table Header -->
         <div class="p-5 border-b border-gray-200">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div class="flex md:flex-row md:items-center md:justify-between">
                 <flux:heading variant="bold" size="xxl">{{ $heading }}</flux:heading>
+
+                @isset($label)
+                    {{ $label }}
+                @endisset
             </div>
 
             @isset($action)
@@ -37,7 +41,7 @@
 
     <!-- Table -->
     <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="table-fixed min-w-full divide-y divide-gray-200">
             <thead class="bg-white/50 shadow-[inset_2px_3px_5px_rgba(255,255,255,0.7)] backdrop-blur-md">
                 <tr>
                     @foreach ($headers as $header)

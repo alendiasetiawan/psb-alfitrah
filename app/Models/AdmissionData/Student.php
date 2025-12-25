@@ -192,7 +192,7 @@ class Student extends Model
     public function scopeJoinPlacementTestResult($query)
     {
         return $query->join('placement_test_results', 'students.id', 'placement_test_results.student_id')
-            ->addSelect('placement_test_results.final_result', 'placement_test_results.publication_status');
+            ->addSelect('placement_test_results.id as test_id', 'psikotest_score', 'read_quran_score', 'parent_interview', 'student_interview', 'final_score', 'final_result', 'final_note', 'publication_status');
     }
 
     //Scope for get demografi data

@@ -74,6 +74,13 @@ class VerifiedStudentAttachmentAdmin extends Component
         $this->setAdmissionYear();
     }
 
+    public function updated($property) 
+    {
+        if ($property == 'searchStudent') {
+            $this->setCount = 1;
+        }
+    }
+
     //ANCHOR: Action to set admission year
     public function setAdmissionYear()
     {

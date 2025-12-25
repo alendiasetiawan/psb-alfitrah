@@ -21,7 +21,7 @@ class SetAbsenceStudentModal extends Component
     public object $studentQuery;
     public bool $isMobile = false;
 
-    #[On('open-absence-student-modal')]
+    #[On('filled-absence-student-modal')]
     public function setEditValue($id) {
         $realId = Crypt::decrypt($id);
         $this->studentQuery = PlacementTestPresenceQuery::detailStudentPresence($realId);
