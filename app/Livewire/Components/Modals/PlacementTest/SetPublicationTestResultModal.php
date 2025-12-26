@@ -18,6 +18,7 @@ class SetPublicationTestResultModal extends Component
         'isNotificationSent' => false
     ];
     public int $studentId;
+    public bool $isMobile;
 
     #[On('open-publication-modal')]
     public function setEditValue($id)
@@ -42,6 +43,7 @@ class SetPublicationTestResultModal extends Component
             $realId = Crypt::decrypt($this->encryptedTestId);
             PlacementTestResult::where('id', $realId)->update([
                 'publication_status' => $this->inputs['publicationStatus'],
+                'publication_date' => now()
             ]);
 
             $this->dispatch('toast', type: 'success', message: 'Status publikasi berhasil diupdate!');

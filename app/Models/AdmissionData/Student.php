@@ -192,7 +192,7 @@ class Student extends Model
     public function scopeJoinPlacementTestResult($query)
     {
         return $query->join('placement_test_results', 'students.id', 'placement_test_results.student_id')
-            ->addSelect('placement_test_results.id as test_id', 'psikotest_score', 'read_quran_score', 'parent_interview', 'student_interview', 'final_score', 'final_result', 'final_note', 'publication_status');
+            ->addSelect('placement_test_results.id as test_id', 'psikotest_score', 'read_quran_score', 'parent_interview', 'student_interview', 'final_score', 'final_result', 'final_note', 'publication_status', 'read_quran_tester', 'parent_interview_tester', 'student_interview_tester', 'publication_date');
     }
 
     //Scope for get demografi data
@@ -218,6 +218,13 @@ class Student extends Model
         return $query
             ->join('admission_verifications', 'students.id', 'admission_verifications.student_id')
             ->addSelect('admission_verifications.registration_payment', 'admission_verifications.biodata', 'admission_verifications.attachment', 'admission_verifications.placement_test', 'admission_verifications.fu_payment', 'admission_verifications.fu_biodata', 'admission_verifications.fu_attachment', 'admission_verifications.fu_placement_test', 'admission_verifications.payment_error_msg', 'admission_verifications.biodata_error_msg', 'admission_verifications.attachment_error_msg');
+    }
+
+    //Scope to get presence test data
+    public function scopeJoinPlacementTestPresence($query)
+    {
+        return $query->join('placement_test_presences', 'students.id', 'placement_test_presences.student_id')
+            ->addSelect('placement_test_presences.check_in_time');
     }
 
     public static function baseEloquent($studentId = null, $branchId = null, $educationProgramId = null, $admissionId = null, $admissionBatchId = null, $searchStudent = null)

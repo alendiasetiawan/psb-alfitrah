@@ -172,9 +172,9 @@ class MessageHelper
          "Program : *$programName*\n" .
          "Tahun Ajaran : *$academicYear*\n\n" .
 
-         "setelah mengikuti rangkaian tes seleksi masuk, maka anda dinyatakan *$finalResult* dengan nilai *$finalScore*\n" .
+         "setelah mengikuti rangkaian tes seleksi masuk, maka anda dinyatakan *$finalResult* dengan nilai *$finalScore*.\n\n" .
 
-         "Untuk informasi lebih lanjut, silahkan hubungi panitia PSB Al Fitrah Islamic School. Terima Kasih\n\n" .
+         "Untuk informasi lebih lanjut, silahkan login ke aplikasi PSB Al Fitrah. Terima Kasih\n\n" .
 
          "_Panitia PSB_\n" .
          "_Al Fitrah Islamic School_";

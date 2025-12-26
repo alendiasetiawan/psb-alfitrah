@@ -13,9 +13,11 @@ use Detection\MobileDetect;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Hasil Tes Calon Siswa')]
 class TestResultAdmin extends Component
 {
     use WithPagination;
@@ -61,7 +63,6 @@ class TestResultAdmin extends Component
         $this->setAdmissionYear();
         $this->branchLists = BranchQuery::pluckAllBranch();
         $this->selectedOrderBy = OrderDataEnum::PUBLICATION;
-
     }
 
     //ANCHOR: Boot hook
@@ -158,6 +159,11 @@ class TestResultAdmin extends Component
         $this->isFilterActive = false;
     }
 
+    //ANCHOR: Release all student with hold status and result "Menunggu"
+    public function releaseResult()
+    {
+
+    }
 
     public function render()
     {

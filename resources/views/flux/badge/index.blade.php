@@ -18,8 +18,8 @@
 $insetClasses = Flux::applyInset($inset, top: '-mt-1', right: '-me-2', bottom: '-mb-1', left: '-ms-2');
 
 $shadowClasses = match ($shadowVariant) {
-    'soft-shadow' => 'shadow-md shadow-dark/70',
-    'bold-shadow' => 'shadow-md shadow-dark',
+    'soft-shadow' => 'shadow-sm shadow-dark/70',
+    'bold-shadow' => 'shadow-sm shadow-dark',
     default => '',
 };
 

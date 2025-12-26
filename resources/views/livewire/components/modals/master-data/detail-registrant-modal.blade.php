@@ -13,8 +13,6 @@
             $wire.setDetailValue($event.detail.id).then(() => {
                 isModalLoading = false
             });"
-            x-on:reset-submit.window="
-            isSubmitActive = false;"
         >
             <!--Loading Skeleton-->
             <template x-if="isModalLoading">

@@ -20,7 +20,8 @@ class PlacementTestResultQuery
         ->joinAdmissionBatch()
         ->joinBranchAndProgram()
         ->joinPlacementTestResult()
-        ->addSelect('students.name as student_name')
+        ->joinUser()
+        ->addSelect('students.name as student_name', 'students.id')
         ->when($orderBy, function ($query) use ($orderBy) {
             if ($orderBy == OrderDataEnum::PUBLICATION) {
                 return $query->orderBy('placement_test_results.publication_status', 'asc');
@@ -72,8 +73,23 @@ class PlacementTestResultQuery
         return Student::joinPlacementTestResult()
         ->joinBranchAndProgram()
         ->joinAdmission()
-        ->addSelect('students.country_code', 'students.mobile_phone')
+        ->joinAdmissionBatch()
+        ->joinPlacementTestPresence()
+        ->addSelect('students.country_code', 'students.mobile_phone' , 'students.name as student_name', 'students.id')
         ->where('students.id', $studentId)
         ->first();
+   }
+
+   public static function getHoldStudents()
+   {
+        return Student::baseEloquent()
+        ->joinAdmission()
+        ->joinBranchAndProgram()
+        ->joinPlacementTestResult()
+        ->where('placement_test_results.publication_status', PlacementTestEnum::PUBLICATION_HOLD)
+        ->where('placement_test_results.final_result', '!=', PlacementTestEnum::RESULT_WAITING)
+        ->addSelect('students.id', 'students.country_code', 'students.mobile_phone', 'students.name as student_name')
+        ->orderBy('students.name', 'asc')
+        ->get();
    }
 }

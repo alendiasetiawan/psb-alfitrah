@@ -13,7 +13,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Title('Rekap Kehadiran Tes')]
+#[Title('Kehadiran Tes')]
 class ReportAbsenceTestAdmin extends Component
 {
     use WithPagination;
@@ -133,8 +133,9 @@ class ReportAbsenceTestAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.absence-test.report.report-absence-test-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true
+                'isShowBackButton' => true,
+                'isShowTitle' => true,
+                'link' => 'admin.dashboard'
             ]);
         }
 

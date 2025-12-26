@@ -12,6 +12,15 @@
         </div>
     @endif  
 
+    @if (session('failed-sent-notification'))
+        <div class="grid grid-cols-1 mt-4">
+            <x-notifications.basic-alert isCloseable="true">
+                <x-slot:title>{{ session('failed-sent-notification') }}</x-slot:title>
+            </x-notifications.basic-alert>
+        </div>
+    @endif
+
+
     <div class="grid-grid-cols-1 mt-4">
         <div class="col-span-1">
             <x-animations.fade-down showTiming="50">
@@ -86,9 +95,11 @@
                                     </div>
 
                                     <div class="w-1/12">
-                                        <flux:button variant="primary" class="hover:cursor-pointer">
-                                            Release Hasil
-                                        </flux:button>
+                                        <flux:modal.trigger name="confirm-release-modal">
+                                            <flux:button variant="primary" wire:click="$dispatch('open-confirm-release-modal')">
+                                                Release Hasil
+                                            </flux:button>
+                                        </flux:modal.trigger>
                                     </div>
                                 </div>
                             </div>
@@ -167,9 +178,17 @@
                                 <flux:text>
                                     {{ $student->student_name }}
                                 </flux:text>
-                                <flux:text variant="soft" size="sm">
-                                    {{ $student->batch_name }}
-                                </flux:text>
+                                <div class="flex items-center gap-1">
+                                    <flux:text variant="soft" size="sm">
+                                        {{ $student->batch_name }} - 
+                                    </flux:text>
+                                    <flux:text>
+                                        <strong class="{{ $publicationColor }}">
+                                            {{ $student->publication_status }}
+                                        </strong>
+                                    </flux:text>
+                                </div>
+                                
                             </x-tables.cell>
 
                             <x-tables.cell>
@@ -207,11 +226,6 @@
                                         {{ $student->final_result }}
                                     </strong>
                                 </flux:text>
-                                <flux:text>
-                                    <strong class="{{ $publicationColor }}">
-                                        {{ $student->publication_status }}
-                                    </strong>
-                                </flux:text>
                             </x-tables.cell>
 
                             <x-tables.cell>
@@ -220,7 +234,14 @@
                                         <flux:button variant="ghost" size="xs" class="hover:cursor-pointer">
                                             <flux:icon.ellipsis-vertical variant="mini" class="text-white" />
                                         </flux:button>
-                                        <flux:menu>
+                                        <flux:menu wire:key="menu{{ $student->id }}">
+                                            <flux:modal.trigger name="detail-test-result-modal">
+                                                <flux:menu.item icon="eye" wire:click="$dispatch('open-detail-test-result-modal', {
+                                                id: '{{ Crypt::encrypt($student->id) }}' })">
+                                                    Detail
+                                                </flux:menu.item>
+                                            </flux:modal.trigger>
+
                                             <flux:menu.item icon="file-pen-line" wire:click="#">
                                                 Edit Nilai
                                             </flux:menu.item>
@@ -301,4 +322,12 @@
     <!--ANCHOR: PUBLICATION MODAL-->
     <livewire:components.modals.placement-test.set-publication-test-result-modal modalId="publication-modal"/>
     <!--#PUBLICATION MODAL-->
+
+    <!--ANCHOR: DETAIL TEST RESULT MODAL-->
+    <livewire:components.modals.placement-test.detail-test-result-modal modalId="detail-test-result-modal" :$isMobile/>
+    <!--#DETAIL TEST RESULT MODAL-->
+
+    <!--ANCHOR: CONFIRM RELEASE TEST MODAL-->
+    <livewire:components.modals.placement-test.confirm-release-modal modalId="confirm-release-modal" :$isMobile/>
+    <!--#CONFIRM RELEASE TEST MODAL-->
 </div>

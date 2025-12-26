@@ -1,5 +1,5 @@
 <div>
-    <flux:modal name="{{ $modalId }}" class="md:w-120 lg:w-150 w-full">
+    <flux:modal name="{{ $modalId }}"  variant="{{ $isMobile ? 'flyout' : '' }}" position="{{ $isMobile ? 'bottom' : '' }}">
         <form 
             wire:submit="savePublication"
             x-data="{

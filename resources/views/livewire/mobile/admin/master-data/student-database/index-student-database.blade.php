@@ -4,7 +4,7 @@
         <div wire:replace>
             <x-swipers.creative-swiper>
                 @foreach ($this->totalStudents as $total)
-                    <x-cards.counter-card subCounterColor="soft-white" class="swiper-slide" style="width: 85vw;">
+                    <x-cards.counter-card subCounterColor="soft-white" class="swiper-slide" style="width: 90vw;">
                         <x-slot:heading>
                             {{ $total->branch_name }}
                         </x-slot:heading>

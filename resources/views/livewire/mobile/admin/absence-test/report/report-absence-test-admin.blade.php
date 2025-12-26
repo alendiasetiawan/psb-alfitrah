@@ -1,9 +1,6 @@
 <div>
-    <div class="fixed bg-white top-0 left-0 right-0 z-50 px-4 py-4 shadow-md shadow-dark">
+    <x-animations.fixed-top>
         <div class="grid grid-cols-1 space-y-2">
-            <div class="col-span-1 mb-2">
-                <flux:heading size="xl" variant="dark-bold">Rekap Kehadiran Tes</flux:heading>
-            </div>
             <!--ANCHOR: SEARCH AND FILTER-->
             <div class="col-span-1">
                 <div class="flex items-center gap-4">
@@ -35,10 +32,11 @@
             </div>
             <!--#SEARCH AND FILTER-->
         </div>
-    </div>
+    </x-animations.fixed-top>
+
 
     <!-- Spacer to prevent content from hiding under fixed header -->
-    <div class="h-[18vh]"></div>
+    <div class="h-32"></div>
 
     <!--NOTE: Loading Indicator When Filter Apply-->
     <div class="flex items-center justify-center mb-3">
