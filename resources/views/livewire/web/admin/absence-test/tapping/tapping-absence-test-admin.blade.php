@@ -5,9 +5,8 @@
     </x-navigations.breadcrumb>
 
     <div class="grid grid-cols-1 mt-4">
-        <x-animations.fade-down showTiming="50">
             <x-tables.basic-table :headers="['No', 'Nama Santri', 'Whatsapp', 'Cabang', 'Batch', 'Waktu Kehadiran']">
-            
+
                 <x-slot:content>
                     <!--NOTE: Search field for tapping--->
                     <form wire:submit="scanQr">
@@ -119,6 +118,5 @@
                 </div>
             @endif
             <!--#Pagination-->
-        </x-animations.fade-down>
     </div>
 </div>

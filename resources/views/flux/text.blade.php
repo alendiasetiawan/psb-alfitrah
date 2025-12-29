@@ -34,7 +34,7 @@ $classes = Flux::classes()
         'pink' => 'text-pink-600 dark:text-pink-400',
         'rose' => 'text-rose-600 dark:text-rose-400',
         'white' => 'text-white dark:text-white',
-        'soft-white' => 'text-white/75 dark:text-white/65',
+        'soft-white' => 'text-white/65 dark:text-white/65',
     } : match ($variant) {
         'strong' => '[:where(&)]:text-zinc-800 [:where(&)]:dark:text-white',
         'subtle' => '[:where(&)]:text-zinc-400 [:where(&)]:dark:text-white/50',

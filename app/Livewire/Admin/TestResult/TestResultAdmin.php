@@ -159,10 +159,10 @@ class TestResultAdmin extends Component
         $this->isFilterActive = false;
     }
 
-    //ANCHOR: Release all student with hold status and result "Menunggu"
-    public function releaseResult()
+    //ANCHOR: Open form edit score
+    public function formEditScore($studentId)
     {
-
+        $this->redirectRoute('admin.placement_test.test_result.detail', ['studentId' => $studentId], navigate: true);
     }
 
     public function render()

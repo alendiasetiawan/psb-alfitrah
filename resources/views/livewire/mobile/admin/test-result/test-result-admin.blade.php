@@ -136,6 +136,7 @@
                                         <flux:button variant="ghost" size="xs" class="hover:cursor-pointer">
                                             <flux:icon.ellipsis-vertical variant="micro" class="text-white" />
                                         </flux:button>
+                                        
                                         <flux:menu>
                                             <flux:menu.item icon="file-pen-line" wire:click="#">
                                                 Edit Nilai

@@ -23,7 +23,7 @@
 
     <div class="grid-grid-cols-1 mt-4">
         <div class="col-span-1">
-            <x-animations.fade-down showTiming="50">
+            {{-- <x-animations.fade-down showTiming="50"> --}}
                 <x-tables.basic-table :headers="[
                     'No',
                     'Nama',
@@ -34,7 +34,7 @@
                     'Nilai Akhir',
                     'Hasil Akhir',
                     'Opsi',
-                ]">
+                    ]">
                     <x-slot:heading>
                         Tabel Nilai Hasil Tes Tahun Ajaran {{ $admissionYear }}
                     </x-slot:heading>
@@ -242,7 +242,7 @@
                                                 </flux:menu.item>
                                             </flux:modal.trigger>
 
-                                            <flux:menu.item icon="file-pen-line" wire:click="#">
+                                            <flux:menu.item icon="file-pen-line" wire:click="formEditScore( '{{ Crypt::encrypt($student->id) }}' )">
                                                 Edit Nilai
                                             </flux:menu.item>
 
@@ -268,7 +268,7 @@
                         </x-slot:pagination>
                     @endif
                 </x-tables.basic-table>
-            </x-animations.fade-down>
+            {{-- </x-animations.fade-down> --}}
         </div>
     </div>
 

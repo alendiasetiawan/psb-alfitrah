@@ -5,7 +5,6 @@
     </x-navigations.breadcrumb>
 
     <!--ANCHOR: SEARCH AND FILTER-->
-    <x-animations.fade-down>
         <div class="grid grid-cols-2 mt-4 justify-between items-center gap-2">
             <div class="flex gap-2">
                 <div class="w-4/6">
@@ -32,11 +31,9 @@
                 </flux:badge>
             </div>
         </div>
-    </x-animations.fade-down>
     <!--#SEARCH AND FILTER-->
 
     <!--ANCHOR: STUDENT CARD-->
-    <x-animations.fade-down showTiming="150">
         <!--NOTE: Alert When Send Message Follow Up Failed-->
         @if (session('error-fu-payment'))
             <div class="grid grid-cols-1 mt-4">
@@ -104,6 +101,5 @@
             @endif
             <!--#Load More Button-->
         </div>
-    </x-animations.fade-down>
     <!--#STUDENT CARD-->
 </div>

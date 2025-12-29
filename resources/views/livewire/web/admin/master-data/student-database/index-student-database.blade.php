@@ -5,7 +5,7 @@
     </x-navigations.breadcrumb>
 
     <!--ANCHOR - COUNTER STUDENT STATISTIC-->
-    <x-animations.fade-down showTiming="50">
+    {{-- <x-animations.fade-down showTiming="50"> --}}
         <div class="grid grid-cols-3 mt-4 gap-3">
             @foreach ($this->totalStudents as $total)
                 <div class="col-span-1">
@@ -26,10 +26,10 @@
                 </div>
             @endforeach
         </div>
-    </x-animations.fade-down>
+    {{-- </x-animations.fade-down> --}}
 
     <!--ANCHOR - TABLE OFFICIAL STUDENT-->
-    <x-animations.fade-down showTiming="150">
+    {{-- <x-animations.fade-down showTiming="150"> --}}
         <div class="grid grid-cols-1 mt-4">
             <x-tables.basic-table :headers="['No', 'Nama Santri', 'NISN', 'Cabang', 'Program', 'Beasiswa', 'Opsi']">
                 <x-slot:heading>
@@ -221,6 +221,6 @@
                 @endif
             </x-tables.basic-table>
         </div>
-    </x-animations.fade-down>
+    {{-- </x-animations.fade-down> --}}
 
 </div>

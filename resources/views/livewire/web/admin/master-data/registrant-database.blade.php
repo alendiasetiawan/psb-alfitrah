@@ -6,7 +6,7 @@
 
     <!--ANCHOR - Registrant Table -->
     <div class="grid grid-cols-1 mt-4">
-        <x-animations.fade-down showTiming="50">
+        {{-- <x-animations.fade-down showTiming="50"> --}}
             <x-tables.basic-table :headers="['No', 'Nama Santri', 'Whatsapp', 'Cabang', 'Program', 'Tanggal Daftar', 'Opsi']">
                 <x-slot:heading>
                     Tabel Akun Siswa
@@ -123,7 +123,7 @@
                     </x-slot:pagination>
                 @endif
             </x-tables.basic-table>
-        </x-animations.fade-down>
+        {{-- </x-animations.fade-down> --}}
     </div>
 
     <!--ANCHOR - DETAIL REGISTRANT MODAL-->

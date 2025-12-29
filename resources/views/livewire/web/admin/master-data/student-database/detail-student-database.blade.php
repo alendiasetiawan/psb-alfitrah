@@ -7,7 +7,7 @@
 
     
     <!--ANCHOR - HERO COVER STUDENT PROFILE-->
-    <x-animations.fade-down showTiming="50">
+    {{-- <x-animations.fade-down showTiming="50"> --}}
         <div class="grid grid-cols-1 mt-4">
             <div class="relative overflow-hidden rounded-lg">
                 {{-- MASKED GRADIENT BORDER (Tailwind v4) --}}
@@ -54,8 +54,9 @@
                 <div class="relative p-8 flex items-center justify-between">
                     <!-- Left section -->
                     <div class="flex items-center gap-6">
+                        <x-animations.fade-down showTiming="50">
                         <!-- Avatar -->
-                        <div class="absolute -top-15">
+                        <div class="absolute -top-30">
                             <div class="w-40 h-40 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
                                 @if (!empty($studentQuery->photo))
                                     <img src="{{ asset($studentQuery->photo) }}" class="w-full h-full object-cover" />
@@ -66,6 +67,7 @@
                                 @endif
                             </div>
                         </div>
+                        </x-animations.fade-down>
 
                         <div class="ml-44">
                             <flux:heading size="3xl" class="font-semibold truncate max-w-[600px]">
@@ -108,11 +110,11 @@
                 </div>
             </div>
         </div>
-    </x-animations.fade-down>
+    {{-- </x-animations.fade-down> --}}
     <!--#HERO COVER STUDENT PROFILE-->
 
     <!--ANCHOR - BIODATA STUDENT-->
-    <x-animations.fade-down showTiming="150">
+    {{-- <x-animations.fade-down showTiming="150"> --}}
         <div class="grid grid-cols-1 mt-4">
             <x-cards.soft-glass-card rounded="rounded-lg">
                 <flux:heading size="xl" class="font-semibold">Biodata Siswa</flux:heading>
@@ -242,11 +244,11 @@
                 </div>
             </x-cards.soft-glass-card>
         </div>
-    </x-animations.fade-down>
+    {{-- </x-animations.fade-down> --}}
     <!--#BIODATA STUDENT-->
 
     <!--ANCHOR: BIODATA PARENT-->
-    <x-animations.fade-down showTiming="250">
+    {{-- <x-animations.fade-down showTiming="250"> --}}
         <div class="grid grid-cols-1 mt-4">
             <x-cards.soft-glass-card rounded="rounded-lg">
                 <flux:heading size="xl" class="font-semibold mb-4">Biodata Orang Tua/Wali</flux:heading>
@@ -650,11 +652,11 @@
                 @endif
             </x-cards.soft-glass-card>
         </div>
-    </x-animations.fade-down>
+    {{-- </x-animations.fade-down> --}}
     <!--#BIODATA PARENT-->
 
     <!--ANCHOR: STUDENT ATTACHMENT-->
-    <x-animations.fade-down showTiming="350">
+    <x-animations.fade-down showTiming="50">
         <div class="grid grid-cols-1 mt-4" wire:replace>
             <x-animations.fancybox>
                 <x-cards.soft-glass-card rounded="rounded-lg">
