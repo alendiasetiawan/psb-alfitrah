@@ -20,11 +20,11 @@
             @endif
         </div>
     @else
-        <div class="flex items-center px-4 py-3 fixed bg-white top-0 left-0 right-0 gap-2">
+        <div class="flex items-center px-4 py-2 fixed bg-white top-0 left-0 right-0 gap-2 z-50">
             <!-- Tombol Back -->
             @if (is_null($link))
                 <a href="#" onclick="history.back(); return false;">
-                    <flux:icon icon="arrow-left-circle" variant="mini" class="text-white"/>
+                    <flux:icon icon="arrow-left-circle" variant="mini" class="text-dark"/>
                 </a>
             @else
                 <a href="{{ route($link) }}" wire:navigate>

@@ -85,9 +85,11 @@
                 <x-animations.not-found/>
             @endforelse
 
-            <!--ANCHOR - Load More Button-->
-            <livewire:components.buttons.load-more loadItem="20"/>
-            <!--#Load More Button-->
+            @if ($this->registrantLists->hasMorePages())
+                <!--ANCHOR - Load More Button-->
+                <livewire:components.buttons.load-more loadItem="20"/>
+                <!--#Load More Button-->
+            @endif
         </div>
     </x-animations.fade-down>
 

@@ -1,8 +1,10 @@
 <div
     x-data="{ toasts: [] }"
     x-on:toast.window="
-        toasts.push({ id: Date.now(), type: $event.detail.type, message: $event.detail.message });
-        setTimeout(() => toasts.shift(), 3000);
+        setTimeout(() => {
+            toasts.push({ id: Date.now(), type: $event.detail.type, message: $event.detail.message });
+        }, 500);
+        setTimeout(() => toasts.shift(), 4000);
         $flux.modals().close();
     "
     class="fixed z-50 space-y-3 bottom-22 left-1/2 -translate-x-1/2 md:top-5 md:right-5 md:bottom-auto md:left-auto md:translate-x-0"
@@ -15,28 +17,28 @@
             x-transition:leave="transform ease-in duration-300 transition"
             x-transition:leave-start="opacity-100 translate-y-0 md:translate-x-0"
             x-transition:leave-end="opacity-0 translate-y-8 md:translate-y-0 md:translate-x-20"
-            class="flex items-center w-72 max-w-sm p-4 bg-white rounded-lg shadow-lg border"
+            class="flex items-center w-72 max-w-sm p-3 bg-white rounded-lg shadow-lg border"
             :class="{
-                'border-green-300 text-green-500': toast.type === 'success',
-                'border-red-300 text-red-500': toast.type === 'error',
-                'border-yellow-300 text-yellow-500': toast.type === 'warning',
+                'border-green-500/80 text-green-500': toast.type === 'success',
+                'border-red-500/80 text-red-500': toast.type === 'error',
+                'border-yellow-500/80 text-yellow-500': toast.type === 'warning',
             }"
         >
             <!-- Icon -->
             <div class="flex-shrink-0 mr-2">
-                <span x-text="toast.type === 'success' ? '✅' : (toast.type === 'error' ? '❌' : '⚠️')"></span>
+                <template x-if="toast.type === 'success'">
+                    <flux:icon.check-circle variant="mini" />
+                </template>
+                <template x-if="toast.type === 'error'">
+                    <flux:icon.x-circle variant="mini" />
+                </template>
+                <template x-if="toast.type === 'warning'">
+                    <flux:icon.exclamation-triangle variant="mini" />
+                </template>
             </div>
 
             <!-- Pesan -->
             <div class="flex-1 text-sm font-medium" x-text="toast.message"></div>
-
-            <!-- Tombol Close -->
-            <button
-                @click="toasts = toasts.filter(t => t.id !== toast.id)"
-                class="ml-3 text-gray-400 hover:text-gray-600"
-            >
-                ✖
-            </button>
         </div>
     </template>
 </div>

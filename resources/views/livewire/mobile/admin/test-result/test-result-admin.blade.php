@@ -82,7 +82,7 @@
 
     <!--ANCHOR: STUDENT LISTS-->
     <x-animations.fade-down>
-        <div class="grid grid-cols-1 gap-4">
+        <div class="grid grid-cols-1 gap-4" wire:loading.remove>
             @forelse ($this->testResultStudents as $student)
                 @php
                     $finalResultColor =
@@ -138,7 +138,7 @@
                                         </flux:button>
                                         
                                         <flux:menu>
-                                            <flux:menu.item icon="file-pen-line" wire:click="#">
+                                            <flux:menu.item icon="file-pen-line" wire:click="formEditScore( '{{ Crypt::encrypt($student->id) }}' )">
                                                 Edit Nilai
                                             </flux:menu.item>
 

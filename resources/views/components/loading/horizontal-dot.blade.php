@@ -1,5 +1,5 @@
 @props([
-    'topMargin' => 'mt-5'
+    'topMargin' => 'my-4'
 ])
 
 <!-- Accessible three-dot loader -->

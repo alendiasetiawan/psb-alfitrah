@@ -67,6 +67,14 @@
                                 form.finalScore = $wire.inputs.finalScore;
                                 form.finalResult = $wire.inputs.finalResult;
                             });
+                            form.psikotestScore = $wire.inputs.psikotestScore;
+                            form.readQuranScore = $wire.inputs.readQuranScore;
+                            form.studentInterview = $wire.inputs.studentInterview;
+                            form.parentInterview = $wire.inputs.parentInterview;
+                            form.finalScore = $wire.inputs.finalScore;
+                            form.finalResult = $wire.inputs.finalResult;
+
+                            if ($wire.inputs.finalScore) isSubmitActive = true;
                         ">
                         <!--SECTION: STUDENT DATA-->
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 mt-4 space-y-2 gap-4">
@@ -130,7 +138,6 @@
                                 <flux:field>
                                     <flux:label badge="Opsional">Penguji Al Quran</flux:label>
                                     <flux:select 
-                                    x-on:change="form.selectedReadQuranTester = $wire.inputs.selectedReadQuranTester; validate('selectedReadQuranTester')"
                                     wire:model='inputs.selectedReadQuranTester'
                                     placeholder="--Pilih Penguji--">
                                         @foreach ($testerLists as $key => $value)
@@ -254,6 +261,17 @@
                         </div>
                         <!--#FINAL RESULT-->
 
+                        <!--NOTE: ALERT SAVE ERROR-->
+                        @if (session('error-save-score'))
+                            <div class="grid grid-cols-1 mt-4">
+                                <x-notifications.basic-alert>
+                                    <x-slot:title>{{ session('error-save-score') }}</x-slot:title>
+                                </x-notifications.basic-alert>
+                            </div>
+                        @endif
+                        
+                        <!--#ALERT SAVE ERROR-->
+
                         <!--SECTION: ACTION BUTTON-->
                         <div class="flex justify-end items-center mt-4 gap-2">
                             <flux:button
@@ -267,9 +285,7 @@
                                 </x-items.loading-indicator>
                             </flux:button>
 
-                            <flux:modal.close>
-                                <flux:button variant="filled" href="{{ route('admin.placement_test.test_result') }}" wire:navigate>Batal</flux:button>
-                            </flux:modal.close>
+                            <flux:button variant="filled" href="{{ route('admin.placement_test.test_result') }}" wire:navigate>Batal</flux:button>
                         </div>
                         <!--#ACTION BUTTON-->
                     </form>
