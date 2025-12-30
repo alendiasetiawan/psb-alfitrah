@@ -3,8 +3,8 @@
     <flux:sidebar.header>
         <flux:sidebar.brand
             href="#"
-            logo="https://fluxui.dev/img/demo/logo.png"
-            logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
+            logo="{{ asset('images/logo/alfitrah-logo.png') }}"
+            logo:dark="{{ asset('images/logo/alfitrah-logo.png') }}"
             name="{{ config('app.name') }}"
         />
     </flux:sidebar.header>
@@ -46,13 +46,13 @@
             <!--#Menu Database-->
 
             <!--Demografi Santri-->
-            <flux:sidebar.item
+            {{-- <flux:sidebar.item
                 :current="Route::is('admin.master_data.registrant_demographic')"
                 icon="map-pinned"
                 href="{{ route('admin.master_data.registrant_demographic') }}"
                 wire:navigate>
             {{ __('Demografi Pendaftar') }}
-            </flux:sidebar.item>
+            </flux:sidebar.item> --}}
             <!--#Demografi Santri-->
 
             <!--Kuota Santri-->

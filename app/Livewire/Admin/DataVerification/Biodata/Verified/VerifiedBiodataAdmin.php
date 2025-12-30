@@ -19,7 +19,7 @@ class VerifiedBiodataAdmin extends Component
     use WithPagination;
 
     public bool $isMobile = false;
-    public string $searchStudent = '', $admissionYear;
+    public string $searchStudent = '', $admissionYear, $title, $link;
     public ?int $selectedAdmissionId = null, $limitData = 10, $setCount = 1, $filterAdmissionId;
     public object $admissionYearLists;
 
@@ -58,6 +58,8 @@ class VerifiedBiodataAdmin extends Component
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
         $this->setAdmissionYear();
+        $this->title = 'Biodata Valid';
+        $this->link = 'admin.dashboard';
     }
 
     public function updated($property) 
@@ -98,8 +100,7 @@ class VerifiedBiodataAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.data-verification.biodata.verified.verified-biodata-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true
+                'isFixedTop' => true,
             ]);
         }
         return view('livewire.web.admin.data-verification.biodata.verified.verified-biodata-admin')->layout('components.layouts.web.web-app');

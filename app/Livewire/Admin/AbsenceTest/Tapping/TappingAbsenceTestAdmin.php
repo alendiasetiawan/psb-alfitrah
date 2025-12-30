@@ -8,6 +8,7 @@ use App\Models\PlacementTest\PlacementTestResult;
 use App\Models\PlacementTest\TestQrCode;
 use App\Queries\PlacementTest\PlacementTestPresenceQuery;
 use App\Queries\PlacementTest\TestQrCodeQuery;
+use Carbon\Carbon;
 use Detection\MobileDetect;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
@@ -68,22 +69,24 @@ class TappingAbsenceTestAdmin extends Component
 
             if (!$isQrValid) {
                $this->dispatch('toast', type: 'error', message: 'QR Code tidak valid');
+               $this->redirectRoute('admin.placement_test.absence_test.tapping', navigate: true);
             } else {
                 //Fetch student valid student_id
-                $queryQr = TestQrCode::where('qr', $this->studentQr)->first();
+                $queryQr = DB::table('test_qr_codes')->where('qr', $this->studentQr)->first();
                 $studentId = $queryQr->student_id;
 
                 //Check if student has tapped
-                $isPresence = PlacementTestPresence::where('student_id', $studentId)->exists();
+                $isPresence = DB::table('placement_test_presences')->where('student_id', $studentId)->exists();
 
                 if ($isPresence) {
-                    return $this->dispatch('toast', type: 'warning', message: 'Siswa sudah absen');
+                    $this->dispatch('toast', type: 'warning', message: 'Siswa sudah absen');
+                    $this->redirectRoute('admin.placement_test.absence_test.tapping', navigate: true);
                 } else {
                     DB::transaction(function () use($studentId) {
                         //Save presence
                         PlacementTestPresence::create([
                             'student_id' => $studentId,
-                            'check_in_time' => now(),
+                            'check_in_time' => Carbon::now()->format('Y-m-d H:i'),
                         ]);
 
                         //Save for placement test results data
@@ -92,9 +95,8 @@ class TappingAbsenceTestAdmin extends Component
                         ]);
                     });
 
-                    $this->reset('studentQr');
-                    $this->presenceStudents();
                     $this->dispatch('toast', type: 'success', message: 'Tapping berhasil!');
+                    $this->redirectRoute('admin.placement_test.absence_test.tapping', navigate: true);
                 }
             }
         } catch (\Throwable $th) {

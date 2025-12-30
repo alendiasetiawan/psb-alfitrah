@@ -24,7 +24,7 @@ class PendingBiodataAdmin extends Component
 {
     public bool $isMobile = false;
     public object $admissionYearLists;
-    public string $searchStudent = '';
+    public string $searchStudent = '', $title = '', $link = '';
     public ?int $selectedAdmissionId = null, $limitData = 9;
 
     protected StudentDataService $studentDataService;
@@ -59,6 +59,8 @@ class PendingBiodataAdmin extends Component
         $queryAdmission = AdmissionHelper::activeAdmission();
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
+        $this->link = 'admin.dashboard';
+        $this->title = 'Belum Mengisi Biodata';
     }
 
     //ANCHOR: ACTION FOLLOW UP PAYMENT
@@ -91,8 +93,7 @@ class PendingBiodataAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.data-verification.biodata.pending.pending-biodata-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true,
+                'isFixedTop' => true,
             ]);
         }
 

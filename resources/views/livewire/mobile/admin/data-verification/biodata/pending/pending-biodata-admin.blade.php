@@ -1,24 +1,30 @@
 <div class="mb-18">
     <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.sticky>
-        <x-animations.fade-down showTiming="50">    
-                <div class="grid grid-cols-1">
-                    <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
-                </div>
+    <x-animations.fixed-top :title="$title" :link="$link">  
+        <x-navigations.flat-tab>
+            <x-navigations.flat-tab-item href="admin.data_verification.biodata.pending" label="Belum" :isActive="true" activeTextColor="text-dark"/>
+            <x-navigations.flat-tab-item href="admin.data_verification.biodata.process" label="Proses" />
+            <x-navigations.flat-tab-item href="admin.data_verification.biodata.verified" label="Valid" />
+        </x-navigations.flat-tab>
 
-                <div class="flex justify-between mt-3 gap-3">
-                    <flux:select wire:model.live="selectedAdmissionId">
-                        @foreach ($admissionYearLists as $key => $value)
-                            <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
-                        @endforeach
-                    </flux:select>
+        <div class="grid grid-cols-1 mt-3">
+            <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
+        </div>
 
-                    <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalPendingBiodata }}</flux:badge>
-                </div>
-        </x-animations.fade-down>
-    </x-animations.sticky>
+        <div class="flex justify-between mt-3 gap-3">
+            <flux:select wire:model.live="selectedAdmissionId">
+                @foreach ($admissionYearLists as $key => $value)
+                    <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
+                @endforeach
+            </flux:select>
 
-        <!--ANCHOR: STUDENT CARD-->
+            <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalPendingBiodata }}</flux:badge>
+        </div>
+    </x-animations.fixed-top>
+
+    <div class="h-43"></div>
+
+    <!--ANCHOR: STUDENT CARD-->
     <x-animations.fade-down showTiming="150">
         <!--NOTE: Alert When Send Message Follow Up Failed-->
         @if (session('error-fu-biodata'))

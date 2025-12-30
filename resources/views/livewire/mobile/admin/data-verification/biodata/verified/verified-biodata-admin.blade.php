@@ -1,35 +1,41 @@
 <div class="mb-18">
     <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.sticky>
-        <x-animations.fade-down showTiming="50">
-            <!--NOTE: Input Search-->
-            <div class="grid grid-cols-1 mt-4">
-                <div class="flex gap-2 items-center">
-                    <div class="w-11/12">
-                        <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent"
-                            icon="search" />
-                    </div>
+    <x-animations.fixed-top :title="$title" :link="$link">
+        <x-navigations.flat-tab>
+            <x-navigations.flat-tab-item href="admin.data_verification.biodata.pending" label="Belum" />
+            <x-navigations.flat-tab-item href="admin.data_verification.biodata.process" label="Proses" />
+            <x-navigations.flat-tab-item href="admin.data_verification.biodata.verified" label="Valid" :isActive="true" />
+        </x-navigations.flat-tab>
 
-                    <div class="w-1/12">
-                        <flux:modal.trigger name="filter-student-modal">
-                            <flux:icon.sliders-horizontal class="hover:cursor-pointer text-primary-400" />
-                        </flux:modal.trigger>
-                    </div>
+        <!--NOTE: Input Search-->
+        <div class="grid grid-cols-1 mt-3">
+            <div class="flex gap-2 items-center">
+                <div class="w-11/12">
+                    <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent"
+                        icon="search" />
+                </div>
+
+                <div class="w-1/12">
+                    <flux:modal.trigger name="filter-student-modal">
+                        <flux:icon.sliders-horizontal class="hover:cursor-pointer text-primary-400" />
+                    </flux:modal.trigger>
                 </div>
             </div>
-            <!--#Input Search-->
+        </div>
+        <!--#Input Search-->
 
-            <!--NOTE: Total Student-->
-            <div class="flex justify-between items-center mt-2">
-                <flux:badge variant="solid" color="primary" icon="user-check">
-                    {{ $this->totalVerifiedBiodataStudent }}
-                    Santri
-                </flux:badge>
-                <flux:heading size="md">{{ $admissionYear }}</flux:heading>
-            </div>
-            <!--#Total Student-->
-        </x-animations.fade-down>
-    </x-animations.sticky>
+        <!--NOTE: Total Student-->
+        <div class="flex justify-between items-center mt-2">
+            <flux:badge variant="solid" color="primary" icon="user-check">
+                {{ $this->totalVerifiedBiodataStudent }}
+                Santri
+            </flux:badge>
+            <flux:heading size="md">{{ $admissionYear }}</flux:heading>
+        </div>
+        <!--#Total Student-->
+    </x-animations.fixed-top>
+
+    <div class="h-40"></div>
 
     <!--NOTE: Loading Indicator When Filter Apply-->
     <div class="flex items-center justify-center">

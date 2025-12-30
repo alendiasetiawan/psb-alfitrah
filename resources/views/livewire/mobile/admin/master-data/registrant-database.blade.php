@@ -1,22 +1,22 @@
 <div class="mb-18">
     <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.sticky>
-        <x-animations.fade-down showTiming="50">    
-                <div class="grid grid-cols-1">
-                    <flux:input placeholder="Cari nama/username pendaftar" wire:model.live.debounce.500ms="searchStudent" icon="search" />
-                </div>
+    <x-animations.fixed-top :title="$title" :link="$link">   
+        <div class="grid grid-cols-1">
+            <flux:input placeholder="Cari nama/username pendaftar" wire:model.live.debounce.500ms="searchStudent" icon="search" />
+        </div>
 
-                <div class="flex justify-between mt-3 gap-3">
-                    <flux:select wire:model.live="selectedAdmissionId">
-                        @foreach ($admissionYearLists as $key => $value)
-                            <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
-                        @endforeach
-                    </flux:select>
+        <div class="flex justify-between mt-3 gap-3">
+            <flux:select wire:model.live="selectedAdmissionId">
+                @foreach ($admissionYearLists as $key => $value)
+                    <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
+                @endforeach
+            </flux:select>
 
-                    <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalRegistrant }}</flux:badge>
-                </div>
-        </x-animations.fade-down>
-    </x-animations.sticky>
+            <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalRegistrant }}</flux:badge>
+        </div>
+    </x-animations.fixed-top>
+
+    <div class="h-33"></div>
 
     <!--ANCHOR - List of Students-->
     <x-animations.fade-down showTiming="150">    
@@ -94,8 +94,6 @@
     </x-animations.fade-down>
 
     <!--ANCHOR - DETAIL REGISTRANT MODAL-->
-    @if ($this->registrantLists->hasMorePages())
-        <livewire:components.modals.master-data.detail-registrant-modal modalId="detail-registrant-modal" :$isMobile/>
-    @endif
+    <livewire:components.modals.master-data.detail-registrant-modal modalId="detail-registrant-modal" :$isMobile/>
     <!--#DETAIL REGISTRANT MODAL-->
 </div>

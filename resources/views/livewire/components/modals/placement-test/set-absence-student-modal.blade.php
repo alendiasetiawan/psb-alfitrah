@@ -100,7 +100,7 @@
                                 wire:model="inputs.presenceTime"
                                 label="Waktu Kehadiran"
                                 type="datetime-local"
-                                isValidate="true"
+                                :isValidate="true"
                                 fieldName="presenceTime"/>
                         </div>
                         <!--#Time-->

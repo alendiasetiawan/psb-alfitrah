@@ -11,7 +11,7 @@
             <!--Greeting-->
             <div class="flex flex-col items-start">
                 <flux:text variant="soft">Assalamu'alaikum,</flux:text>
-                <flux:heading size="lg" variant="bold">{{ $studentQuery->student_name }}</flux:heading>
+                <flux:heading size="lg" variant="bold">{{ session('userData')->fullname }}</flux:heading>
             </div>
             <!--#Greeting-->
         </div>

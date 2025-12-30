@@ -1,5 +1,5 @@
 <div>
-    <x-animations.fixed-top>
+    <x-animations.fixed-top :title="$title" :link="$link">
         <div class="grid grid-cols-1 space-y-2">
             <!--ANCHOR: SEARCH AND FILTER-->
             <div class="col-span-1">

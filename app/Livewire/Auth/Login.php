@@ -91,7 +91,7 @@ class Login extends Component
                     'userCheck' => $userCheck
                 ]);
 
-                $this->redirect(route('login'), navigate: true);
+                $this->redirect(route('login'));
             } else {
                 $this->addError('password', 'Password yang anda masukan salah, silahkan coba lagi!');
             }

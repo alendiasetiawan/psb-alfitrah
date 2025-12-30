@@ -68,7 +68,7 @@ default => null
             <!--Third Menu-->
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeThree ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
                 href="{{ route('admin.placement_test.test_result') }}" wire:navigate>
-                <flux:icon icon="contact-round" />
+                <flux:icon icon="clipboard-pen-line" />
                 @if ($activeThree)
                 <span class="text-xs font-semibold">{{ __('Hasil Tes') }}</span>
                 @endif
@@ -77,9 +77,9 @@ default => null
             <!--Fourth Menu-->
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeFour ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
                 href="{{ route('student.placement_test.test_result.private_announcement') }}" wire:navigate>
-                <flux:icon icon="book-open-check" />
+                <flux:icon icon="settings" />
                 @if ($activeFour)
-                <span class="text-xs font-semibold">{{ __('Hasil Tes') }}</span>
+                <span class="text-xs font-semibold">{{ __('Pengaturan') }}</span>
                 @endif
             </a>
         </div>

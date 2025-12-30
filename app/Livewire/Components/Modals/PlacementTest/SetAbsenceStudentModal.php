@@ -82,6 +82,8 @@ class SetAbsenceStudentModal extends Component
                 } else {
                     //Delete presence data
                     PlacementTestPresence::where('student_id', $this->studentQuery->id)->delete();
+                    //Delete test result data
+                    PlacementTestResult::where('student_id', $this->studentQuery->id)->delete();
                 }
             });
 

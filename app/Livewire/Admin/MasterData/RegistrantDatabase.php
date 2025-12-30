@@ -21,7 +21,7 @@ class RegistrantDatabase extends Component
     use WithPagination;
 
     public bool $isMobile = false;
-    public string $searchStudent = '';
+    public ?string $searchStudent = '', $title = "Database Pendaftar", $link = null;
     public int $selectedAdmissionId, $limitData = 10, $setCount = 1;
     public object $admissionYearLists;
 
@@ -106,8 +106,7 @@ class RegistrantDatabase extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.master-data.registrant-database')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true,
+                'isFixedTop' => true,
             ]);
         }
         return view('livewire.web.admin.master-data.registrant-database')->layout('components.layouts.web.web-app');

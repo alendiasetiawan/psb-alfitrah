@@ -3,7 +3,8 @@
 'isShowBottomNavbar' => false,
 'isShowTitle' => false,
 'link' => null,
-'isRollOver' => false
+'isRollOver' => false,
+'isFixedTop' => false
 ])
 
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
 <body class="min-h-screen bg-gradient-to-br from-[#0070af] via-[#004996] to-[#241f6e] dark:bg-zinc-800">
 
     <!--Header-->
-    @if ($isShowBackButton)
+    @if ($isShowBackButton && !$isFixedTop)
         <x-layouts.mobile.partials.headers.mobile-header :title="$title" :link="$link" :isRollOver="$isRollOver" />
     @endif
     <!--#Header-->
@@ -48,6 +49,8 @@
 
     @stack('scripts')
     @fluxScripts
+    @livewireChartsScripts
+
 </body>
 
 </html>

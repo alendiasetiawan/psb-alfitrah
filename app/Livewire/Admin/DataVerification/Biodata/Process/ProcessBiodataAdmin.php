@@ -17,7 +17,7 @@ class ProcessBiodataAdmin extends Component
 {
     public bool $isMobile = false;
     public object $admissionYearLists;
-    public string $searchStudent = '', $admissionYear = '';
+    public string $searchStudent = '', $admissionYear = '', $title = '', $link = '';
     public ?int $selectedAdmissionId = null, $limitData = 9;
 
     protected StudentDataService $studentDataService;
@@ -53,6 +53,8 @@ class ProcessBiodataAdmin extends Component
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
         $this->admissionYear = AdmissionQuery::fetchAdmissionDetail($this->selectedAdmissionId)->name;
+        $this->title = 'Proses Verifikasi Biodata';
+        $this->link = 'admin.dashboard';
     }
 
     //ANCHOR: Action
@@ -65,8 +67,7 @@ class ProcessBiodataAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.data-verification.biodata.process.process-biodata-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true,
+                'isFixedTop' => true,
             ]);
         }
         return view('livewire.web.admin.data-verification.biodata.process.process-biodata-admin')->layout('components.layouts.web.web-app');

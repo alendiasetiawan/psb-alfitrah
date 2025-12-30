@@ -25,7 +25,7 @@ class DetailProcessBiodataAdmin extends Component
     public bool $isMobile = false;
     public string $studentId = '';
     public object $studentDetail;
-    public string $studentName = '', $branchName = '', $programName = '', $academicYear = '';
+    public ?string $studentName = '', $branchName = '', $programName = '', $academicYear = '';
     public array $inputs = [
         'biodataStatus' => '',
         'invalidReason' => ''
