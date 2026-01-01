@@ -108,7 +108,7 @@
                             <!--Psikotest Score-->
                             <div class="col-span-1">
                                 <flux:input 
-                                    type="numeric"
+                                    inputmode="numeric"
                                     label="Nilai Psikotes"
                                     placeholder="1-100"
                                     icon="brain"
@@ -122,7 +122,7 @@
                             <!--Read Quran Score-->
                             <div class="col-span-1">
                                 <flux:input 
-                                    type="numeric"
+                                    inputmode="numeric"
                                     label="Nilai Al Quran"
                                     placeholder="1-100"
                                     icon="book-open"
@@ -221,7 +221,7 @@
                             <!--Final Score-->
                             <div class="col-span-1">
                                 <flux:input 
-                                    type="numeric"
+                                    inputmode="numeric"
                                     label="Nilai Akhir"
                                     placeholder="1-100"
                                     icon="brain"

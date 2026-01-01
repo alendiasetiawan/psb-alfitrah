@@ -96,15 +96,34 @@
     </x-notifications.basic-alert>
     @endif
 
-    <form method="POST" wire:submit="login" class="flex flex-col gap-6">
+    @if (session('success-reset-password'))
+    <x-notifications.basic-alert variant="success" isCloseable="true">
+        <x-slot:title>{{ session('success-reset-password') }}</x-slot:title>
+    </x-notifications.basic-alert>
+    @endif
+
+    <form method="POST" wire:submit="login" class="flex flex-col gap-6"
+        x-data="formValidation({
+            username: ['required'],
+            password: ['required'],
+        })"
+        x-on:remember-password.window="isSubmitActive = true">
         <!-- Email Address -->
-        <flux:input wire:model="username" :label="__('Username/Nomor Whatsapp')" type="text"
-            placeholder="Masukan nomor HP" required autofocus />
+        <flux:input wire:model="inputs.username" :label="__('Username/Nomor Whatsapp')" type="text"
+            :isValidate="true" fieldName="username" autofocus />
 
         <!-- Password -->
         <div class="relative">
-            <flux:input wire:model="password" :label="__('Password')" type="password" required
-                autocomplete="current-password" placeholder="Masukan kata sandi" viewable />
+            <flux:field>
+                <flux:label for="password">Password</flux:label>
+                <flux:input wire:model="inputs.password" type="password" :isValidate="true" fieldName="password" viewable />
+                @error('inputs.password')
+                <div class="flex items-center gap-1">
+                    <flux:icon.exclamation-triangle class="text-amber-400" variant="micro" />
+                    <flux:text class="text-amber-400">{{ $message }}</flux:text>
+                </div>
+                @enderror
+            </flux:field>
 
             @if (Route::has('password.request'))
             <flux:link class="absolute end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>
@@ -114,18 +133,22 @@
         </div>
 
         <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" :label="__('Simpan Password')" />
+        {{-- <flux:checkbox wire:model="remember" :label="__('Simpan Password')" /> --}}
 
         <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Masuk') }}</flux:button>
+            <flux:button variant="primary" type="submit" class="w-full" x-bind:disabled="!isSubmitActive" :loading="false">
+                <x-items.loading-indicator wireTarget="login">
+                    <x-slot:buttonName>Masuk</x-slot:buttonName>
+                    <x-slot:buttonReplaceName>Bersiap Masuk</x-slot:buttonReplaceName>
+                </x-items.loading-indicator>
+            </flux:button>
         </div>
     </form>
 
-    @if (Route::has('register'))
     <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-white/70 dark:text-zinc-400">
         <span>{{ __('Siswa baru?') }}</span>
         <flux:link :href="route('branch_quota')" wire:navigate>{{ __('Daftar Disini') }}</flux:link>
     </div>
-    @endif
+
     @endif
 </div>

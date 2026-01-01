@@ -35,7 +35,7 @@ class MessageHelper
 
          "Anda telah melakukan request kode OTP. Silahkan masukan kode di bawah ini :\n\n" .
 
-         "$otp \n\n" .
+         "*$otp* \n\n" .
 
          "Kode hanya berlaku untuk 10 menit. \n\n" .
 
@@ -180,5 +180,22 @@ class MessageHelper
          "_Al Fitrah Islamic School_";
 
       return $message;
+   }
+
+
+   public static function waOtpResetPassword($otpCode)
+   {
+      $message =
+         "_*OTP RESET PASSWORD*_\n\n" .
+         "Anda baru saja meminta kode untuk reset password, berikut kode OTP anda:\n\n" .
+
+         "*$otpCode*\n\n" .
+
+         "Kode hanya berlaku untuk 10 menit. Abaikan jika anda tidak meminta reset password ini.\n\n" .
+
+         "_Al Fitrah Islamic School_";
+
+      return $message;
+         
    }
 }

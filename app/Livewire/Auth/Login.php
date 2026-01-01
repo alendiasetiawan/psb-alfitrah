@@ -29,73 +29,59 @@ class Login extends Component
     public string $password = '';
     public bool $remember = false;
     public $inputs = [
-        'otp'
+        'otp',
+        'username',
+        'password'
     ];
 
     protected $rules = [
-        'username' => 'required|exists:users,username',
-        'password' => 'required',
+        'inputs.username' => 'required|exists:users,username',
+        'inputs.password' => 'required',
     ];
 
     protected $messages = [
-        'username.required' => 'Username wajib diisi.',
-        'username.exists' => 'Username tidak ditemukan.',
-        'password.required' => 'Password wajib diisi.',
+        'inputs.username.required' => 'Username wajib diisi.',
+        'inputs.username.exists' => 'Username tidak ditemukan.',
+        'inputs.password.required' => 'Password wajib diisi.',
     ];
-
-    public function mount()
-    {
-        if (Cookie::get('saveuser') && Cookie::get('savepwd')) {
-            $this->username = Cookie::get('saveuser');
-            $this->password = Cookie::get('savepwd');
-            $this->remember = true;
-        }
-    }
 
     public function login()
     {
-        $this->username = ltrim($this->username, '0');
+        $this->inputs['username'] = ltrim($this->inputs['username'], '0');
 
         $this->validate();
 
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
+        if (! Auth::attempt(['username' => $this->inputs['username'], 'password' => $this->inputs['password']])) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'password' => "Password salah",
+                'inputs.password' => "Password salah",
             ]);
         }
 
         RateLimiter::clear($this->throttleKey());
 
         //Check if user already verified
-        $checkUnVerified = User::where('username', $this->username)
+        $checkUnVerified = User::where('username', $this->inputs['username'])
             ->where('is_verified', 0)
             ->exists();
 
         if ($checkUnVerified) {
             session()->flash('user-unverified', 'Gagal login, silahkan verifikasi akun anda terlebih dahulu!');
-        } else {
-            if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
-                if ($this->remember) {
-                    Cookie::queue('saveuser', $this->username, 20160);
-                    Cookie::queue('savepwd', $this->password, 20160);
-                }
-
-                $userData = Auth::user();
-                $userCheck = Auth::check();
-                session([
-                    'userData' => $userData,
-                    'userCheck' => $userCheck
-                ]);
-
-                $this->redirect(route('login'));
-            } else {
-                $this->addError('password', 'Password yang anda masukan salah, silahkan coba lagi!');
-            }
+            return;
         }
+
+        // Authentication already succeeded, set up session
+        $userData = Auth::user();
+        $userCheck = Auth::check();
+        session([
+            'userData' => $userData,
+            'userCheck' => $userCheck
+        ]);
+
+        $this->redirect(route('login'));
     }
 
     /**

@@ -22,6 +22,7 @@
             </x-animations.fade-down>
 
         </div>
+        @stack('scripts')
         @fluxScripts
     </body>
 </html>

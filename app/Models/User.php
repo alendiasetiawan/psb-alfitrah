@@ -33,7 +33,9 @@ class User extends Authenticatable
         'fullname',
         'gender',
         'photo',
+        'mobile_phone',
         'otp',
+        'otp_expired_at',
         'is_verified',
         'verified_at'
     ];

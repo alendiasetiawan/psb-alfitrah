@@ -25,7 +25,8 @@
     'isFormObject' => false,
     'isValidate' => false,
     'isValidateGroup' => false,
-    'fieldName' => null //Property name for validation method and only needed when isValidate = true
+    'fieldName' => null, //Property name for validation method and only needed when isValidate = true
+    'isNumberMode' => false
 ])
 
 @php
@@ -151,6 +152,7 @@ $classes = Flux::classes()
                 @if ($loading) wire:loading.class="{{ $inputLoadingClasses }}" @endif
                 @if ($loading && $wireTarget) wire:target="{{ $wireTarget }}" @endif
                 @if ($isValidate || $isValidateGroup) x-on:input="form.{{ $fieldName }} = $wire.{{ $isFormObject ? 'form.' : '' }}inputs.{{ $fieldName }}; validate('{{$fieldName}}')" @endif
+                @if ($isNumberMode) oninput="this.value = this.value.replace(/[^0-9]/g, '')" @endif
             >
             <div class="absolute top-0 bottom-0 flex items-center gap-x-1.5 pe-3 end-0 text-xs text-zinc-400">
                 {{-- Icon should be text-zinc-400/75 --}}

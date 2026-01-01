@@ -171,6 +171,7 @@ class RegistrationForm extends Component
                     'password' => Hash::make($this->inputs['password']),
                     'fullname' =>  $this->inputs['studentName'],
                     'gender' =>  $this->inputs['gender'],
+                    'mobile_phone' => $this->inputs['countryCode'] . $this->inputs['mobilePhone'],
                     'otp' =>  $otp,
                     'otp_expired_at' => $otpExpired,
                     'is_verified' => 0
