@@ -22,7 +22,7 @@ class PendingStudentAttachmentAdmin extends Component
 {
     public bool $isMobile = false;
     public object $admissionYearLists;
-    public string $searchStudent = '';
+    public string $searchStudent = '', $title, $link;
     public ?int $selectedAdmissionId = null, $limitData = 9;
 
     protected StudentDataService $studentDataService;
@@ -57,6 +57,8 @@ class PendingStudentAttachmentAdmin extends Component
         $queryAdmission = AdmissionHelper::activeAdmission();
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
+        $this->title = 'Belum Upload Berkas';
+        $this->link = 'admin.dashboard';
     }
 
     //ANCHOR: ACTION FOLLOW UP PAYMENT
@@ -90,8 +92,7 @@ class PendingStudentAttachmentAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.data-verification.student-attachment.pending.pending-student-attachment-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true,
+                'isFixedTop' => true,
             ]);
         }
         return view('livewire.web.admin.data-verification.student-attachment.pending.pending-student-attachment-admin')->layout('components.layouts.web.web-app');

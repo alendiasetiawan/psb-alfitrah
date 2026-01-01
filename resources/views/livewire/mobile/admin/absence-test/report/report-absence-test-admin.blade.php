@@ -1,42 +1,49 @@
 <div>
-    <x-animations.fixed-top :title="$title" :link="$link">
-        <div class="grid grid-cols-1 space-y-2">
-            <!--ANCHOR: SEARCH AND FILTER-->
-            <div class="col-span-1">
-                <div class="flex items-center gap-4">
-                    <div class="w-11/12">
-                        <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent"
-                            icon="search" />
-                    </div>
+    <div class="my-3">
+        <x-navigations.flat-tab>
+            <x-navigations.flat-tab-item 
+                href="admin.placement_test.absence_test.tapping" 
+                label="Tapping" 
+            />
+            <x-navigations.flat-tab-item
+                :isActive="true" 
+                activeTextColor="text-white" 
+                label="Rekap" />
+        </x-navigations.flat-tab>
+    </div>
 
-                    <div class="w-1/12">
-                        <flux:modal.trigger name="filter-student-modal">
-                            <flux:icon.sliders-horizontal class="hover:cursor-pointer text-primary-400" />
-                        </flux:modal.trigger>
-                    </div>
+    <div class="grid grid-cols-1 space-y-2">
+        <!--ANCHOR: SEARCH AND FILTER-->
+        <div class="col-span-1">
+            <div class="flex items-center gap-4">
+                <div class="w-11/12">
+                    <flux:input placeholder="Cari nama santri" wire:model.live.debounce.500ms="searchStudent"
+                        icon="search" />
+                </div>
+
+                <div class="w-1/12">
+                    <flux:modal.trigger name="filter-student-modal">
+                        <flux:icon.sliders-horizontal class="hover:cursor-pointer text-primary-400" />
+                    </flux:modal.trigger>
                 </div>
             </div>
-
-            <div class="col-span-1">
-                <div class="flex justify-between items-center">
-                    <flux:badge icon="graduation-cap" color="primary" variant="solid">
-                        {{ $admissionYear }}
-                    </flux:badge>
-
-                    @if ($selectedAdmissionBatchId)
-                        <flux:badge icon="layers" color="primary" variant="solid">
-                            {{ $admissionBatchName }}
-                        </flux:badge>
-                    @endif
-                </div>
-            </div>
-            <!--#SEARCH AND FILTER-->
         </div>
-    </x-animations.fixed-top>
 
+        <div class="col-span-1">
+            <div class="flex justify-between items-center">
+                <flux:badge icon="graduation-cap" color="primary" variant="solid">
+                    {{ $admissionYear }}
+                </flux:badge>
 
-    <!-- Spacer to prevent content from hiding under fixed header -->
-    <div class="h-32"></div>
+                @if ($selectedAdmissionBatchId)
+                    <flux:badge icon="layers" color="primary" variant="solid">
+                        {{ $admissionBatchName }}
+                    </flux:badge>
+                @endif
+            </div>
+        </div>
+        <!--#SEARCH AND FILTER-->
+    </div>
 
     <!--NOTE: Loading Indicator When Filter Apply-->
     <div class="flex items-center justify-center mb-3">

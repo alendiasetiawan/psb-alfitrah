@@ -14,7 +14,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Throwable;
 
-#[Title('Edit Nilai')]
+#[Title('Edit Nilai Tes')]
 class DetailTestResultAdmin extends Component
 {
     public bool $isMobile;
@@ -129,7 +129,6 @@ class DetailTestResultAdmin extends Component
             return view('livewire.mobile.admin.test-result.detail.detail-test-result-admin')->layout('components.layouts.mobile.mobile-app', [
                 'isShowBackButton' => true,
                 'isShowTitle' => true,
-                'link' => 'admin.placement_test.test_result',
             ]);
         }
 

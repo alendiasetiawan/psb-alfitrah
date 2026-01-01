@@ -160,8 +160,9 @@ class IndexStudentDatabase extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.master-data.student-database.index-student-database')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
+                'isShowBackButton' => true,
                 'isShowTitle' => true,
+                'link' => 'admin.dashboard'
             ]);
         }
 

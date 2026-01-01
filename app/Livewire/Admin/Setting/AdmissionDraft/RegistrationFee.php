@@ -63,8 +63,8 @@ class RegistrationFee extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.setting.admission-draft.registration-fee')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true
+                'isShowBackButton' => true,
+                'link' => 'admin.setting.landing'
             ]);
         }
 

@@ -1,16 +1,31 @@
 <div>
     <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.sticky>
-        <x-animations.fade-down showTiming="50">    
-                <div class="grid grid-cols-1">
-                    <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
-                </div>
+    <div class="my-3">
+        <x-navigations.flat-tab>
+            <x-navigations.flat-tab-item 
+                href="admin.data_verification.registration_payment.payment_unpaid" 
+                label="Belum" 
+            />
+            <x-navigations.flat-tab-item 
+                href="admin.data_verification.registration_payment.payment_process" 
+                label="Proses" 
+                :isActive="true" 
+                activeTextColor="text-white"/>
+            <x-navigations.flat-tab-item 
+                href="admin.data_verification.registration_payment.payment_paid" 
+                label="Sudah"/>
+        </x-navigations.flat-tab>
+    </div>
 
-                <div class="flex justify-between mt-2">
-                    <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalProcessStudent }}</flux:badge>
-                </div>
-        </x-animations.fade-down>
-    </x-animations.sticky>
+    <x-animations.fade-down showTiming="50">    
+        <div class="grid grid-cols-1">
+            <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
+        </div>
+
+        <div class="flex justify-between mt-2">
+            <flux:badge variant="solid" color="primary" icon="user-check">Jumlah : {{ $this->totalProcessStudent }}</flux:badge>
+        </div>
+    </x-animations.fade-down>
 
     <!--ANCHOR: STUDENT CARD-->
     <x-animations.fade-down showTiming="150">
@@ -65,4 +80,5 @@
         </div>
     </x-animations.fade-down>
     <!--#STUDENT CARD-->
+
 </div>

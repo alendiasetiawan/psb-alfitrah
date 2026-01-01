@@ -22,9 +22,11 @@ use App\Livewire\Admin\MasterData\RegistrantDatabase;
 use App\Livewire\Admin\MasterData\RegistrantDemographic;
 use App\Livewire\Admin\MasterData\StudentDatabase\DetailStudentDatabase;
 use App\Livewire\Admin\MasterData\StudentDatabase\IndexStudentDatabase;
+use App\Livewire\Admin\MegaMenuMobileAdmin;
 use App\Livewire\Admin\Setting\AdmissionDraft\AcademicYear;
 use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
 use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
+use App\Livewire\Admin\Setting\LandingSettingAdmin;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
 use App\Livewire\Admin\TestResult\Detail\DetailTestResultAdmin;
@@ -32,11 +34,10 @@ use App\Livewire\Admin\TestResult\TestResultAdmin;
 use Illuminate\Support\Facades\Route;
 
 
-
-
 Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+        Route::get('/mega-menu', MegaMenuMobileAdmin::class)->name('mega_menu');
 
         //ANCHOR - MASTER DATA ROUTE
         Route::group(['prefix' => 'master-data', 'as' => 'master_data.'], function () {
@@ -56,9 +57,9 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
         Route::group(['prefix' => 'data-verification', 'as' => 'data_verification.'], function () {
             //NOTE - Registration Payment Route
             Route::group(['prefix' => 'registration-payment', 'as' => 'registration_payment.'], function () {
-                Route::get('/payment-paid', PaymentPaid::class)->name('payment_paid');
-                Route::get('/payment-process', PaymentProcess::class)->name('payment_process');
                 Route::get('/payment-unpaid', PaymentUnpaid::class)->name('payment_unpaid');
+                Route::get('/payment-process', PaymentProcess::class)->name('payment_process');
+                Route::get('/payment-paid', PaymentPaid::class)->name('payment_paid');
             });
 
             //NOTE - Biodata Verification Route
@@ -100,7 +101,6 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
                 Route::get('/report', ReportAbsenceTestAdmin::class)->name('report');
             });
 
-
             //NOTE: Test Result Route
             Route::get('/test-result', TestResultAdmin::class)->name('test_result');
             Route::group(['prefix' => 'test-result', 'as' => 'test_result.'], function () {
@@ -110,11 +110,14 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
 
         //ANCHOR - Setting Page Route
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
+            Route::get('/landing', LandingSettingAdmin::class)->name('landing');
+
             Route::group(['prefix' => 'admission-draft', 'as' => 'admission_draft.'], function () {
                 Route::get('/academic-year', AcademicYear::class)->name('academic_year');
                 Route::get('/student-quota', StudentQuota::class)->name('student_quota');
                 Route::get('/registration-fee', RegistrationFee::class)->name('registration_fee');
             });
+
             Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
                 Route::get('/branch', Branch::class)->name('branch');
                 Route::get('/program', Program::class)->name('program');

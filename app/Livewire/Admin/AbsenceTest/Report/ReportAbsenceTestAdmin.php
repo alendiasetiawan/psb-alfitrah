@@ -20,7 +20,7 @@ class ReportAbsenceTestAdmin extends Component
 
     public bool $isMobile = false, $isFilterActive = false;
     public $limitData = 10, $setCount = 1, $admissionId = null, $filterAdmissionId = null, $selectedAdmissionBatchId = '', $selectedAdmissionId, $filterAdmissionBatchId = '';
-    public ?string $searchStudent = '', $admissionYear = '', $admissionBatchName = '', $title = 'Kehadiran Tes', $link = null;
+    public ?string $searchStudent = '', $admissionYear = '', $admissionBatchName = '';
     public object $admissionYearLists, $admissionBatchLists;
 
     //ANCHOR: ACTION LOAD MORE
@@ -133,8 +133,8 @@ class ReportAbsenceTestAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.absence-test.report.report-absence-test-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBackButton' => true,
-                'isFixedTop' => true,
+                'isShowBottomNavbar' => true,
+                'isShowTitle' => true,
             ]);
         }
 

@@ -1,5 +1,22 @@
 <div class="mb-18"> 
     <!--ANCHOR - COUNTER STUDENT STATISTIC-->
+    <div class="my-3">
+        <x-navigations.flat-tab>
+            <x-navigations.flat-tab-item 
+                href="admin.data_verification.registration_payment.payment_unpaid" 
+                label="Belum" 
+            />
+            <x-navigations.flat-tab-item 
+                href="admin.data_verification.registration_payment.payment_process" 
+                label="Proses" />
+            <x-navigations.flat-tab-item 
+                href="admin.data_verification.registration_payment.payment_paid" 
+                label="Sudah"
+                :isActive="true" 
+                activeTextColor="text-white"/>
+        </x-navigations.flat-tab>
+    </div>
+
     <x-animations.fade-down showTiming="50">
         <div wire:replace>
             <x-swipers.creative-swiper>
@@ -132,4 +149,5 @@
         </div>
     </flux:modal>
     <!--#MODAL FILTER STUDENT-->
+
 </div>

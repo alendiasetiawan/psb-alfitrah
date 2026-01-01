@@ -7,15 +7,15 @@
 
 @php
 match (true) {
-Route::is('student.student_dashboard') => $activeOne = true,
-Route::is('student.payment.registration_payment') => $activeTwo = true,
-Route::is('student.admission_data.*') => $activeThree = true,
-Route::is('student.placement_test.test_result.*') => $activeFour = true,
+Route::is('admin.dashboard') => $activeOne = true,
+Route::is('admin.data_verification.registration_payment.*') => $activeTwo = true,
+Route::is('admin.placement_test.test_result') => $activeThree = true,
+Route::is('admin.setting.*') => $activeFour = true,
 default => null
 };
 @endphp
 
-<div class="fixed inset-x-0 bottom-0 z-50 bg-transparent" style="padding-bottom: env(safe-area-inset-bottom, 0);">
+<div class="fixed inset-x-0 bottom-0 z-100 bg-transparent" style="padding-bottom: env(safe-area-inset-bottom, 0);">
     <div class="relative mx-auto w-full h-24">
         <!-- Latar Belakang Navbar dengan SVG -->
         <div class="absolute bottom-0 w-full h-24 pointer-events-none">
@@ -33,8 +33,8 @@ default => null
         </div>
 
         <!-- Floating Action Button (FAB) -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 top-4 z-30">
-            <a href="{{ route('student.placement_test.qr_presence_test') }}" wire:navigate>
+        <div class="absolute left-1/2 transform -translate-x-1/2 top-4 z-75">
+            <a href="{{ route('admin.placement_test.absence_test.tapping') }}" wire:navigate>
                 <button
                     class="w-15 h-15 rounded-full bg-primary-400 flex flex-col items-center justify-center text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-primary-300 transition-transform duration-200 hover:scale-105"
                     type="button">
@@ -44,7 +44,7 @@ default => null
         </div>
 
         <!-- Item Menu -->
-        <div class="absolute bottom-0 w-full h-16 flex items-center justify-between z-20">
+        <div class="absolute bottom-0 w-full h-16 flex items-center justify-between px-3 z-50">
             <!--First Menu-->
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeOne ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
                 href="{{ route('admin.dashboard') }}" wire:navigate>
@@ -56,10 +56,10 @@ default => null
 
             <!--Second Menu-->
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeTwo ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
-                href="{{ route('admin.master_data.student_database.index') }}" wire:navigate>
+                href="{{ route('admin.data_verification.registration_payment.payment_unpaid') }}" wire:navigate>
                 <flux:icon icon="banknotes" />
                 @if ($activeTwo)
-                <span class="text-xs font-semibold">{{ __('Data Induk') }}</span>
+                <span class="text-xs font-semibold">{{ __('Pembayaran') }}</span>
                 @endif
             </a>
 
@@ -76,7 +76,7 @@ default => null
 
             <!--Fourth Menu-->
             <a class="flex flex-col items-center justify-center w-1/4 focus:outline-none {{ $activeFour ? 'text-primary-400 dark:text-primary-500' : 'text-zinc-400 dark:text-zinc-400' }}"
-                href="{{ route('student.placement_test.test_result.private_announcement') }}" wire:navigate>
+                href="{{ route('admin.setting.landing') }}" wire:navigate>
                 <flux:icon icon="settings" />
                 @if ($activeFour)
                 <span class="text-xs font-semibold">{{ __('Pengaturan') }}</span>

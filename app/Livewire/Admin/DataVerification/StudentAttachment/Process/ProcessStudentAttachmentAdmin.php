@@ -17,7 +17,7 @@ class ProcessStudentAttachmentAdmin extends Component
 {
     public bool $isMobile = false;
     public object $admissionYearLists;
-    public string $searchStudent = '', $admissionYear = '';
+    public string $searchStudent = '', $admissionYear = '', $link, $title;
     public ?int $selectedAdmissionId = null, $limitData = 9;
 
     protected StudentDataService $studentDataService;
@@ -53,6 +53,8 @@ class ProcessStudentAttachmentAdmin extends Component
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
         $this->admissionYear = AdmissionQuery::fetchAdmissionDetail($this->selectedAdmissionId)->name;
+        $this->title = 'Proses Validasi Berkas';
+        $this->link = 'admin.dashboard';
     }
 
     //ANCHOR: Action
@@ -65,8 +67,7 @@ class ProcessStudentAttachmentAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.data-verification.student-attachment.process.process-student-attachment-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true,
+                'isFixedTop' => true,
             ]);
         }
 

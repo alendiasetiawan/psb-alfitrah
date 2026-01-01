@@ -1,4 +1,5 @@
 <div>
+    <div class="h-7"></div>
     <!--Admission Data-->
     <x-animations.fade-down showTiming="50" class="grid grid-cols-1 mt-1">
         <flux:heading size="lg">Data Siswa</flux:heading>

@@ -76,8 +76,8 @@ class AcademicYear extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.setting.admission-draft.academic-year')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true
+                'isShowBackButton' => true,
+                'link' => 'admin.setting.landing'
             ]);
         }
         return view('livewire.web.admin.setting.admission-draft.academic-year')->layout('components.layouts.web.web-app');

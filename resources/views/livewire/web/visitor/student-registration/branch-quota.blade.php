@@ -47,8 +47,8 @@
                             <a href="{{ route('registration_form', [ 'branchId' => Crypt::encrypt($branch->id) ]) }}" wire:navigate>
                                 <flux:button 
                                 variant="primary" 
+                                icon="file-pen-line"
                                 class="mt-2" 
-                                size="sm" 
                                 :loading="false">
                                     Isi Formulir
                                 </flux:button>

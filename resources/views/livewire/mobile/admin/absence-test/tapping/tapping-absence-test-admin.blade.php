@@ -1,4 +1,18 @@
-<div>
+<div class="mb-18">
+    <div class="my-3">
+        <x-navigations.flat-tab>
+            <x-navigations.flat-tab-item 
+                {{-- href="admin.placement_test.absence_test.tapping"  --}}
+                label="Tapping" 
+                :isActive="true" 
+                activeTextColor="text-white"
+            />
+            <x-navigations.flat-tab-item 
+                href="admin.placement_test.absence_test.report" 
+                label="Rekap" />
+        </x-navigations.flat-tab>
+    </div>
+
     <div class="grid grid-cols-1 mt-4">
         <div class="col-span-1">
             <x-animations.fade-down showTiming="50">

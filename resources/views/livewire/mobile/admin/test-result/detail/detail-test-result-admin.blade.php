@@ -296,4 +296,17 @@
     <!--SECTION: ADD EDIT TESTER MODAL-->
     <livewire:components.modals.placement-test.add-edit-tester-modal modalId="add-edit-tester-modal" :$isMobile :$testerLists/>
     <!--#ADD EDIT TESTER MODAL-->
+
+    <!--NOTE: PREVENT BACK BUTTON-->
+    @push('scripts')
+        <script type="text/javascript">
+            function preventBack() {
+                window.history.forward();
+            }
+
+            setTimeout("preventBack()", 0);
+
+            window.onunload = function () { null };
+        </script>
+    @endpush
 </div>

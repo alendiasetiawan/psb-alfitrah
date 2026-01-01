@@ -48,8 +48,9 @@ class Branch extends Component
     {
         if ($mobileDetect->isMobile()) {
             return view('livewire.mobile.admin.setting.school.branch')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true
+                'isShowBackButton' => true,
+                'link' => 'admin.setting.landing'
+
             ]);
         }
         return view('livewire.web.admin.setting.school.branch')->layout('components.layouts.web.web-app');

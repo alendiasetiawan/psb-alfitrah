@@ -1,6 +1,6 @@
 <div class="mb-17">
     <!--ANCHOR:Welcome Header-->
-    <x-animations.fade-down showTiming="50">
+    {{-- <x-animations.fade-down showTiming="50"> --}}
         <div class="flex flex-row justify-between items-center">
             <div class="flex items-start gap-2">
                 <!--Main Logo-->
@@ -19,20 +19,20 @@
 
             <!--Quick Action-->
             <form method="POST" action="{{ route('logout') }}">
+                @csrf
                 <div class="flex gap-2">
-                    @csrf
                     <button type="submit">
-                        <flux:icon.log-out class="size-6 text-primary-400" />
+                        <flux:icon.log-out class="size-6 text-primary-400 hover:cursor-pointer" />
                     </button>
                 </div>
             </form>
             <!--#Quick Action-->
         </div>
-    </x-animations.fade-down>
+    {{-- </x-animations.fade-down> --}}
     <!--#Welcome Header-->
 
     <!--ANCHOR: Swiper Card-->
-    <x-animations.fade-down showTiming="150">
+    <x-animations.fade-down showTiming="50">
         <div x-data="swiperContainer({
             effect: 'coverflow',
             loop: true,
@@ -87,7 +87,7 @@
     </x-animations.fade-down>
     <!--#Swiper Card-->
 
-    <!--ANCHOR:Quick Menu-->
+    <!--ANCHOR: Quick Menu-->
     <x-animations.fade-down showTiming="150" class="grid grid-cols-5 mt-4">
         <!-- Biodata -->
         <a href="{{ route('admin.master_data.registrant_database') }}" wire:navigate class="flex flex-col items-center text-center">
@@ -98,7 +98,7 @@
             <flux:heading class="mt-2 text-dark/70">Pendaftar</flux:heading>
         </a>
 
-        <!-- Berkas -->
+        <!-- Biodata -->
         <a href="{{ route('admin.data_verification.biodata.pending') }}" wire:navigate class="flex flex-col items-center text-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
@@ -108,7 +108,7 @@
         </a>
 
         <!-- Berkas -->
-        <a href="{{ route('student.admission_data.admission_attachment') }}" wire:navigate class="flex flex-col items-center text-center">
+        <a href="{{ route('admin.data_verification.student_attachment.pending') }}" wire:navigate class="flex flex-col items-center text-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
                 <flux:icon.file-text class="text-primary-300 size-7" />
@@ -116,8 +116,8 @@
             <flux:heading class="mt-2 text-dark/70">Berkas</flux:heading>
         </a>
 
-        <!-- Kelulusan -->
-        <a href="{{ route('student.placement_test.test_result.private_announcement') }}" class="flex flex-col items-center text-center" wire:navigate>
+        <!-- Siswa Resmi -->
+        <a href="{{ route('admin.master_data.student_database.index') }}" class="flex flex-col items-center text-center" wire:navigate>
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
                 <flux:icon.user-check class="text-primary-300 size-7" />
@@ -126,7 +126,7 @@
         </a>
 
         <!-- Menu -->
-        <a class="flex flex-col items-center text-center" wire:navigate href="{{ route('student.student_mega_menu') }}">
+        <a class="flex flex-col items-center text-center" wire:navigate href="{{ route('admin.mega_menu') }}">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->
                 <flux:icon.list class="text-primary-300 size-7" />
@@ -137,7 +137,7 @@
     <!--#Quick Menu-->
 
     <!--ANCHOR: CHART-->
-    <x-animations.fade-down showTiming="250">
+    <x-animations.fade-down showTiming="350">
         <div class="grid grid-cols-1 mt-4 gap-4">
             <!---CARD: Bar Chart Total Registrant Per Program-->
             <div class="col-span-1">
@@ -149,7 +149,13 @@
                 </x-cards.soft-glass-card>
             </div>
             <!--#Bar Chart Total Registrant Per Program-->
+        </div>
+    </x-animations.fade-down>
+    <!--#CHART-->
 
+    <!--ANCHOR: LATEST REGISTRANT-->
+    <div class="grid md:grid-cols-2 mt-4 gap-4">
+        <x-animations.fade-down showTiming="450">
             <!--CARD: Pie Chart Percentage Payment Success-->
             <div class="col-span-1">
                 <x-cards.soft-glass-card class="h-full">
@@ -166,7 +172,48 @@
                 </x-cards.soft-glass-card>
             </div>
             <!--#Pie Chart Percentage Payment Success-->
-        </div>
-    </x-animations.fade-down>
-    <!--#CHART-->
+        </x-animations.fade-down>
+
+        <x-animations.fade-down showTiming="550">
+            <!--CARD: Latest Registrant-->
+            <div class="col-span-1">
+                <x-cards.soft-glass-card>
+                    <flux:heading size="xl" class="mb-4">Pendaftar Terbaru</flux:heading>
+                    <div class="space-y-2">
+                        @forelse ($latestRegistrants as $registrant)
+                            <div class="flex justify-between items-center" wire:key="registrant{{ $registrant->id }}">
+                                <div class="flex flex-col items-start">
+                                    <flux:text variant="bold" size="lg" class="truncate max-w-[200px]">{{ $registrant->student_name }}</flux:text>
+                                    <flux:text variant="soft" size="sm">{{ $registrant->branch_name }} - {{ $registrant->program_name }}</flux:text>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <flux:text variant="soft" size="sm">
+                                        {{ \App\Helpers\DateFormatHelper::shortIndoDate($registrant->created_at) }}
+                                    </flux:text>
+                                    <flux:text variant="soft" size="sm">
+                                        {{ \App\Helpers\DateFormatHelper::shortTime($registrant->created_at) }}
+                                    </flux:text>
+                                </div>
+                            </div>
+                        @empty
+                            <x-animations.not-found width="150" height="150"/>
+                        @endforelse
+
+                        <div class="flex justify-center">
+                            <flux:button
+                            icon="users"
+                            variant="primary"
+                            class="w-full"
+                            href="{{ route('admin.master_data.registrant_database') }}"
+                            wire:navigate>
+                                Selengkapnya
+                            </flux:button>
+                        </div>
+                    </div>
+                </x-cards.soft-glass-card>
+            </div>
+            <!--#Latest Registrant-->
+        </x-animations.fade-down>
+    </div>
+    <!--#LATEST REGISTRANT-->
 </div>

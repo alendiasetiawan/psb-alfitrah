@@ -72,9 +72,12 @@
                         <div class="col-span-1">
                             <flux:field>
                                 <flux:label>Tanggal Mulai</flux:label>
-                                <x-inputs.date-picker model="inputs.admissionBatchStart" 
+                                <flux:input 
+                                type="date" 
+                                placeholder="Pilih tanggal" 
+                                wire:model="inputs.admissionBatchStart" 
                                 fieldName="admissionBatchStart"
-                                isValidate="true"
+                                :isValidate="true"
                                 />
                             </flux:field>
                         </div>
@@ -82,9 +85,12 @@
                         <div class="col-span-1">
                             <flux:field>
                                 <flux:label>Tanggal Berakhir</flux:label>
-                                <x-inputs.date-picker model="inputs.admissionBatchEnd" 
+                                <flux:input 
+                                type="date"
+                                placeholder="Pilih tanggal" 
+                                wire:model="inputs.admissionBatchEnd" 
                                 fieldName="admissionBatchEnd"
-                                isValidate="true"/>
+                                :isValidate="true"/>
                             </flux:field>
                         </div>
                     </div>

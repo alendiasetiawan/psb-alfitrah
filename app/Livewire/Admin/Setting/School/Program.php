@@ -69,8 +69,8 @@ class Program extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.setting.school.program')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true
+                'isShowBackButton' => true,
+                'link' => 'admin.setting.landing'
             ]);
         }
         return view('livewire.web.admin.setting.school.program')->layout('components.layouts.web.web-app');

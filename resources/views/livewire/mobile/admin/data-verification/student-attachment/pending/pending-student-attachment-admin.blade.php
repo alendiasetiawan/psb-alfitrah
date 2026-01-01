@@ -1,11 +1,17 @@
 <div class="mb-18">
     <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.fade-down showTiming="50">    
-            <div class="grid grid-cols-1">
+    <x-animations.fixed-top :title="$title" :link="$link"> 
+            <x-navigations.flat-tab>
+                <x-navigations.flat-tab-item href="admin.data_verification.student_attachment.pending" label="Belum" :isActive="true"/>
+                <x-navigations.flat-tab-item href="admin.data_verification.student_attachment.process" label="Proses" />
+                <x-navigations.flat-tab-item href="admin.data_verification.student_attachment.verified" label="Valid" />
+            </x-navigations.flat-tab>
+
+            <div class="grid grid-cols-1 mt-3">
                 <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
             </div>
 
-            <div class="flex justify-between mt-3 gap-3">
+            <div class="flex justify-between mt-3 gap-3 mb-2">
                 <flux:select wire:model.live="selectedAdmissionId">
                     @foreach ($admissionYearLists as $key => $value)
                         <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
@@ -14,9 +20,11 @@
 
                 <flux:badge variant="solid" color="primary" icon="user-check">{{ $this->totalPendingAttachment }} Santri</flux:badge>
             </div>
-    </x-animations.fade-down>
+    </x-animations.fixed-top>
 
-        <!--ANCHOR: STUDENT CARD-->
+    <div class="h-44"></div>
+
+    <!--ANCHOR: STUDENT CARD-->
     <x-animations.fade-down showTiming="150">
         <!--NOTE: Alert When Send Message Follow Up Failed-->
         @if (session('error-fu-attachment'))

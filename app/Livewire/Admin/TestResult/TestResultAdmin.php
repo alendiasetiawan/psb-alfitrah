@@ -10,7 +10,6 @@ use App\Queries\Core\AdmissionQuery;
 use App\Queries\Core\BranchQuery;
 use App\Queries\PlacementTest\PlacementTestResultQuery;
 use Detection\MobileDetect;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -22,7 +21,7 @@ class TestResultAdmin extends Component
 {
     use WithPagination;
     
-    public bool $isMobile = false, $isFilterActive = false, $showAlertNotification = false;
+    public bool $isMobile = false, $isFilterActive = false, $showAlertNotification = false, $isBackButton = false;
     public $limitData = 10, $setCount = 1, $selectedAdmissionBatchId = '', $selectedAdmissionId, $selectedBranchId = '', $filterAdmissionBatchId = '', $filterBranchId = '',  $filterAdmissionId = '';
     public string $searchStudent = '', $admissionYear = '', $admissionBatchName = '', $branchName = '', $selectedOrderBy = '', $selectedPublicationStatus = '';
     public object $admissionYearLists, $admissionBatchLists, $branchLists;

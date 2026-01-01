@@ -2,7 +2,7 @@
 
 <flux:button
     :attributes="$attributes->class('shrink-0')"
-    variant="subtle"
+    variant="filled"
     square
     x-data
     x-on:click="$dispatch('flux-sidebar-toggle')"

@@ -1,7 +1,7 @@
 <div>
-    <x-animations.fixed-top top="top-0">
+    <x-animations.fixed-top :isBackButton="$isBackButton">
         <div class="grid grid-cols-1 space-y-2">
-            <flux:heading variant="dark-bold" size="xl">Hasil Tes Calon Siswa</flux:heading>
+            <flux:heading variant="dark-bold" size="xl">Hasil Tes Siswa TA {{ $admissionYear }}</flux:heading>
             <!--ANCHOR: SEARCH AND FILTER-->
             <div class="col-span-1">
                 <div class="flex items-center gap-4">
@@ -70,7 +70,11 @@
     </x-animations.fixed-top>
 
     <!-- Spacer to prevent content from hiding under fixed header -->
-    <div class="h-23"></div>
+    @if ($isFilterActive)
+        <div class="h-30"></div>
+    @else
+        <div class="h-23"></div>
+    @endif
 
     <!--NOTE: Loading Indicator When Filter Apply-->
     <div class="flex items-center justify-center">
@@ -82,7 +86,7 @@
 
     <!--ANCHOR: STUDENT LISTS-->
     <x-animations.fade-down>
-        <div class="grid grid-cols-1 gap-4" wire:loading.remove>
+        <div class="grid grid-cols-1 gap-4">
             @forelse ($this->testResultStudents as $student)
                 @php
                     $finalResultColor =
@@ -253,4 +257,5 @@
     <!--ANCHOR: CONFIRM RELEASE TEST MODAL-->
     <livewire:components.modals.placement-test.confirm-release-modal modalId="confirm-release-modal" :$isMobile />
     <!--#CONFIRM RELEASE TEST MODAL-->
+
 </div>

@@ -1,18 +1,24 @@
 <div class="mb-18">
     <!--ANCHOR - Sticky Search and Filter Section -->
-    <x-animations.sticky>
-        <x-animations.fade-down showTiming="50">    
-                <div class="grid grid-cols-1">
-                    <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
-                </div>
+    <x-animations.fixed-top :title="$title" :link="$link">   
+            <x-navigations.flat-tab>
+                <x-navigations.flat-tab-item href="admin.data_verification.student_attachment.pending" label="Belum" />
+                <x-navigations.flat-tab-item href="admin.data_verification.student_attachment.process" label="Proses" :isActive="true" />
+                <x-navigations.flat-tab-item href="admin.data_verification.student_attachment.verified" label="Valid" />
+            </x-navigations.flat-tab>
 
-                <div class="flex justify-between mt-2">
-                    <flux:badge variant="solid" color="primary" icon="user-check">{{ $this->totalProcessAttachmentStudent }} Santri</flux:badge>
+            <div class="grid grid-cols-1 mt-3">
+                <flux:input placeholder="Cari nama siswa" wire:model.live.debounce.500ms="searchStudent" icon="search" />
+            </div>
 
-                    <flux:badge variant="solid" color="primary" icon="graduation-cap">{{ $admissionYear }}</flux:badge>
-                </div>
-        </x-animations.fade-down>
-    </x-animations.sticky>
+            <div class="flex justify-between mt-2 mb-2">
+                <flux:badge variant="solid" color="primary" icon="user-check">{{ $this->totalProcessAttachmentStudent }} Santri</flux:badge>
+
+                <flux:badge variant="solid" color="primary" icon="graduation-cap">{{ $admissionYear }}</flux:badge>
+            </div>
+    </x-animations.fixed-top>
+
+    <div class="h-40"></div>
 
     @if (session('notification-failed'))
         <div class="grid grid-cols-1 mt-4">
@@ -83,4 +89,5 @@
         </div>
     </x-animations.fade-down>
     <!--#STUDENT CARD-->
+
 </div>

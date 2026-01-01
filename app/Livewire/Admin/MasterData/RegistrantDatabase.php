@@ -21,7 +21,7 @@ class RegistrantDatabase extends Component
     use WithPagination;
 
     public bool $isMobile = false;
-    public ?string $searchStudent = '', $title = "Database Pendaftar", $link = null;
+    public ?string $searchStudent = '', $title = "Database Pendaftar", $link = 'admin.dashboard';
     public int $selectedAdmissionId, $limitData = 10, $setCount = 1;
     public object $admissionYearLists;
 

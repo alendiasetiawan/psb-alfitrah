@@ -1,6 +1,6 @@
 <div class="mb-18">
     <!--ANCHOR - COUNTER STUDENT STATISTIC-->
-    <x-animations.fade-down showTiming="50">
+    <x-animations.fade-down showTiming="50" class="mt-10">
         <div wire:replace>
             <x-swipers.creative-swiper>
                 @foreach ($this->totalStudents as $total)

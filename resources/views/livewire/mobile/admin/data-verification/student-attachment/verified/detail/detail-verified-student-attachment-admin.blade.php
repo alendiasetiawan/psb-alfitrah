@@ -111,4 +111,16 @@
             </x-animations.fade-down>
         </x-cards.soft-glass-card>
     </x-cards.roll-over-page>
+
+    @push('scripts')
+       <script type="text/javascript">
+            function preventBack() {
+                window.history.forward();
+            }
+
+            setTimeout("preventBack()", 0);
+
+            window.onunload = function () { null };
+        </script>
+    @endpush
 </div>

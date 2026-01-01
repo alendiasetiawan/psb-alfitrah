@@ -18,7 +18,7 @@ class VerifiedStudentAttachmentAdmin extends Component
     use WithPagination;
 
     public bool $isMobile = false;
-    public string $searchStudent = '', $admissionYear;
+    public string $searchStudent = '', $admissionYear, $title, $link;
     public ?int $selectedAdmissionId = null, $limitData = 10, $setCount = 1, $filterAdmissionId;
     public object $admissionYearLists;
 
@@ -57,6 +57,8 @@ class VerifiedStudentAttachmentAdmin extends Component
         $this->selectedAdmissionId = $queryAdmission->id;
         $this->admissionYearLists = AdmissionHelper::getAdmissionYearLists();
         $this->setAdmissionYear();
+        $this->title = 'Selesai Verifikasi Berkas';
+        $this->link = 'admin.dashboard';
     }
 
     //ANCHOR: Execute when page number is updated
@@ -97,8 +99,7 @@ class VerifiedStudentAttachmentAdmin extends Component
     {
         if ($this->isMobile) {
             return view('livewire.mobile.admin.data-verification.student-attachment.verified.verified-student-attachment-admin')->layout('components.layouts.mobile.mobile-app', [
-                'isShowBottomNavbar' => true,
-                'isShowTitle' => true
+                'isFixedTop' => true,
             ]);
         }
         return view('livewire.web.admin.data-verification.student-attachment.verified.verified-student-attachment-admin')->layout('components.layouts.web.web-app');

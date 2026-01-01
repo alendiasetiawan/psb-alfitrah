@@ -113,4 +113,5 @@
         </div>
     </x-animations.fade-down>
     <!--#STUDENT CARD-->
+
 </div>
