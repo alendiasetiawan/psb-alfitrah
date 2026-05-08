@@ -73,10 +73,10 @@
                         <x-tables.cell>
                             <div class="flex flex-col items-start">
                                 <flux:text>
-                                    {{ $presence->student->student_name }}
+                                    {{ $presence->student->student_name ?? '-' }}
                                 </flux:text>
                                 <flux:text size="sm" variant="soft">
-                                    {{ $presence->student->gender }}
+                                    {{ $presence->student->gender ?? '-' }}
                                 </flux:text>
                             </div>
                         </x-tables.cell>
@@ -84,25 +84,25 @@
                         <x-tables.cell>
                             <div class="flex items-center gap-1">
                                 <flux:text>
-                                    {{ $presence->student->mobile_phone }}
+                                    {{ $presence->student->mobile_phone ?? '-' }}
                                 </flux:text>
                             </div>
                         </x-tables.cell>
                         
                         <x-tables.cell>
                             <div class="flex flex-col items-start">
-                                <flux:text>{{ $presence->student->branch_name }}</flux:text>
-                                <flux:text variant="soft" size="sm">{{ $presence->student->program_name }}</flux:text>
+                                <flux:text>{{ $presence->student->branch_name ?? '-' }}</flux:text>
+                                <flux:text variant="soft" size="sm">{{ $presence->student->program_name  ?? '-'}}</flux:text>
                             </div>
                         </x-tables.cell>
                         
                         <x-tables.cell>
-                            <flux:text>{{ $presence->student->batch_name }}</flux:text>
+                            <flux:text>{{ $presence->student->batch_name ?? '-' }}</flux:text>
                         </x-tables.cell>
 
                         <x-tables.cell>
                             <flux:text>
-                                {{ \App\Helpers\DateFormatHelper::indoDateTime($presence->check_in_time) }}
+                                {{ \App\Helpers\DateFormatHelper::indoDateTime($presence->check_in_time) ?? '-' }}
                             </flux:text>
                         </x-tables.cell>
                 </x-tables.row>

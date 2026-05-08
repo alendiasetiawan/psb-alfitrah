@@ -12,6 +12,7 @@ class RegistrationInvoiceQuery
         return Student::baseEloquent($studentId)
             ->joinRegistrationPayment()
             ->joinBranchAndProgram()
+            ->joinAdmission()
             ->addSelect('students.name as student_name', 'students.gender', 'students.id')
             ->with([
                 'registrationInvoices' => function ($query) {

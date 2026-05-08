@@ -3,21 +3,25 @@
 namespace App\Livewire\Student\AdmissionData;
 
 use App\Enums\VerificationStatusEnum;
-use Livewire\Component;
-use Detection\MobileDetect;
-use Livewire\Attributes\Title;
-use App\Services\XenditService;
 use App\Helpers\AdmissionHelper;
-use Livewire\Attributes\Computed;
-use Illuminate\Support\Facades\DB;
 use App\Helpers\CodeGeneratorHelper;
+use App\Helpers\DateFormatHelper;
+use App\Helpers\FormatCurrencyHelper;
+use App\Helpers\MessageHelper;
+use App\Helpers\WhaCenterHelper;
 use App\Models\AdmissionData\AdmissionVerification;
 use App\Models\AdmissionData\RegistrationPayment as AdmissionDataRegistrationPayment;
-use App\Services\StudentDataService;
 use App\Models\Payment\RegistrationInvoice;
 use App\Queries\Payment\RegistrationInvoiceQuery;
 use App\Queries\Payment\RegistrationPaymentQuery;
+use App\Services\StudentDataService;
+use App\Services\XenditService;
 use Carbon\Carbon;
+use Detection\MobileDetect;
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Title('Biaya Pendaftaran')]
 class RegistrationPayment extends Component
@@ -70,7 +74,10 @@ class RegistrationPayment extends Component
     public function createInvoice()
     {
         try {
-            DB::transaction(function () {
+            $expiryDate = Carbon::now()->addHours(6)->toIso8601String();
+            $userExpiryDate = DateFormatHelper::indoDateTime($expiryDate);
+
+            DB::transaction(function () use ($expiryDate, $userExpiryDate) {
                 //Make internal invoice
                 $transaction = RegistrationInvoice::create([
                     'username' => session('userData')->username,
@@ -78,7 +85,7 @@ class RegistrationPayment extends Component
                     'external_id' => CodeGeneratorHelper::registrationInvoiceNumber($this->admissionName),
                     'amount' => $this->amount,
                     'description' => 'Biaya Pendaftaran Siswa Baru a/n ' . session('userData')->fullname . ' di ' . $this->detailPayment->branch_name . ' Program ' . $this->detailPayment->program_name . '',
-                    'expiry_date' => Carbon::now()->addHours(6)->toIso8601String(),
+                    'expiry_date' => $expiryDate,
                 ]);
 
                 //Fetch invoice from xendit
@@ -95,6 +102,12 @@ class RegistrationPayment extends Component
                 AdmissionVerification::where('student_id', $this->studentId)->update([
                     'registration_payment' => VerificationStatusEnum::PROCESS
                 ]);
+
+                //Send notification to user
+                $amountRupiah = FormatCurrencyHelper::convertToRupiah($this->amount);
+
+                $message = MessageHelper::waInvoiceCreated(session('userData')->fullname, $amountRupiah, $this->detailPayment->branch_name, $this->detailPayment->program_name, $this->detailPayment->academic_year, $userExpiryDate);
+                WhaCenterHelper::sendText(session('userData')->mobile_phone, $message);
 
                 $this->redirect(route('student.payment.registration_payment'), navigate: true);
             });

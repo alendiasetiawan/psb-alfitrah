@@ -80,7 +80,12 @@ class AdminDashboard extends Component
     {
         $totalRegistrant = $this->countPaymentSuccess->total_registrant;
         $totalPayment = $this->countPaymentSuccess->total_payment_success;
-        $percentage = round(($totalPayment / $totalRegistrant) * 100, 2);
+
+        if ($totalRegistrant == 0) {
+            $percentage = 0;
+        } else {
+            $percentage = round(($totalPayment / $totalRegistrant) * 100, 2);
+        }
 
         $radialChartModel =
             (new RadialChartModel())

@@ -21,4 +21,10 @@ $nextTick(() => {
     });
 });">
     {{ $slot }}
+
+    {{-- <a href="{{ asset('storage/' . $detailAttachment->studentAttachment->photo) }}"
+        data-fancybox="valid-attachment" data-caption="Photo Siswa">
+        <img src="{{ asset('storage/' . $detailAttachment->studentAttachment->photo) }}"
+            width="250" height="auto" />
+    </a> --}}
 </div>

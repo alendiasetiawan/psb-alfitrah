@@ -136,7 +136,6 @@
                             </div>
                         @endif
                         <!--#Pill Badge Active Filter-->
-
                     </x-slot:action>
 
                     <!--NOTE: Student's Table-->

@@ -4,6 +4,10 @@ namespace App\Http\Controllers\PaymentGateway;
 
 use App\Enums\PaymentStatusEnum;
 use App\Enums\VerificationStatusEnum;
+use App\Helpers\DateFormatHelper;
+use App\Helpers\FormatCurrencyHelper;
+use App\Helpers\MessageHelper;
+use App\Helpers\WhaCenterHelper;
 use App\Http\Controllers\Controller;
 use App\Models\AdmissionData\AdmissionVerification;
 use App\Models\AdmissionData\RegistrationPayment;
@@ -52,6 +56,15 @@ class XenditWebhookController extends Controller
                     $verification->update([
                         'registration_payment' => VerificationStatusEnum::VALID,
                     ]);
+
+                    //Send notification to user
+                    $amountRupiah = FormatCurrencyHelper::convertToRupiah($request->paid_amount);
+                    $userPaidAt = DateFormatHelper::indoDateTime($request->paid_at);
+
+                    $message = MessageHelper::waInvoicePaid(session('userData')->fullname, $request->external_id, $amountRupiah, $request->payment_channel, $userPaidAt);
+                    
+                    WhaCenterHelper::sendText(session('userData')->mobile_phone, $message);
+
                     break;
 
                 case 'EXPIRED':

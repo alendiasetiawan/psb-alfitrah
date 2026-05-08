@@ -10,6 +10,7 @@ class InvoiceLog extends Model
         'event',
         'student_id',
         'external_id',
-        'payload'
+        'payload',
+        'payment_method'
     ];
 }

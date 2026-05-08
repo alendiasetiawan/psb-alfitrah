@@ -126,6 +126,7 @@
                                     class="mt-4" 
                                     size="base-circle" 
                                     icon="hand-coins"
+                                    target="_self"
                                     href="{{ $this->detailPayment->registrationInvoices[0]->payment_url }}">
                                     Bayar Sekarang
                                 </flux:button>

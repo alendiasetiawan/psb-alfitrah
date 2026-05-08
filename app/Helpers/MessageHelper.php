@@ -198,4 +198,42 @@ class MessageHelper
       return $message;
          
    }
+
+   public static function waInvoiceCreated($studentName, $amount, $branchName, $programName, $academicYear, $expiryDate)
+   {
+      $message =
+         "_*INVOICE BIAYA PENDAFTARAN*_\n\n" .
+         "Halo *$studentName*, anda memiliki tagihan biaya pendaftaran dengan detail sebagai berikut:\n\n" .
+
+         "Nominal : *$amount*\n" .
+         "Cabang : *$branchName*\n" .
+         "Program : *$programName*\n" .
+         "Tahun Ajaran : *$academicYear*\n\n" .
+
+         "Mohon untuk segera melakukan pembayaran sebelum *$expiryDate*. Silahkan login ke aplikasi PSB untuk melihat detail instruksi pembayaran, terima kasih.\n\n" .
+
+         "_Panitia PSB_\n" .
+         "_Al Fitrah Islamic School_";
+
+      return $message;
+   }
+
+   public static function waInvoicePaid($studentName, $invoiceId, $amount, $paymentMethod, $paidAt)
+   {
+      $message =
+         "_*KONFIRMASI PEMBAYARAN*_\n\n" .
+         "Halo *$studentName*, pembayaran biaya pendaftaran anda sudah kami terima. Berikut detail informasinya:\n\n" .
+
+         "ID Pembayaran : *$invoiceId*\n" .
+         "Nominal : *$amount*\n" .
+         "Metode Pembayaran : *$paymentMethod*\n" .
+         "Waktu Pembayaran : *$paidAt*\n\n" .
+
+         "Selanjutnya silahkan anda mengisi biodata dan melengkapi berkas. Terima kasih.\n\n" .
+
+         "_Panitia PSB_\n" .
+         "_Al Fitrah Islamic School_";
+
+      return $message;
+   }
 }
