@@ -36,13 +36,19 @@ return [
     ],
 
     'xendit' => [
-        'secret_key'     => env('XENDIT_SECRET_KEY'),
+        'secret_key' => env('XENDIT_SECRET_KEY'),
         'callback_token' => env('XENDIT_CALLBACK_TOKEN'),
         'base_url' => env('XENDIT_BASE_URL', 'https://api.xendit.co'),
     ],
 
     'whatsapp' => [
         'phone' => env('WHATSAPP_PHONE'),
+    ],
+
+    'registration_payment' => [
+        'bank_name' => env('REGISTRATION_PAYMENT_BANK_NAME'),
+        'account_number' => env('REGISTRATION_PAYMENT_ACCOUNT_NUMBER'),
+        'account_name' => env('REGISTRATION_PAYMENT_ACCOUNT_NAME'),
     ],
 
 ];

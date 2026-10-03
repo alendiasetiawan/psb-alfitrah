@@ -36,23 +36,22 @@
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}">
                         <x-slot:heading>{{ $student->student_name }}</x-slot:heading>
                         <x-slot:subHeading>{{ $student->username }} | {{ $student->gender }}</x-slot:subHeading>
-                        @if ($student->registrationInvoices[0]->expiry_date < now())
-                            <x-slot:label>
-                                <x-items.wa-icon width="25" height="25" href="https://wa.me/{{ $student->country_code . $student->mobile_phone }}"/>
-                            </x-slot:label>
-                        @endif
-
-                        <div x-data="countDown({ expiry_date: '{{ $student->registrationInvoices[0]->expiry_date }}' })">
-                            <flux:text variant="soft">
-                                Sisa Waktu Pembayaran:
-                                @if ($student->registrationInvoices[0]->expiry_date < now())
-                                    <strong class="text-white">Habis</strong>
-                                @else
-                                    <strong x-text="timeString" class="text-amber-400"></strong>
+                        <div class="flex flex-col gap-3">
+                            <div>
+                                <flux:badge color="{{ $student->payment_status === \App\Enums\VerificationStatusEnum::PROCESS ? 'amber' : 'red' }}">{{ $student->payment_status }}</flux:badge>
+                            </div>
+                            @if ($student->evidence)
+                                <flux:button size="sm" icon="photo" href="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($student->evidence) }}" target="_blank" rel="noopener noreferrer">Lihat Bukti Transfer</flux:button>
+                                @if ($student->payment_status === \App\Enums\VerificationStatusEnum::PROCESS)
+                                    <flux:button variant="primary" size="sm" wire:click="openVerification({{ $student->id }})">Verifikasi Pembayaran</flux:button>
+                                @elseif ($student->payment_error_msg)
+                                    <flux:text variant="soft" size="sm">{{ $student->payment_error_msg }}</flux:text>
                                 @endif
-                            </flux:text>
+                            @else
+                                <flux:text variant="soft">Belum ada bukti transfer. Minta siswa mengunggah bukti pembayaran.</flux:text>
+                            @endif
                         </div>
-                        
+
                         <x-slot:subContent>
                             <flux:badge color="primary" icon="school" size="sm">{{ $student->branch_name }}</flux:badge>
                             <flux:badge color="primary" icon="graduation-cap" size="sm">{{ $student->program_name }}</flux:badge>
@@ -81,4 +80,5 @@
     </x-animations.fade-down>
     <!--#STUDENT CARD-->
 
+    <x-modals.registration-payment-verification />
 </div>

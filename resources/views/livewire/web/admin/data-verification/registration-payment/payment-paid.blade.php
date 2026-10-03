@@ -66,6 +66,11 @@
 
             <!--NOTE: Student's Table-->
             @forelse ($this->paidStudentLists as $student)
+                @php
+                    $invoice = $student->registrationInvoices->first();
+                    $paidAt = $student->evidence ? $student->payment_updated_at : $invoice?->paid_at;
+                    $paymentMethod = $student->evidence ? 'Transfer Manual' : ($invoice?->payment_method ?? 'Transfer');
+                @endphp
                 <x-tables.row 
                     :striped="true" 
                     wire:key="{{ $student->id }}" 
@@ -95,17 +100,17 @@
                         </x-tables.cell>
                         <x-tables.cell>
                             <flux:text>
-                                {{ \App\Helpers\DateFormatHelper::indoDateTime($student->registrationInvoices[0]->paid_at) }}
+                                {{ $paidAt ? \App\Helpers\DateFormatHelper::indoDateTime($paidAt) : '-' }}
                             </flux:text>
                         </x-tables.cell>
                         <x-tables.cell>
                             <flux:text>
-                                {{ $student->registrationInvoices[0]->payment_method }}
+                                {{ $paymentMethod }}
                             </flux:text>
                         </x-tables.cell>
                         <x-tables.cell>
                             <flux:text>
-                                {{ \App\Helpers\FormatCurrencyHelper::convertToRupiah($student->registrationInvoices[0]->amount) }}
+                                {{ \App\Helpers\FormatCurrencyHelper::convertToRupiah($student->registration_fee) }}
                             </flux:text>
                         </x-tables.cell>
                 </x-tables.row>

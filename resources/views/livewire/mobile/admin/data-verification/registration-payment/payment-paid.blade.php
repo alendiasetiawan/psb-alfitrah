@@ -84,6 +84,11 @@
             <!--#Loading Skeleton-->
 
             @forelse ($this->paidStudentLists as $student)
+                @php
+                    $invoice = $student->registrationInvoices->first();
+                    $paidAt = $student->evidence ? $student->payment_updated_at : $invoice?->paid_at;
+                    $paymentMethod = $student->evidence ? 'Transfer Manual' : ($invoice?->payment_method ?? 'Transfer');
+                @endphp
                 <div class="col-span-1" wire:loading.remove wire:key="{{ $student->id }}">
                     <x-cards.flat-card
                         avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}">
@@ -93,11 +98,11 @@
                         
                         <flux:text variant="soft">
                             Tanggal Pembayaran: 
-                            <strong class="text-white">{{ \App\Helpers\DateFormatHelper::indoDateTime($student->registrationInvoices[0]->paid_at) }}</strong>
+                            <strong class="text-white">{{ $paidAt ? \App\Helpers\DateFormatHelper::indoDateTime($paidAt) : '-' }}</strong>
                         </flux:text>
 
                         <flux:text variant="soft">
-                            Pembayaran Via: <strong class="text-white">{{ $student->registrationInvoices[0]->payment_method }}</strong>
+                            Pembayaran Via: <strong class="text-white">{{ $paymentMethod }}</strong>
                         </flux:text>
                         
                         <x-slot:subContent>
