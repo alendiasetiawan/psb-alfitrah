@@ -3,28 +3,30 @@
     'avatarImage' => "",
     'isLink' => false,
     'labelColor' => 'primary',
+    'labelClass' => '',
+    'actionButtonMargin' => 'mt-6',
     'clickable' => false,
 ])
 
 <x-cards.soft-glass-card {{ $attributes->merge() }} rounded="rounded-lg" padding="p-4" clickable="{{ $clickable }}">
     <!--Header-->
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between gap-3">
         <!-- Avatar and Heading -->
-        <div class="flex items-center gap-2">
+        <div class="flex min-w-0 items-center gap-2">
             <div>
                 <flux:avatar 
                     :initials="$avatarInitial ? $avatarInitial : null" 
                     :src="$avatarImage ? $avatarImage : null"
                 />
             </div>
-            <div class="flex flex-col items-start">
+            <div class="flex min-w-0 flex-col items-start">
                 <flux:text size="lg" class="truncate max-w-[200px]">{{ $heading }}</flux:text>
                 <flux:text variant="soft" size="sm">{{ $subHeading }}</flux:text>
             </div>
         </div>
 
         @isset($label)
-            <div class="flex items-center">
+            <div class="flex items-center {{ $labelClass }}">
                 {{ $label }}
             </div>
         @endisset
@@ -51,7 +53,7 @@
     @isset($actionButton)
         <div class="py-2 text-center">
             <!-- Action buttons -->
-            <div class="flex justify-center space-x-6 mt-6">
+            <div class="flex justify-center space-x-6 {{ $actionButtonMargin }}">
                 {{ $actionButton }}
             </div>
         </div>

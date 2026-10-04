@@ -112,7 +112,9 @@ test('selected evidence snapshot cannot be changed by the browser', function () 
 
 test('admin process lists render manual and rejected payments without invoices on both layouts', function (bool $mobile) {
     $this->payment->update(['payment_status' => 'Tidak Valid']);
-    Livewire::test(PaymentProcess::class)->set('isMobile', $mobile)->assertSee('Siswa Test')->assertSee('Tidak Valid')->assertSee('Lihat Bukti Transfer');
+    Livewire::test(PaymentProcess::class)->set('isMobile', $mobile)->assertSee('Siswa Test')->assertSee('Tidak Valid')
+        ->assertDontSee('Lihat Bukti Transfer')
+        ->assertDontSeeHtml('data-fancybox="registration-payment-'.$this->student->id.'"');
 })->with([false, true]);
 
 test('admin paid lists render manual payments without invoices on both layouts', function (bool $mobile) {

@@ -35,6 +35,7 @@ trait InteractsWithRegistrationPayments
         config(['database.default' => 'sqlite', 'database.connections.sqlite.database' => ':memory:', 'database.connections.sqlite.foreign_key_constraints' => false]);
         DB::purge('sqlite');
         $this->createPaymentSchema();
+        (require database_path('migrations/2026_10_04_000000_create_payment_accounts_table.php'))->up();
         Storage::fake('public');
 
         $this->studentUser = $this->createPaymentUser(RoleEnum::STUDENT);
@@ -82,6 +83,7 @@ trait InteractsWithRegistrationPayments
         Schema::create('branches', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
+            $table->string('mobile_phone')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

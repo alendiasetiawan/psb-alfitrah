@@ -4,6 +4,7 @@ use App\Enums\PaymentStatusEnum;
 use App\Enums\RoleEnum;
 use App\Enums\VerificationStatusEnum;
 use App\Livewire\Student\AdmissionData\RegistrationPayment;
+use App\Models\Core\Branch;
 use App\Services\RegistrationPaymentService;
 use App\Services\UploadFileService;
 use Illuminate\Http\Request;
@@ -29,6 +30,8 @@ test('student uploads a transfer image and both statuses await verification', fu
         ->assertHasNoErrors()
         ->assertSet('evidence', null)
         ->assertSee('Menunggu Verifikasi Admin')
+        ->assertSee('Bukti Transfer Sebelumnya')
+        ->assertSeeHtml('data-modal="previous-payment-evidence"')
         ->assertDontSee('Checkout Pembayaran');
 
     $payment = $this->payment->fresh();
@@ -213,10 +216,33 @@ test('both layouts display valid manual payments without an invoice', function (
         ->assertSee('Pembayaran Berhasil')->assertSee('Isi Biodata')->assertDontSee('Kirim Bukti Transfer');
 })->with([false, true]);
 
-test('configured bank details are displayed to the student', function () {
+test('configured bank details are displayed to the student', function (bool $mobile) {
     config(['services.registration_payment.bank_name' => 'Bank Test', 'services.registration_payment.account_number' => '1234567890', 'services.registration_payment.account_name' => 'Yayasan Test']);
-    Livewire::test(RegistrationPayment::class)->assertSee('Bank Test')->assertSee('1234567890')->assertSee('Yayasan Test');
-});
+    Livewire::test(RegistrationPayment::class)->set('isMobile', $mobile)
+        ->assertSee('Bank Test')->assertSee('1234567890')->assertSee('Yayasan Test')
+        ->assertSee('Salin')->assertSee('Lampirkan Bukti Transfer');
+})->with([false, true]);
+
+test('processing payments link to their branch WhatsApp with the student name', function (bool $mobile, string $phone) {
+    Branch::findOrFail($this->student->branch_id)->update(['mobile_phone' => $phone]);
+    Branch::create(['name' => 'Cabang Lain', 'mobile_phone' => '6289999999999']);
+    $this->student->update(['name' => 'Aisyah & Ali']);
+    $this->payment->update(['payment_status' => 'Proses', 'evidence' => 'registration-payments/transfer.jpg']);
+    $message = rawurlencode('Halo Admin, saya sudah transfer biaya pendaftaran atas nama *Aisyah & Ali*. Mohon untuk ditindaklanjuti, terima Kasih');
+
+    Livewire::test(RegistrationPayment::class)->set('isMobile', $mobile)
+        ->assertSee('Perbarui Status')->assertSee('Hubungi Admin')
+        ->assertSeeHtml('href="https://wa.me/6281234567890?text='.$message.'"')
+        ->assertDontSee('6289999999999');
+})->with([false, true])->with(['0812-3456-7890', '+62 812 3456 7890']);
+
+test('processing payments hide admin contact when their branch phone is null', function (bool $mobile) {
+    config(['services.whatsapp.phone' => '6289999999999']);
+    $this->payment->update(['payment_status' => 'Proses', 'evidence' => 'registration-payments/transfer.jpg']);
+
+    Livewire::test(RegistrationPayment::class)->set('isMobile', $mobile)
+        ->assertSee('Perbarui Status')->assertDontSee('Hubungi Admin');
+})->with([false, true]);
 
 test('xendit webhook can no longer change manual payment statuses', function () {
     expect(fn () => Route::getRoutes()->match(Request::create('/api/webhook/xendit/confirm-invoice', 'POST')))

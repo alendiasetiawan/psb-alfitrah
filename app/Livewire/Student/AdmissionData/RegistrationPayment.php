@@ -5,6 +5,7 @@ namespace App\Livewire\Student\AdmissionData;
 use App\Enums\RoleEnum;
 use App\Models\AdmissionData\Student;
 use App\Queries\Payment\RegistrationPaymentQuery;
+use App\Services\PaymentAccountService;
 use App\Services\RegistrationPaymentService;
 use App\Services\StudentDataService;
 use Detection\MobileDetect;
@@ -44,6 +45,14 @@ class RegistrationPayment extends Component
             'evidence.extensions' => 'Bukti transfer harus berformat JPG, JPEG, atau PNG.',
             'evidence.max' => 'Ukuran bukti transfer maksimal 5 MB.',
         ];
+    }
+
+    #[Computed]
+    public function paymentAccount(): array
+    {
+        $this->authorizeStudent();
+
+        return app(PaymentAccountService::class)->registrationAccount();
     }
 
     #[Computed]

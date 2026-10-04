@@ -1,9 +1,14 @@
 <div>
     <x-navigations.breadcrumb>
-        <x-slot:title>{{ __('Kuota Penerimaan Santri Baru') }} {{ $activeAdmission->name }}</x-slot:title>
+        <x-slot:title>{{ __('Kuota Penerimaan Santri Baru') }} {{ $activeAdmission?->name }}</x-slot:title>
     </x-navigations.breadcrumb>
 
-    @if (!$isAdmissionOpen)     
+    @if ($activeAdmission === null)
+        <x-notifications.basic-alert variant="warning" icon="triangle-alert" class="mt-4">
+            <x-slot:title>Informasi penerimaan santri baru belum tersedia.</x-slot:title>
+            <x-slot:subTitle>Silakan kembali lagi setelah informasi pendaftaran tersedia.</x-slot:subTitle>
+        </x-notifications.basic-alert>
+    @elseif (!$isAdmissionOpen)
         <!--Alert When Admission Closed-->
         <x-notifications.basic-alert class="mt-4">
             <x-slot:title>Mohon maaf, saat ini pendaftaran sudah tutup. Silahkan kembali lagi nanti, terima kasih ^^</x-slot:title>
@@ -11,9 +16,14 @@
         <!--Alert When Admission Closed-->
     @endif   
 
+    @if ($activeAdmission !== null)
     <x-animations.fade-down showTiming="50">
         <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-4 gap-3">
             @forelse ($this->branchQuotaLists as $branch)
+                @php
+                    $isBranchReady = $branch->educationPrograms->isNotEmpty()
+                        && $branch->educationPrograms->every(fn ($program) => $program->admissionQuotas->isNotEmpty());
+                @endphp
                 <div class="col-span-1" wire:key='branch-{{ $branch->id }}'>
                     <x-cards.product-card src="{{ $branch->photo ? asset('storage/'.$branch->photo) : null }}">
                         @if (!is_null($branch->map_link))
@@ -34,16 +44,31 @@
                         </x-slot:productDescription>
             
                         <!--Education Program Lists-->
-                        @foreach ($branch->educationPrograms as $program)
+                        @forelse ($branch->educationPrograms as $program)
                             <x-lists.list-group>
                                 <x-slot:title>{{ $program->name }}</x-slot:title>
-                                <x-slot:subTitle>Kuota Penerimaan : {{ $program->admissionQuotas[0]->amount ?? '0' }} Santri</x-slot:subTitle>
-                            </x-lists.list-group>                        
-                        @endforeach
+                                <x-slot:subTitle>
+                                    @if ($program->admissionQuotas->isEmpty())
+                                        Kuota penerimaan belum tersedia.
+                                    @else
+                                        Kuota Penerimaan : {{ $program->admissionQuotas->first()->amount }} Santri
+                                    @endif
+                                </x-slot:subTitle>
+                            </x-lists.list-group>
+                        @empty
+                            <flux:text variant="soft" class="mt-2">Jenjang pendidikan belum tersedia.</flux:text>
+                        @endforelse
                         <!--#Education Program Lists-->
+
+                        @if (!$isBranchReady)
+                            <x-notifications.basic-alert variant="warning" icon="triangle-alert" class="mt-2">
+                                <x-slot:title>Pendaftaran pondok ini belum tersedia.</x-slot:title>
+                                <x-slot:subTitle>Silakan kembali lagi setelah informasi jenjang pendidikan dan kuota tersedia.</x-slot:subTitle>
+                            </x-notifications.basic-alert>
+                        @endif
             
                         <!--CTA-->
-                        @if ($isAdmissionOpen)                        
+                        @if ($isAdmissionOpen && $isBranchReady)
                             <a href="{{ route('registration_form', [ 'branchId' => Crypt::encrypt($branch->id) ]) }}" wire:navigate>
                                 <flux:button 
                                 variant="primary" 
@@ -60,17 +85,21 @@
                             size="sm"
                             :disabled
                             >
-                                Tutup
+                                {{ $isAdmissionOpen ? 'Belum Tersedia' : 'Tutup' }}
                             </flux:button>
                         @endif
                         <!--#CTA-->
                     </x-cards.product-card>
                 </div>      
             @empty
-            <div class="col-span-1">
-                <x-notifications.not-found message="Tidak ada cabang yang bisa ditampilkan" />
+            <div class="col-span-full">
+                <x-notifications.basic-alert variant="warning" icon="triangle-alert">
+                    <x-slot:title>Informasi pondok belum tersedia.</x-slot:title>
+                    <x-slot:subTitle>Silakan kembali lagi setelah informasi pondok, jenjang pendidikan, dan kuota tersedia.</x-slot:subTitle>
+                </x-notifications.basic-alert>
             </div>
             @endforelse
         </div>
     </x-animations.fade-down>
+    @endif
 </div>

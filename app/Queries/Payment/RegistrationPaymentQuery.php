@@ -23,7 +23,7 @@ class RegistrationPaymentQuery
             ->joinRegistrationPayment()
             ->joinBranchAndProgram()
             ->joinAdmission()
-            ->addSelect('students.id', 'students.name as student_name')
+            ->addSelect('students.id', 'students.name as student_name', 'branches.mobile_phone as branch_mobile_phone')
             ->with('admissionVerification')
             ->firstOrFail();
     }

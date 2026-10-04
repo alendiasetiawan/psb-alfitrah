@@ -1,15 +1,18 @@
 <div>
-    @if (session('error-id'))
+    @if ($registrationUnavailableMessage !== '')
     <div class="grid grid-cols-1 mt-4">
         <div class="col-span-1">
-            <x-notifications.basic-alert>
-                <x-slot:title>{{ session('error-id') }}</x-slot:title>
+            <x-notifications.basic-alert variant="warning" icon="triangle-alert">
+                <x-slot:title>{{ $registrationUnavailableMessage }}</x-slot:title>
+                <x-slot:subTitle>
+                    <flux:link href="{{ route('branch_quota') }}" wire:navigate>Lihat kuota pendaftaran</flux:link>
+                </x-slot:subTitle>
             </x-notifications.basic-alert>
         </div>
     </div>
     @else
-        @if ($isAdmissionOpen)
-            @if (session('registration-success'))
+        @if ($isAdmissionOpen || $registrationCompleted)
+            @if ($registrationCompleted)
                 <!--OTP Verification-->
                 <div class="fixed inset-0 flex items-center justify-center">
                     <x-cards.soft-glass-card class="md:w-3/6 lg:w-2/6 p-5">
@@ -99,7 +102,9 @@
                                             password: ['required', 'minLength:6'],
                                         })" x-effect="
                                         form.selectedBranchId = $wire.inputs.selectedBranchId;
-                                        validate('selectedBranchId')
+                                        form.selectedEducationProgramId = $wire.inputs.selectedEducationProgramId;
+                                        validate('selectedBranchId');
+                                        validate('selectedEducationProgramId')
                                         " x-on:open-add-edit-admission-modal.window="
                                         isSubmitActive = true;
                                         isModalLoading = true;
@@ -133,6 +138,7 @@
                                     <flux:field>
                                         <flux:label>Cabang</flux:label>
                                         <flux:select placeholder="Pilih satu cabang" wire:model.live='inputs.selectedBranchId'
+                                            wire:loading.attr="disabled" wire:target="inputs.selectedBranchId,inputs.selectedEducationProgramId"
                                             x-on:input="form.selectedBranchId = $event.target.value; validate('selectedBranchId')">
                                             @foreach ($branchLists as $key => $value)
                                             <flux:select.option value="{{ $key }}">{{ $value }}</flux:select.option>
@@ -144,13 +150,15 @@
 
                                 <!--Education Program-->
                                 <div class="col-span-1">
-                                    <flux:field>
-                                        <flux:label class="gap-2">
+                                    <flux:field wire:key="registration-program-field-{{ $inputs['selectedBranchId'] }}">
+                                        <flux:label for="registration-education-program" class="gap-2">
                                             Program
-                                            <flux:icon.loading variant="micro" wire:loading wire:target="inputs.selectedBranchId" />
+                                            <flux:icon.loading variant="micro" wire:loading wire:target="inputs.selectedBranchId,inputs.selectedEducationProgramId" />
                                         </flux:label>
                                         <flux:select placeholder="Pilih satu program"
+                                            id="registration-education-program"
                                             wire:model.live='inputs.selectedEducationProgramId'
+                                            wire:loading.attr="disabled" wire:target="inputs.selectedBranchId,inputs.selectedEducationProgramId"
                                             x-on:input="form.selectedEducationProgramId = $event.target.value; validate('selectedEducationProgramId')">
                                             @foreach ($educationProgramLists as $program)
                                             <flux:select.option value="{{ $program['id'] }}">{{ $program['name'] }}
@@ -159,7 +167,9 @@
                                         </flux:select>
                                     </flux:field>
 
-                                    @if (!$isQuotaAvailable)
+                                    @if ($programUnavailableMessage !== '')
+                                        <flux:text class="mt-2" color="amber">{{ $programUnavailableMessage }}</flux:text>
+                                    @elseif ($inputs['selectedEducationProgramId'] !== '' && !$isQuotaAvailable)
                                     <flux:text variant="strong" class="mt-2" color="amber">
                                         Maaf, pendaftaran untuk program
                                         <strong>
@@ -272,7 +282,7 @@
                     </div>
                 </x-cards.soft-glass-card>
             </div>
-            <!--#Alert When Admission Closed
+            <!--#Alert When Admission Closed-->
         @endif
     @endif
 </div>

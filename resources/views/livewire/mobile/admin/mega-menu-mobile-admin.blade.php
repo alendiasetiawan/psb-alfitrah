@@ -135,6 +135,13 @@
     </x-animations.fade-down>
 
     <x-animations.fade-down showTiming="350" class="grid grid-cols-4 gap-6 mt-2">
+        <a href="{{ route('admin.setting.payment_account') }}" wire:navigate class="flex flex-col items-center text-center">
+            <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
+                <flux:icon.banknotes class="text-primary-300 size-7" />
+            </x-cards.soft-glass-card>
+            <flux:text size="sm" class="mt-2" variant="bold">Rekening Pembayaran</flux:text>
+        </a>
+
         <a href="{{ route('admin.setting.admission_draft.academic_year') }}" wire:navigate class="flex flex-col items-center text-center">
             <x-cards.soft-glass-card rounded="rounded-full" class="w-13 h-13 flex items-center justify-center shadow-xl">
                 <!-- Icon di sini -->

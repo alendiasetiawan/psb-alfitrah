@@ -413,7 +413,7 @@
                                         Kami sedang melakukan pengecekan berkas anda, mohon kesediaannya untuk menunggu.
                                     @else
                                         Anda belum melampirkan berkas, silahkan mengisi 
-                                        <flux:link href="" class="text-blue-400 font-semibold">
+                                        <flux:link wire:navigate href="{{ route('student.admission_data.admission_attachment') }}" class="text-blue-400 font-semibold">
                                             <span>disini</span>
                                         </flux:link>
                                     @endif

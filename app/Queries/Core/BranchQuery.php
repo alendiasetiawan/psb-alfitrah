@@ -7,7 +7,6 @@ use App\Models\Core\Branch;
 
 class BranchQuery
 {
-
     public static function getAllBranchTotalProgram()
     {
         return Branch::withCount('educationPrograms as total_program')
@@ -30,9 +29,9 @@ class BranchQuery
                         'admissionQuotas' => function ($query) use ($admissionId) {
                             $query->select('id', 'admission_id', 'education_program_id', 'amount', 'status')
                                 ->where('admission_id', $admissionId);
-                        }
+                        },
                     ]);
-            }
+            },
         ])
             ->select('id', 'name as branch_name', 'address', 'mobile_phone', 'map_link', 'photo')
             ->get();
@@ -47,9 +46,9 @@ class BranchQuery
                         'admissionFees' => function ($query) use ($admissionId) {
                             $query->select('id', 'admission_id', 'education_program_id', 'registration_fee', 'internal_registration_fee')
                                 ->where('admission_id', $admissionId);
-                        }
+                        },
                     ]);
-            }
+            },
         ])
             ->select('id', 'name as branch_name', 'address', 'mobile_phone', 'map_link', 'photo')
             ->get();
@@ -64,7 +63,7 @@ class BranchQuery
                         ->where('is_walkout', false)
                         ->where('admission_id', $admissionId)
                         ->where('final_result', PlacementTestEnum::RESULT_PASS);
-                }
+                },
             ])
             ->with([
                 'educationPrograms' => function ($query) use ($admissionId) {
@@ -75,9 +74,9 @@ class BranchQuery
                                     ->where('is_walkout', false)
                                     ->where('admission_id', $admissionId)
                                     ->where('final_result', PlacementTestEnum::RESULT_PASS);
-                            }
+                            },
                         ]);
-                }
+                },
             ])
             ->get();
 
@@ -87,5 +86,14 @@ class BranchQuery
     public static function pluckAllBranch()
     {
         return Branch::pluck('name', 'id');
+    }
+
+    public static function pluckRegistrationBranches(int $admissionId)
+    {
+        return Branch::whereNotNull('name')->where('name', '!=', '')
+            ->whereHas('educationPrograms', function ($query) use ($admissionId) {
+                $query->whereNotNull('name')->where('name', '!=', '')
+                    ->whereHas('admissionQuotas', fn ($query) => $query->where('admission_id', $admissionId));
+            })->pluck('name', 'id');
     }
 }

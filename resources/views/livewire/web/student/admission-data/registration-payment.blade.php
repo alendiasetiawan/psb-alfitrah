@@ -5,9 +5,9 @@
     </x-navigations.breadcrumb>
 
     <div class="mt-4 flex justify-center">
-        <div class="w-full md:w-4/6 lg:w-3/6">
+        <div class="w-full max-w-6xl">
             <x-animations.fade-down showTiming="50">
-                <x-cards.registration-payment :payment="$this->detailPayment" :evidence="$evidence" />
+                <x-cards.registration-payment :payment="$this->detailPayment" :payment-account="$this->paymentAccount" :evidence="$evidence" />
             </x-animations.fade-down>
         </div>
     </div>

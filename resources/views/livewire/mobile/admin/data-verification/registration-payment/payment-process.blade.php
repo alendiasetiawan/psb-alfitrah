@@ -32,36 +32,7 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             @forelse ($this->processStudentLists as $student)
                 <div class="col-span-1" wire:key="student-{{ $student->id }}">
-                    <x-cards.flat-card
-                        avatarInitial="{{ \App\Helpers\FormatStringHelper::initials($student->student_name) }}">
-                        <x-slot:heading>{{ $student->student_name }}</x-slot:heading>
-                        <x-slot:subHeading>{{ $student->username }} | {{ $student->gender }}</x-slot:subHeading>
-                        <div class="flex flex-col gap-3">
-                            <div>
-                                <flux:badge color="{{ $student->payment_status === \App\Enums\VerificationStatusEnum::PROCESS ? 'amber' : 'red' }}">{{ $student->payment_status }}</flux:badge>
-                            </div>
-                            @if ($student->evidence)
-                                <flux:button size="sm" icon="photo" href="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($student->evidence) }}" target="_blank" rel="noopener noreferrer">Lihat Bukti Transfer</flux:button>
-                                @if ($student->payment_status === \App\Enums\VerificationStatusEnum::PROCESS)
-                                    <flux:button variant="primary" size="sm" wire:click="openVerification({{ $student->id }})">Verifikasi Pembayaran</flux:button>
-                                @elseif ($student->payment_error_msg)
-                                    <flux:text variant="soft" size="sm">{{ $student->payment_error_msg }}</flux:text>
-                                @endif
-                            @else
-                                <flux:text variant="soft">Belum ada bukti transfer. Minta siswa mengunggah bukti pembayaran.</flux:text>
-                            @endif
-                        </div>
-
-                        <x-slot:subContent>
-                            <flux:badge color="primary" icon="school" size="sm">{{ $student->branch_name }}</flux:badge>
-                            <flux:badge color="primary" icon="graduation-cap" size="sm">{{ $student->program_name }}</flux:badge>
-                        </x-slot:subContent>
-
-                        <x-slot:highlight>
-                            Rp {{ \App\Helpers\FormatCurrencyHelper::convertCurrency($student->registration_fee) }}
-                        </x-slot:highlight>
-                        
-                    </x-cards.flat-card>
+                    <x-cards.registration-payment-process :student="$student" />
                 </div>
             @empty
                 <div class="md:col-span-2 lg:col-span-3">
@@ -82,3 +53,7 @@
 
     <x-modals.registration-payment-verification />
 </div>
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
+@endpush

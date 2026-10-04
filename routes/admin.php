@@ -27,23 +27,23 @@ use App\Livewire\Admin\Setting\AdmissionDraft\AcademicYear;
 use App\Livewire\Admin\Setting\AdmissionDraft\RegistrationFee;
 use App\Livewire\Admin\Setting\AdmissionDraft\StudentQuota;
 use App\Livewire\Admin\Setting\LandingSettingAdmin;
+use App\Livewire\Admin\Setting\PaymentAccount;
 use App\Livewire\Admin\Setting\School\Branch;
 use App\Livewire\Admin\Setting\School\Program;
 use App\Livewire\Admin\TestResult\Detail\DetailTestResultAdmin;
 use App\Livewire\Admin\TestResult\TestResultAdmin;
 use Illuminate\Support\Facades\Route;
 
-
-Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
+Route::middleware('role:'.RoleEnum::ADMIN.'')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
         Route::get('/mega-menu', MegaMenuMobileAdmin::class)->name('mega_menu');
 
-        //ANCHOR - MASTER DATA ROUTE
+        // ANCHOR - MASTER DATA ROUTE
         Route::group(['prefix' => 'master-data', 'as' => 'master_data.'], function () {
             Route::get('/registrant-database', RegistrantDatabase::class)->name('registrant_database');
 
-            //NOTE - Student Database Route
+            // NOTE - Student Database Route
             Route::group(['prefix' => 'student-database', 'as' => 'student_database.'], function () {
                 Route::get('/index', IndexStudentDatabase::class)->name('index');
                 Route::get('/detail/{studentId}', DetailStudentDatabase::class)->name('detail');
@@ -53,16 +53,16 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
             Route::get('/monitoring-quota', MonitoringQuota::class)->name('monitoring_quota');
         });
 
-        //ANCHOR - DATA VERIFICATION ROUTE
+        // ANCHOR - DATA VERIFICATION ROUTE
         Route::group(['prefix' => 'data-verification', 'as' => 'data_verification.'], function () {
-            //NOTE - Registration Payment Route
+            // NOTE - Registration Payment Route
             Route::group(['prefix' => 'registration-payment', 'as' => 'registration_payment.'], function () {
                 Route::get('/payment-unpaid', PaymentUnpaid::class)->name('payment_unpaid');
                 Route::get('/payment-process', PaymentProcess::class)->name('payment_process');
                 Route::get('/payment-paid', PaymentPaid::class)->name('payment_paid');
             });
 
-            //NOTE - Biodata Verification Route
+            // NOTE - Biodata Verification Route
             Route::group(['prefix' => 'biodata', 'as' => 'biodata.'], function () {
                 Route::get('/pending', PendingBiodataAdmin::class)->name('pending');
 
@@ -77,7 +77,7 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
                 });
             });
 
-            //NOTE: Student Attachment Verification Route
+            // NOTE: Student Attachment Verification Route
             Route::group(['prefix' => 'student-attachment', 'as' => 'student_attachment.'], function () {
                 Route::get('/pending', PendingStudentAttachmentAdmin::class)->name('pending');
 
@@ -93,24 +93,25 @@ Route::middleware('role:' . RoleEnum::ADMIN . '')->group(function () {
             });
         });
 
-        //ANCHOR: PLACEMENT TEST ROUTE
+        // ANCHOR: PLACEMENT TEST ROUTE
         Route::group(['prefix' => 'placement-test', 'as' => 'placement_test.'], function () {
-            //NOTE: Absence Test Route
+            // NOTE: Absence Test Route
             Route::group(['prefix' => 'absence-test', 'as' => 'absence_test.'], function () {
                 Route::get('/tapping', TappingAbsenceTestAdmin::class)->name('tapping');
                 Route::get('/report', ReportAbsenceTestAdmin::class)->name('report');
             });
 
-            //NOTE: Test Result Route
+            // NOTE: Test Result Route
             Route::get('/test-result', TestResultAdmin::class)->name('test_result');
             Route::group(['prefix' => 'test-result', 'as' => 'test_result.'], function () {
                 Route::get('/detail/{studentId}', DetailTestResultAdmin::class)->name('detail');
             });
         });
 
-        //ANCHOR - Setting Page Route
+        // ANCHOR - Setting Page Route
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
             Route::get('/landing', LandingSettingAdmin::class)->name('landing');
+            Route::get('/payment-account', PaymentAccount::class)->name('payment_account');
 
             Route::group(['prefix' => 'admission-draft', 'as' => 'admission_draft.'], function () {
                 Route::get('/academic-year', AcademicYear::class)->name('academic_year');

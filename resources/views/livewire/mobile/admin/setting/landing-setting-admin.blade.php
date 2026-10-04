@@ -60,6 +60,15 @@
                                 </div>
                             </a>
                             <!--#Registration Fee-->
+                            <a href="{{ route('admin.setting.payment_account') }}" wire:navigate class="flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <div class="bg-blue-200 p-1 rounded-md">
+                                        <flux:icon.banknotes variant="mini" class="text-blue-600" />
+                                    </div>
+                                    <flux:text variant="bold">Rekening Pembayaran</flux:text>
+                                </div>
+                                <flux:icon.chevron-right variant="mini" class="text-white" />
+                            </a>
                             
                         </div>
                     </x-cards.soft-glass-card>

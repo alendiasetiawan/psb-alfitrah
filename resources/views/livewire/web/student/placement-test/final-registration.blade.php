@@ -1,7 +1,7 @@
 <div>
     <x-navigations.breadcrumb>
         <x-slot:title>{{ __('Daftar Ulang') }}</x-slot:title>
-        <x-slot:activePage>{{ __('Informasi Teknis Daftar Ulang') }}</x-slot:activePage>
+    <x-slot:activePage>{{ __('Daftar Ulang Sekarang') }}</x-slot:activePage>
     </x-navigations.breadcrumb>
 
     @if (is_null($studentQuery->placementTestResult))
@@ -23,24 +23,11 @@
             <div class="grid grid-cols-1 mt-4">
                 <div class="col-span-1">
                     <x-cards.soft-glass-card>
-                        <flux:heading size="xl" class="mb-2">Instruksi Daftar Ulang</flux:heading>
-                        <flux:text variant="soft" class="mb-2">
+                        <flux:heading size="xl" class="mb-2">Daftar Ulang</flux:heading>
+                        <flux:text variant="soft" class="mb-4">
                             Kepada ananda <strong>{{ $studentName }}</strong> selamat atas kelulusannya, selanjutnya silahkan
-                            melakukan pembayaran biaya Daftar Ulang dengan rincian sebagai berikut :
+                            melanjutkan proses daftar ulang.
                         </flux:text>
-                        <flux:heading>Total Biaya</flux:heading>
-                        <flux:text class="mb-2" variant="soft">Rp 5.500.000</flux:text>
-
-                        <div class="flex justify-start items-center gap-2">
-                            <flux:heading>Pembayaran Lunas</flux:heading>
-                            <flux:badge color="green">- Rp 500.000</flux:badge>
-                        </div>
-                        <flux:text variant="soft" class="mb-2">Rp 5.000.000</flux:text>
-
-                        <flux:heading>Pembayaran Termin</flux:heading>
-                        <flux:text variant="soft">Termin 1 : Rp 2.500.000</flux:text>
-                        <flux:text variant="soft">Termin 2 : Rp 1.500.000</flux:text>
-                        <flux:text variant="soft" class="mb-2">Termin 3 : Rp 1.000.000</flux:text>
 
                         <div class="flex justify-start">
                             <flux:button icon="message-circle-more" variant="primary" wire:click='chatAdminFinalRegistration'>

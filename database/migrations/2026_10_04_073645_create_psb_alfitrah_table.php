@@ -205,33 +205,39 @@ return new class extends Migration
             $table->primary(['id']);
         });
 
+        Schema::create('payment_accounts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('bank_name');
+            $table->string('account_number', 50);
+            $table->string('account_name');
+            $table->timestamps();
+        });
+
         Schema::create('placement_test_presences', function (Blueprint $table) {
-            $table->bigInteger('id', true)->unique('placement_test_presences_index_52');
-            $table->bigInteger('student_id')->nullable()->index('placement_test_presences_index_53');
+            $table->bigInteger('id', true);
+            $table->bigInteger('student_id')->nullable()->unique('placement_test_presences_index_53');
             $table->dateTime('check_in_time')->nullable();
             $table->timestamp('created_at')->nullable()->default('now()');
             $table->timestamp('updated_at')->nullable()->default('now()');
-
-            $table->primary(['id']);
         });
 
         Schema::create('placement_test_results', function (Blueprint $table) {
             $table->bigInteger('id', true)->unique('placement_test_results_index_54');
             $table->bigInteger('student_id')->nullable()->index('placement_test_results_index_55');
             $table->double('psikotest_score')->nullable();
-            $table->string('psikotest_note', 500)->nullable();
+            $table->longText('psikotest_note')->nullable();
             $table->double('read_quran_score')->nullable();
-            $table->integer('read_quran_tester')->nullable()->index('read_quran_tester');
-            $table->string('read_quran_note', 500)->nullable();
+            $table->string('read_quran_tester', 50)->nullable()->index('read_quran_tester');
+            $table->longText('read_quran_note')->nullable();
             $table->enum('parent_interview', ['Direkomendasikan', 'Dipertimbangkan', 'Tidak Direkomendasikan'])->nullable();
-            $table->integer('parent_interview_tester')->nullable()->index('parent_interview_tester');
-            $table->string('parent_interview_note', 500)->nullable();
+            $table->string('parent_interview_tester', 50)->nullable()->index('parent_interview_tester');
+            $table->longText('parent_interview_note')->nullable();
             $table->enum('student_interview', ['Direkomendasikan', 'Dipertimbangkan', 'Tidak Direkomendasikan'])->nullable();
-            $table->integer('student_interview_tester')->nullable()->index('student_interview_tester');
-            $table->string('student_interview_note', 500)->nullable();
+            $table->string('student_interview_tester', 50)->nullable()->index('student_interview_tester');
+            $table->longText('student_interview_note')->nullable();
             $table->double('final_score')->nullable();
-            $table->enum('final_result', ['Menunggu', 'Lulus', 'Tidak Lulus'])->nullable()->default('Menunggu')->index('placement_test_results_index_57');
-            $table->string('final_note', 500)->nullable();
+            $table->enum('final_result', ['Menunggu', 'Lulus', 'Tidak Lulus', 'Cadangan'])->nullable()->default('Menunggu')->index('placement_test_results_index_57');
+            $table->longText('final_note')->nullable();
             $table->enum('publication_status', ['Hold', 'Release'])->nullable()->default('Hold')->index('placement_test_results_index_56');
             $table->dateTime('publication_date')->nullable();
             $table->timestamp('created_at')->nullable()->default('now()');
@@ -297,6 +303,19 @@ return new class extends Migration
 
             $table->unique(['id']);
             $table->index(['otp', 'is_verified']);
+        });
+
+        Schema::create('reset_password_requests', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->bigInteger('user_id')->nullable();
+            $table->integer('otp_code')->nullable()->index('otp_index');
+            $table->timestamp('otp_expired_at')->nullable();
+            $table->string('reset_token')->nullable()->index('reset_link_index');
+            $table->boolean('is_reset_used')->nullable()->default(false);
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent();
+
+            $table->index(['otp_code', 'otp_expired_at'], 'otp_valid');
         });
 
         Schema::create('roles', function (Blueprint $table) {
@@ -385,8 +404,8 @@ return new class extends Migration
         Schema::create('test_pass_scores', function (Blueprint $table) {
             $table->integer('id', true);
             $table->double('min_final_score')->nullable()->comment('Batas Minimal Nilai Untuk LULUS');
-            $table->integer('psikotest_weight')->nullable()->comment('Persentase');
-            $table->integer('read_quran_weight')->nullable()->comment('Persentase');
+            $table->double('psikotest_weight')->nullable()->comment('Persentase');
+            $table->double('read_quran_weight')->nullable()->comment('Persentase');
             $table->timestamp('created_at')->nullable()->default('now()');
             $table->timestamp('updated_at')->nullable()->default('now()');
         });
@@ -417,6 +436,7 @@ return new class extends Migration
             $table->string('fullname', 50)->nullable();
             $table->enum('gender', ['Laki-Laki', 'Perempuan'])->nullable();
             $table->string('photo')->nullable();
+            $table->string('mobile_phone', 20)->default('0');
             $table->string('otp', 50)->nullable();
             $table->timestamp('otp_expired_at')->nullable();
             $table->boolean('is_verified')->nullable()->default(false);
@@ -489,9 +509,6 @@ return new class extends Migration
 
         Schema::table('placement_test_results', function (Blueprint $table) {
             $table->foreign(['student_id'], 'placement_test_results_ibfk_1')->references(['id'])->on('students')->onUpdate('no action')->onDelete('cascade');
-            $table->foreign(['read_quran_tester'], 'placement_test_results_ibfk_2')->references(['id'])->on('testers')->onUpdate('no action')->onDelete('set null');
-            $table->foreign(['parent_interview_tester'], 'placement_test_results_ibfk_3')->references(['id'])->on('testers')->onUpdate('no action')->onDelete('set null');
-            $table->foreign(['student_interview_tester'], 'placement_test_results_ibfk_4')->references(['id'])->on('testers')->onUpdate('no action')->onDelete('set null');
         });
 
         Schema::table('regencies', function (Blueprint $table) {
@@ -600,9 +617,6 @@ return new class extends Migration
 
         Schema::table('placement_test_results', function (Blueprint $table) {
             $table->dropForeign('placement_test_results_ibfk_1');
-            $table->dropForeign('placement_test_results_ibfk_2');
-            $table->dropForeign('placement_test_results_ibfk_3');
-            $table->dropForeign('placement_test_results_ibfk_4');
         });
 
         Schema::table('placement_test_presences', function (Blueprint $table) {
@@ -671,6 +685,8 @@ return new class extends Migration
 
         Schema::dropIfExists('roles');
 
+        Schema::dropIfExists('reset_password_requests');
+
         Schema::dropIfExists('request_phone_changes');
 
         Schema::dropIfExists('registration_payments');
@@ -684,6 +700,8 @@ return new class extends Migration
         Schema::dropIfExists('placement_test_results');
 
         Schema::dropIfExists('placement_test_presences');
+
+        Schema::dropIfExists('payment_accounts');
 
         Schema::dropIfExists('parents');
 

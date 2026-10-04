@@ -200,6 +200,14 @@
 
         <!--Menu Pengaturan-->
         <flux:navlist.group :heading="__('Pengaturan')" class="grid">
+            <flux:sidebar.item
+                href="{{ route('admin.setting.payment_account') }}"
+                :current="Route::is('admin.setting.payment_account')"
+                icon="banknotes"
+                wire:navigate>
+                {{ __('Rekening Pembayaran') }}
+            </flux:sidebar.item>
+
             {{-- <flux:sidebar.item icon="square-sigma" href="#">{{ __('Formula Nilai Tes') }}</flux:sidebar.item> --}}
 
             <!--Menu Draft PSB-->

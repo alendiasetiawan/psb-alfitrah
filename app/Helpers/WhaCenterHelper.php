@@ -9,7 +9,7 @@ class WhaCenterHelper
 {
     public static function sendText($waNumber, $message)
     {
-        $client = new Client;
+        $client = app(Client::class);
         $options = [
             'multipart' => [
                 [
@@ -24,7 +24,7 @@ class WhaCenterHelper
                     'name' => 'message',
                     'contents' => $message,
                 ],
-            ]
+            ],
         ];
         $request = new Request('POST', config('app.whacenter_api_send_url'));
         $res = $client->sendAsync($request, $options)->wait();
@@ -34,7 +34,7 @@ class WhaCenterHelper
 
     public static function sendScheduleText($waNumber, $message, $timeSchedule)
     {
-        $client = new Client;
+        $client = app(Client::class);
         $options = [
             'multipart' => [
                 [
@@ -51,9 +51,9 @@ class WhaCenterHelper
                 ],
                 [
                     'name' => 'schedule',
-                    'contents' => $timeSchedule
-                ]
-            ]
+                    'contents' => $timeSchedule,
+                ],
+            ],
         ];
         $request = new Request('POST', config('app.whacenter_api_send_url'));
         $res = $client->sendAsync($request, $options)->wait();
